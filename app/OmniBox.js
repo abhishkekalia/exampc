@@ -58,6 +58,7 @@ class OmniBox extends Component {
       <TextInput style={{height: 36, padding: 4, marginBottom: 0, fontSize: 16, borderWidth: 1, borderColor: '#eee', borderRadius: 8, backgroundColor: '#fff'}}
         placeholder='Search Container No'
         blurOnSubmit={false}
+        underlineColorAndroid = 'transparent'
         value={this.state.newValue}
         onKeyPress={this.onKeyPress}
         onChange={this.onChange}>

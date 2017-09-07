@@ -6,6 +6,8 @@ import SortableListView from 'react-native-sortable-listview';
 import ListViewItem from './ListViewItem';
 //import Utils from './Utils.js';
 import SezServices from './SezServices';
+import { StackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 let dataList = SezServices.findAll();
 var dataListOrder = getOrder(dataList);
@@ -41,6 +43,8 @@ class ListView extends Component {
   }
 
   render() {
+            const { navigate } = this.props.navigation;
+
     let listView = (<View></View>);
     if (this.state.dataList.length) {
       listView = (
@@ -50,7 +54,7 @@ class ListView extends Component {
           data={this.state.dataList}
           order={dataListOrder}
           onRowMoved={e => moveOrderItem(this, e.from, e.to)}
-          renderRow={(dataItem, section, index) => <ListViewItem data={dataItem} onCompletedChange={this._onCompletedChange}/>}
+          renderRow={(dataItem, section, index) => <ListViewItem gotonext = {(id) => navigate('Detail')}  data={dataItem} onCompletedChange={this._onCompletedChange}/>}
         />
       );
     }
@@ -66,4 +70,22 @@ class ListView extends Component {
   }
 };
 
-module.exports = ListView;
+
+class DetailScreen extends React.Component {
+    render() {
+            const { params } = this.props.navigation.state;
+
+        return (
+            <View>
+            <Text>{SezServices.getRow}</Text>
+            </View>
+            );
+    }
+}
+
+const HomeApp = StackNavigator({
+    Question: { screen: ListView },
+    Detail: { screen: DetailScreen },
+});
+
+module.exports = HomeApp;

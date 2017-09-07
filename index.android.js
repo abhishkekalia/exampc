@@ -11,8 +11,8 @@ import {
   Text,
   View
 } from 'react-native';
-import InsertContainer from './app/AddContainer/InsertContainer'
-import ListView from './app/ListView';
+//import InsertContainer from './app/AddContainer/InsertContainer'
+import HomeScreen from './app/homescreen';
 
 
 export default class awesome extends Component {
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('awesome', () => awesome);
+AppRegistry.registerComponent('awesome', () => HomeScreen);
