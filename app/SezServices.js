@@ -10,6 +10,7 @@ const PictureSchema = {
       id: {type: 'string', indexed: true},
       c_id : {type: 'string'},
       container_path: 'string',
+      completed: 'bool',
       createdAt: 'date',
   }
 };
@@ -66,11 +67,17 @@ let SezServices = {
       sez.updatedAt = new Date();
     });
   },
-
+// ----------------#picture table ----------------
+  
+  findPictures: function(sortBy) {
+    if (!sortBy) sortBy = [['completed', false]];
+    return repository.objects('Pictures').sorted(sortBy);
+  },
+  
   getRow: function (sez) {
     let people = repository.objects('Pictures');
-//      return people.length;
-      alert(people.length);
+      return people.length;
+//      alert(people.length);
   },
 
   picture_save: function(pictures, s_id ) {

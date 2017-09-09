@@ -26,6 +26,7 @@ MERGED from [com.facebook.react:react-native:0.48.1] /home/abhishek/app/awesome/
 		ADDED from /home/abhishek/app/awesome/android/app/src/main/AndroidManifest.xml:7:22-75
 uses-sdk
 ADDED from /home/abhishek/app/awesome/android/app/src/main/AndroidManifest.xml:9:5-11:41
+MERGED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [awesome:react-native-vector-icons:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-vector-icons/unspecified/AndroidManifest.xml:7:5-9:41
 MERGED from [awesome:realm:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/realm/unspecified/AndroidManifest.xml:5:5-7:41
 MERGED from [com.facebook.react:react-native:0.48.1] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.1/AndroidManifest.xml:7:5-9:41
@@ -89,6 +90,22 @@ activity#com.facebook.react.devsupport.DevSettingsActivity
 ADDED from /home/abhishek/app/awesome/android/app/src/main/AndroidManifest.xml:29:7-84
 	android:name
 		ADDED from /home/abhishek/app/awesome/android/app/src/main/AndroidManifest.xml:29:17-81
+uses-permission#android.permission.CAMERA
+ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:11:5-65
+	android:name
+		ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:11:22-62
+uses-feature#android.hardware.camera
+ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:13:5-15:36
+	android:required
+		ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:15:9-33
+	android:name
+		ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:14:9-47
+uses-feature#android.hardware.camera.autofocus
+ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:16:5-18:36
+	android:required
+		ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:18:9-33
+	android:name
+		ADDED from [awesome:react-native-camera:unspecified] /home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/react-native-camera/unspecified/AndroidManifest.xml:17:9-57
 android:uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 IMPLIED from /home/abhishek/app/awesome/android/app/src/main/AndroidManifest.xml:1:1-32:12 reason: org.webkit.android_jsc has a targetSdkVersion < 4
 android:uses-permission#android.permission.READ_PHONE_STATE

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight} from 'react-native';
+import { Text, View, TouchableHighlight, Image} from 'react-native';
 import SezModel from './SezModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
@@ -8,6 +8,7 @@ import ListViewItem from './ListViewItem';
 import SezServices from './SezServices';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import DetailScreen from './DetailScreen';
 
 let dataList = SezServices.findAll();
 var dataListOrder = getOrder(dataList);
@@ -27,7 +28,8 @@ class ListView extends Component {
     this.updateDataList = this.updateDataList.bind(this);
     this._onCompletedChange = this._onCompletedChange.bind(this);
     this.state = {
-      dataList: dataList
+      dataList: dataList,
+      c_id : 0
     }
   }
 
@@ -42,6 +44,21 @@ class ListView extends Component {
     if (this.forceUpdate) this.forceUpdate();
   }
 
+  getResponse (result){
+    this.setState ({
+      c_id : result
+    })
+  }
+
+  movedItem(){
+    return this.state.c_id;
+  }
+  
+  static navigationOptions = {
+    title: 'Containers',
+    headerStyle: { backgroundColor: '#1e90ff'  },
+    headerTitleStyle: { color: '#fff' },
+  };
   render() {
             const { navigate } = this.props.navigation;
 
@@ -54,7 +71,9 @@ class ListView extends Component {
           data={this.state.dataList}
           order={dataListOrder}
           onRowMoved={e => moveOrderItem(this, e.from, e.to)}
-          renderRow={(dataItem, section, index) => <ListViewItem gotonext = {(id) => navigate('Detail')}  data={dataItem} onCompletedChange={this._onCompletedChange}/>}
+          renderRow={(dataItem, section, index) => <ListViewItem callback={this.getResponse.bind(this)} 
+          gotonext = {() => navigate('Detail', { feed: this.movedItem()})} 
+          data={dataItem} onCompletedChange={this._onCompletedChange}/>}
         />
       );
     }
@@ -69,19 +88,6 @@ class ListView extends Component {
     )
   }
 };
-
-
-class DetailScreen extends React.Component {
-    render() {
-            const { params } = this.props.navigation.state;
-
-        return (
-            <View>
-            <Text>{SezServices.getRow}</Text>
-            </View>
-            );
-    }
-}
 
 const HomeApp = StackNavigator({
     Question: { screen: ListView },

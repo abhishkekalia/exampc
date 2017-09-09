@@ -6,8 +6,9 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import InsertContainer from './AddContainer/InsertContainer'
+import AddDetails from './AddContainer/InsertContainer'
 import HomeApp from './ListView';
+import Sinkable from './sinkable/app';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
@@ -23,8 +24,13 @@ const HomeScreen = TabNavigator({
   Container: {
     screen: awesome,
   },
+
   InsertItem: {
-    screen: InsertContainer,
+    screen: AddDetails,
+  },
+
+  Sink: {
+    screen: Sinkable,
   },
 },
 {

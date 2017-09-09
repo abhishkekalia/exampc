@@ -5,11 +5,16 @@ import {
 	Text, 
 	TextInput,
 	StyleSheet,
-	ToastAndroid
+	ToastAndroid,
+	Button
 } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
 import SezModel from '../SezModel';
 import SezServices from '../SezServices'
+import ContainerView from './ContainerView';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
 
 export default class InsertContainer extends Component{
 	constructor(props){
@@ -25,20 +30,34 @@ export default class InsertContainer extends Component{
 		SezServices.save(new SezModel(text))
         ToastAndroid.show(this.state.toastMsg, ToastAndroid.LONG);
 	}
+	
+	static navigationOptions = {
+    title: 'Enter Container No',
+    headerStyle: { backgroundColor: '#1e90ff'  },
+  	headerTitleStyle: { color: '#fff' },
+  	headerBackTitleStyle: {
+            color: '#fff',
+        },
+	};
 	render(){
+		var text = this.state.text;
+		const { navigate } = this.props.navigation;
+
 		return (
 			<View style={styles.container}>
 			<TextInput	
 			style={styles.inputContainer}	
 			onChangeText={(text) => this.setState({text})}	
 			value={this.state.text}
-            maxLength={5}
-            placeholder = 'insert container number'
+            maxLength={15}
+            placeholder = 'Insert Container Number'
             underlineColorAndroid = 'transparent'
 			/>
-			<TouchableHighlight style={styles.touchButton} onPress = {this.onSubmit.bind(this, this.state.text)}>
-			<Text style= { styles.button}> Add Container</Text>
-			</TouchableHighlight>
+			<Button  
+			 	accessibilityLabel="Learn more about this purple button"
+			 	onPress = {() => navigate('containerview', { container_no : text})
+				//this.onSubmit.bind(this, this.state.text)
+				} title='Add Container'/>
 			</View>
 		);
 	}
@@ -51,27 +70,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 30,
     paddingBottom: 10,
-    paddingLeft: 2,
-    paddingRight: 2,
+    paddingLeft: 25,
+    paddingRight: 25,
     backgroundColor: '#F8F8F8',
   },
 
-  button : {
-  	justifyContent : 'center',
-  	color : '#fff',
-  	padding:10,
-  	fontSize : 18 
-  },
-
-  touchButton : {
-  	backgroundColor : '#1e90ff',
-  	marginTop : 10
-  },
-
   inputContainer : {
-  	height: 40, 
   	borderColor: 'gray', 
-  	borderWidth: 1
+  	borderWidth: 1,
+  	fontSize : 20,
+  	paddingTop : 10,
+  	paddingBottom : 10,
+  	marginBottom : 10,
+  },
+  touchButton : {
+  	height : 100
   }
 
 });
+
+const AddDetails = StackNavigator({
+    insertcontainer: { screen: InsertContainer },
+    containerview: { screen: ContainerView },
+});
+
+module.exports = AddDetails;

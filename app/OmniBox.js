@@ -55,7 +55,7 @@ class OmniBox extends Component {
 
   render() {
     return (
-      <TextInput style={{height: 36, padding: 4, marginBottom: 0, fontSize: 16, borderWidth: 1, borderColor: '#eee', borderRadius: 8, backgroundColor: '#fff'}}
+      <TextInput style={{height: 40, padding: 4, marginTop : 5, paddingLeft : 10, marginBottom: 0, fontSize: 16, borderWidth: 1, borderColor: '#eee', borderRadius: 8, backgroundColor: '#fff'}}
         placeholder='Search Container No'
         blurOnSubmit={false}
         underlineColorAndroid = 'transparent'
