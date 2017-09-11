@@ -1,56 +1,101 @@
-import React, {Component} from 'react';
-import {TouchableHighlight, View, Text} from 'react-native';
-//import CheckBox from './CheckBox';
-import SezServices from './SezServices';
+import React , {  Component } from 'react';
+import {
+  Image,
+  Platform,
+  PropTypes,
+  ListView,
+  View,
+  Text,
+} from 'react-native';
 
-class SinkListViewItem extends Component {
+import CameraRoll from 'rn-camera-roll';
+
+let PHOTOS_COUNT_BY_FETCH = 24;
+
+export default class SinkListViewItem extends Component {
+
   constructor(props) {
     super(props);
-  //  this._onCheckBoxPressed = this._onCheckBoxPressed.bind(this);
-    this.state = {
-      data  : this.props.data
-    }
+
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.lastPhotoFetched = undefined; // Using `null` would crash ReactNative CameraRoll on iOS.
+    this.images = [];
+    this.state = this.getDataSourceState();
+    this.fetchPhotos();
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      data: props.data
-    })
+  getDataSourceState() {
+    return {
+      dataSource: this.ds.cloneWithRows(this.images),
+    };
   }
 
-/*  _onCheckBoxPressed() {
-    var data = this.state.data;
-    SezServices.update(data, () => {
-      data.completed = !data.completed;
+  getPhotosFromCameraRollData(data) {
+    return data.edges.map((asset) => {
+      return asset.node.image;
     });
-    this.setState({
-       data: data
-    });
+  }
 
-    this.props.onCompletedChange();
-  }*/
+  onPhotosFetchedSuccess(data) {
+    const newPhotos = this.getPhotosFromCameraRollData(data);
+    console.warn(JSON.stringify(data));
+    this.images = this.images.concat(newPhotos);
+    this.setState(this.getDataSourceState());
+    if (newPhotos.length) this.lastPhotoFetched = newPhotos[newPhotos.length - 1].uri;
+  }
 
-  moveNextView (c_id){
-    this.props.gotonext();
-    this.props.callback(c_id);
+  onPhotosFetchError(err) {
+    // Handle error here
+    console.log(err);
+  }
 
+  fetchPhotos(count = PHOTOS_COUNT_BY_FETCH, after) {
+    CameraRoll.getPhotos({
+      first: count,
+      after,
+    }, this.onPhotosFetchedSuccess.bind(this), this.onPhotosFetchError.bind(this));
+  }
+
+  onEndReached() {
+    this.fetchPhotos(PHOTOS_COUNT_BY_FETCH, this.lastPhotoFetched);
   }
 
   render() {
-    let data = this.state.data;
-    let color = data.completed ? '#C5C8C9' : '#000';
-    let textDecorationLine = data.completed ? 'line-through' : 'none';
-    let id = data.id;
     return (
-      <TouchableHighlight onPress={() => this.moveNextView(id) } 
-       underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#fff", borderBottomWidth:1, borderColor: '#dcdcdc', borderRadius:20, borderWidth: 1, marginTop :  5}} {...this.props.sortHandlers}>
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Text>{this.state.c_id}</Text>
-         <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>container no: {data.container_path} & id : {id}</Text>
-        </View>
-      </TouchableHighlight>
-    )
+      <View style={styles.container}>
+        <ListView
+          contentContainerStyle={styles.imageGrid}
+          dataSource={this.state.dataSource}
+          onEndReached={this.onEndReached.bind(this)}
+          onEndReachedThreshold={100}
+          showsVerticalScrollIndicator={false}
+          renderRow={(image) => {return (
+            <View>
+              <Image
+                style={styles.image}
+                source={{ uri: image.uri }}
+              />
+            </View>
+          )}}
+        />
+      </View>
+    );
   }
 }
+const styles = {
+  container: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  imageGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 10,
+  },
+};
 
-module.exports = SinkListViewItem;

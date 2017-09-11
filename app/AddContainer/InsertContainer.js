@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
+import Utils from '../Utils';
+
 import SezModel from '../SezModel';
 import SezServices from '../SezServices'
 import ContainerView from './ContainerView';
@@ -21,14 +23,35 @@ export default class InsertContainer extends Component{
 		super(props);
 		this.state={
 			text : '',
-			toastMsg : 'saved'
+			toastMsg : 'saved',
+			errorMsg : true,
+			msg  : ''
 		}
 	}
 
-	onSubmit(text){
-	//	console.warn(text);
-		SezServices.save(new SezModel(text))
-        ToastAndroid.show(this.state.toastMsg, ToastAndroid.LONG);
+	componentWillMount () {
+		setTimeout(function() { this.setState({ errorMsg: true }); }.bind(this), 10000);
+    }
+
+	validateContainerNumber = (con) => {
+		var reg = /^\d+$/;
+    	return reg.test(con);
+    }
+
+	onSubmit(text, navigate){
+		if (!this.validateContainerNumber(text)) {
+			this.setState ({
+				msg : 'Container Number Should Be Number',
+				errorMsg : false
+			})
+		} else {
+
+		 let uuid = Utils.guid();
+			SezServices.save(new SezModel( uuid ,text))
+			ToastAndroid.show(this.state.toastMsg, ToastAndroid.LONG);
+
+			navigate('containerview', { c_id : uuid, container_no :text })
+		}
 	}
 	
 	static navigationOptions = {
@@ -53,11 +76,11 @@ export default class InsertContainer extends Component{
             placeholder = 'Insert Container Number'
             underlineColorAndroid = 'transparent'
 			/>
-			<Button  
-			 	accessibilityLabel="Learn more about this purple button"
-			 	onPress = {() => navigate('containerview', { container_no : text})
-				//this.onSubmit.bind(this, this.state.text)
-				} title='Add Container'/>
+			<Button
+			 	onPress = {this.onSubmit.bind(this, text, navigate)}
+				title='Add Container'/>
+			<Text style= {styles.error}> { this.state.errorMsg == false ? this.state.msg : ''} </Text>
+
 			</View>
 		);
 	}
@@ -85,6 +108,10 @@ const styles = StyleSheet.create({
   },
   touchButton : {
   	height : 100
+  },
+  error : {
+  	color : 'red',
+  	fontSize : 15
   }
 
 });

@@ -12,33 +12,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1_973dfea3d1365a0ff732335a2212b95e565f5149.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_fd6e814e1ef23dace78f6abecae950fc79ce6a3b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1_77bf9a44d1a9c7bff7695572db8fad5836bf6a27.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
         jumboMode="false"
         optimize="true"
@@ -54,6 +27,114 @@
         revision="23.0.1"
         sha1="6975da39a7040257bd51d21a231b76c915872d38">
         <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/javax.inject-1_62ff1421960a0f64f904e8a60fb90f1313226bcf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_ec939bf831e3a535da8f47dd008a6d22503a9886.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/org.nanohttpd/nanohttpd/2.2.0/73a02117620b6cc7683a1ed6ae24c2f36e2a715/nanohttpd-2.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="073a02117620b6cc7683a1ed6ae24c2f36e2a715">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/nanohttpd-2.2.0_96c3ff95ea1db5af8a8c019b98f38ba6bb47086d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_4cfacf3507b89ca1fd03c886d093d8291e04f344.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_28d91b6876b2ff47fdb20a8ef2e7cf78d2cdb16e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_3307a5be8ca7a55b05a008db8bb0782e135e5fcb.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.0_640a96fbb9e741bb0e064456acf0fec07bd0685a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.1/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9dfdc1614e402edaf52eaa5e5d8d38ac6f12cf0e">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.48.1_1855a174702e70535c8b7b1eecfa22753a76ecfa.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.1/jars/libs/infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_5eb6468d442e4789149ae1f8bed13477dda75caf.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.2.1/2287494d4f5f9f3a9a2bb6980e3f32053721b315/core-3.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/core-3.2.1_cff168cdf7560c11464579438d37fe0d09b92364.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.drewnoakes/metadata-extractor/2.9.1/53fdf22be10c9d426ec63431c7342895bc642261/metadata-extractor-2.9.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="53fdf22be10c9d426ec63431c7342895bc642261">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/metadata-extractor-2.9.1_0b037721bcfdf2d5b6f69977589680ee9158b009.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp-urlconnection/3.6.0/3f9b16b774f2c36cfd86dd2053d0b3059531dacc/okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/okhttp-urlconnection-3.6.0_fd6e814e1ef23dace78f6abecae950fc79ce6a3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0_ba59ceb9eae7e6784ae8394820b9f7c5a0030b17.jar" />
     </item>
     <item
         is-multidex="false"
@@ -84,12 +165,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.google.code.findbugs/jsr305/3.0.0/5871fb60dc68d67da54a663c3fd636a10a532948/jsr305-3.0.0.jar"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/awesome/rn-camera-roll/unspecified/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
-        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/jsr305-3.0.0_ec939bf831e3a535da8f47dd008a6d22503a9886.jar" />
+        sha1="3688673856510987259989fb288c3722596c90d6">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/awesome-rn-camera-roll-unspecified_8cb5193896ca844b73581ccf76dd02d01d13bf7f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.0_ba6eeb4015d5a6a80c08f9fe3ea68df1919bd268.jar" />
     </item>
     <item
         is-multidex="false"
@@ -102,48 +192,21 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/org.nanohttpd/nanohttpd/2.2.0/73a02117620b6cc7683a1ed6ae24c2f36e2a715/nanohttpd-2.2.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="073a02117620b6cc7683a1ed6ae24c2f36e2a715">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/nanohttpd-2.2.0_96c3ff95ea1db5af8a8c019b98f38ba6bb47086d.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.0.1_87250921301c9062399326918b310d81ca18214b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline/1.3.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-1.3.0_4cfacf3507b89ca1fd03c886d093d8291e04f344.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-base/1.3.0/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-imagepipeline-base-1.3.0_28d91b6876b2ff47fdb20a8ef2e7cf78d2cdb16e.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/fbcore/1.3.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
         <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fresco-fbcore-1.3.0_f89e66478cf2966adaa3ea61e5e9e58ac828ccef.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0_3b9d8de52ebb2220f550278cca33782ac38e7844.jar" />
     </item>
     <item
         is-multidex="false"
@@ -165,24 +228,6 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_3307a5be8ca7a55b05a008db8bb0782e135e5fcb.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9dfdc1614e402edaf52eaa5e5d8d38ac6f12cf0e">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.react-react-native-0.48.1_1855a174702e70535c8b7b1eecfa22753a76ecfa.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fresco/imagepipeline-okhttp3/1.3.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
@@ -192,48 +237,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.react/react-native/0.48.1/jars/libs/infer-annotations-4.0.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/infer-annotations-4.0_5eb6468d442e4789149ae1f8bed13477dda75caf.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.facebook.fbui.textlayoutbuilder/textlayoutbuilder/1.0.0/jars/classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.1"
         sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
         <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_abe912780c78901a03b861d9dd39a681bc89c628.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.google.zxing/core/3.2.1/2287494d4f5f9f3a9a2bb6980e3f32053721b315/core-3.2.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="2287494d4f5f9f3a9a2bb6980e3f32053721b315">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/core-3.2.1_cff168cdf7560c11464579438d37fe0d09b92364.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/app/awesome/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.0.1_8bfa716bb06a5c4ba45b9f6709dcbc4eaa07d82a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/home/abhishek/.gradle/caches/modules-2/files-2.1/com.drewnoakes/metadata-extractor/2.9.1/53fdf22be10c9d426ec63431c7342895bc642261/metadata-extractor-2.9.1.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.1"
-        sha1="53fdf22be10c9d426ec63431c7342895bc642261">
-        <dex dex="/home/abhishek/app/awesome/android/app/build/intermediates/pre-dexed/debug/metadata-extractor-2.9.1_0b037721bcfdf2d5b6f69977589680ee9158b009.jar" />
     </item>
     <item
         is-multidex="false"

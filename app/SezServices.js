@@ -75,9 +75,14 @@ let SezServices = {
   },
   
   getRow: function (sez) {
-    let people = repository.objects('Pictures');
-      return people.length;
+    let picture = repository.objects('Pictures');
+      return picture.length;
 //      alert(people.length);
+  },
+
+  getData : function (sez) {
+    const picture = repository.objects(sez).sorted('id', true);
+    return picture[0].container_no;
   },
 
   picture_save: function(pictures, s_id ) {

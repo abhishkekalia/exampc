@@ -44,10 +44,7 @@ class ListView extends Component {
     if (this.forceUpdate) this.forceUpdate();
   }
 
-  getResponse (result){
-    this.setState ({
-      c_id : result
-    })
+  getResponse (result){ () => this.setState ({ c_id : result })
   }
 
   movedItem(){
@@ -72,7 +69,7 @@ class ListView extends Component {
           order={dataListOrder}
           onRowMoved={e => moveOrderItem(this, e.from, e.to)}
           renderRow={(dataItem, section, index) => <ListViewItem callback={this.getResponse.bind(this)} 
-          gotonext = {() => navigate('Detail', { feed: this.movedItem()})} 
+          gotonext = {() => navigate('Detail', { c_id : this.movedItem()})} 
           data={dataItem} onCompletedChange={this._onCompletedChange}/>}
         />
       );

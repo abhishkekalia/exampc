@@ -18,12 +18,13 @@ export default class ContainerView extends Component{
 		super(props);
 	  	const { params } = this.props.navigation.state;
 		this.state={
-			container_no : params.container_no
+			c_id : params.c_id,
+      container_no : params.container_no
 		}
 	}
 	static navigationOptions = ({ navigation }) => ({
     title: `Click Image For Container Nu ${navigation.state.params.container_no}`,
-    headerStyle: { position: 'absolute', backgroundColor: '#fff', opacity : 0.3, zIndex: 100, top: 0, left: 0, right: 0 },
+    headerStyle: { position: 'absolute', backgroundColor: '#fff', opacity : 0.1, zIndex: 100, top: 0, left: 0, right: 0 },
   	headerTitleStyle: { color: '#fff' },
   	headerBackTitleStyle: {
             color: 'white',
@@ -47,7 +48,7 @@ export default class ContainerView extends Component{
     const options = {};
     //options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => SezServices.picture_save(new PicturesModel( data.path , this.state.container_no)))
+      .then((data) => SezServices.picture_save(new PicturesModel( this.state.c_id , data.path)))
       .catch(err => console.error(err));
   }
 }

@@ -9,6 +9,8 @@ import {
 import AddDetails from './AddContainer/InsertContainer'
 import HomeApp from './ListView';
 import Sinkable from './sinkable/app';
+import SinkListViewItem from './sinkable/SinkListViewItem';
+
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 

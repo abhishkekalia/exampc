@@ -1,8 +1,8 @@
 import Utils from './Utils';
 
 class SezModel {
-  constructor(container_no, completed) {
-    this.id = Utils.guid();
+  constructor( uuid ,container_no, completed) {
+    this.id = uuid;
     this.container_no = container_no;
     this.completed = completed || false;
     this.createdAt = new Date();
