@@ -5,12 +5,14 @@ import SezServices from './SezServices';
 export default class DetailScreen extends React.Component {
     render() {
             const { params } = this.props.navigation.state;
+            const c_id = params.id;
+            const path =SezServices.sealData(c_id);
 
         return (
             <View>
-            <Text>{params.c_id}</Text>
+            <Text>{c_id }</Text>
             <ScrollView>
-            <Text>{JSON.stringify(SezServices.findPictures())}</Text>
+            <Text>{JSON.stringify(path)}</Text>
             </ScrollView>
             </View>
             );

@@ -6,6 +6,7 @@ import {
   ListView,
   View,
   Text,
+  TouchableOpacity
 } from 'react-native';
 
 import CameraRoll from 'rn-camera-roll';
@@ -38,7 +39,7 @@ export default class SinkListViewItem extends Component {
 
   onPhotosFetchedSuccess(data) {
     const newPhotos = this.getPhotosFromCameraRollData(data);
-    console.warn(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     this.images = this.images.concat(newPhotos);
     this.setState(this.getDataSourceState());
     if (newPhotos.length) this.lastPhotoFetched = newPhotos[newPhotos.length - 1].uri;
@@ -60,21 +61,30 @@ export default class SinkListViewItem extends Component {
     this.fetchPhotos(PHOTOS_COUNT_BY_FETCH, this.lastPhotoFetched);
   }
 
+  getDemo () {
+                  console.warn('helo');
+
+  }
   render() {
     return (
       <View style={styles.container}>
         <ListView
-          contentContainerStyle={styles.imageGrid}
           dataSource={this.state.dataSource}
           onEndReached={this.onEndReached.bind(this)}
           onEndReachedThreshold={100}
           showsVerticalScrollIndicator={false}
           renderRow={(image) => {return (
             <View>
+            <TouchableOpacity onLongPress = { ()=>{
+              this.getDemo()
+            }
+            }>
+            <Text>{  image.uri}</Text>
               <Image
                 style={styles.image}
                 source={{ uri: image.uri }}
               />
+              </TouchableOpacity>
             </View>
           )}}
         />

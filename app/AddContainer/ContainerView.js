@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Camera from 'react-native-camera';
 import SezServices from '../SezServices';
 import PicturesModel from '../PicturesModel';
+import ControlPanel from './panel';
 
 
 export default class ContainerView extends Component{
@@ -33,6 +34,7 @@ export default class ContainerView extends Component{
   render() {
     return (
     	<View style={styles.container}>
+<ControlPanel/>
     		<Camera 
     		ref={(cam) => {
             this.camera = cam; }}
@@ -48,7 +50,7 @@ export default class ContainerView extends Component{
     const options = {};
     //options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => SezServices.picture_save(new PicturesModel( this.state.c_id , data.path)))
+      .then((data) => SezServices.seal_save(new PicturesModel( this.state.c_id , data.path)))
       .catch(err => console.error(err));
   }
 }
@@ -56,7 +58,7 @@ export default class ContainerView extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   preview: {
     flex: 1,

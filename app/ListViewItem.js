@@ -43,7 +43,7 @@ class ListViewItem extends Component {
     let id = data.id;
     return (
       <TouchableHighlight onPress={() => this.moveNextView(id) } 
-       underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#fff", borderBottomWidth:1, borderColor: '#dcdcdc', borderRadius:20, borderWidth: 1, marginTop :  5}} {...this.props.sortHandlers}>
+       underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#fff", borderBottomWidth:1, borderColor: '#dcdcdc', borderRadius:10, borderWidth: 1, marginTop :  5}} {...this.props.sortHandlers}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text>{this.state.c_id}</Text>
          <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>container no: {data.container_no} & id : {id}</Text>

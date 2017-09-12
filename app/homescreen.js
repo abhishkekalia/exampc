@@ -32,7 +32,7 @@ const HomeScreen = TabNavigator({
   },
 
   Sink: {
-    screen: Sinkable,
+    screen: SinkListViewItem,
   },
 },
 {

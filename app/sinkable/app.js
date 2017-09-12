@@ -21,8 +21,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 var REQUEST_URL = 'http://abhishekkalia1792.esy.es/index.php/api/rest/question';
 
-let dataList = SezServices.findPictures();
-//var dataListOrder = getOrder(dataList);
 
 var Sinkable = React.createClass({
     getInitialState: function() {
@@ -32,6 +30,7 @@ var Sinkable = React.createClass({
             loaded: false,
             toggle : false,
             refreshing: false,
+
 
         };
     },
