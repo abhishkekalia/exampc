@@ -13,7 +13,7 @@ import ListViewItem from './ListViewItem';
 import SezServices from './SezServices';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import DetailScreen from './DetailScreen';
+import DetailScreen from './AddContainer/DetailScreen';
 
 let dataList = SezServices.findAll();
 var dataListOrder = getOrder(dataList);
@@ -66,8 +66,7 @@ class ListView extends Component {
 	}
 
 	static navigationOptions = {
-		title: 'Containers',
-		headerStyle: { backgroundColor: '#1e90ff'  },
+		headerStyle: { backgroundColor: '#6a5acd'  },
 		headerTitleStyle: { color: '#fff' },
 	};
 
@@ -104,9 +103,5 @@ class ListView extends Component {
     }
 }
 
-const HomeApp = StackNavigator({
-    Question: { screen: ListView },
-    Detail: { screen: DetailScreen },
-});
 
-module.exports = HomeApp;
+module.exports = ListView;

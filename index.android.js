@@ -12,7 +12,7 @@ import {
   View
 } from 'react-native';
 //import InsertContainer from './app/AddContainer/InsertContainer'
-import HomeScreen from './app/homescreen';
+import Basic from './app/menu/Basic';
 
 
 export default class awesome extends Component {
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('awesome', () => HomeScreen);
+AppRegistry.registerComponent('awesome', () => Basic);

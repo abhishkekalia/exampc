@@ -1,50 +1,15 @@
 import Realm from 'realm';
 import SezModel from './SezModel';
-import PicturesModel from './PicturesModel';
+import CaptureModel from './CaptureModel';
 
-const SealSchema = {
-    name        : 'Seal',
+const CaptureSchema = {
+    name        : 'Capture',
     primaryKey  : 'id',
     properties  : {
         id          : { type : 'string', indexed : true },
         c_id        : { type : 'string' },
         Uri         : 'string',
-        completed   : 'bool',
-        createdAt   : 'date',
-    }
-};
-
-const DoorSchema = {
-    name        : 'Door',
-    primaryKey  : 'id',
-    properties  : {
-        id          : { type : 'string', indexed : true },
-        c_id        : { type : 'string' },
-        Uri         : 'string',
-        completed   : 'bool',
-        createdAt   : 'date',
-    }
-};
-
-const InsideSchema = {
-    name        : 'Inside',
-    primaryKey  : 'id',
-    properties  : {
-        id          : { type : 'string', indexed : true },
-        c_id        : { type : 'string' },
-        Uri         : 'string',
-        completed   : 'bool',
-        createdAt   : 'date',
-    }
-};
-
-const OutsideSchema = {
-    name        : 'Outside',
-    primaryKey  : 'id',
-    properties  : {
-        id          : { type : 'string', indexed : true },
-        c_id        : { type : 'string' },
-        Uri         : 'string',
+        type        : 'string',
         completed   : 'bool',
         createdAt   : 'date',
     }
@@ -62,7 +27,7 @@ const ContainerSchema = {
     }
 };
 
-let repository = new Realm({schema  : [SealSchema, ContainerSchema, DoorSchema , InsideSchema, OutsideSchema]});
+let repository = new Realm({schema  : [CaptureSchema, ContainerSchema,]});
 
 let SezServices = {
     findAll: function(sortBy) {
@@ -88,53 +53,28 @@ let SezServices = {
     },
 // ----------------#picture table ----------------
 
-    seal_save: function(pictures, s_id ) {
-        if (repository.objects('Seal').filtered("Uri = '" + pictures.Uri + "'").length) return;
+    capture_save: function(pictures, s_id ) {
+        if (repository.objects('Capture').filtered("Uri = '" + pictures.Uri + "'").length) return;
 
         repository.write(() => {
           pictures.updatedAt = new Date();
-          repository.create('Seal', pictures);
-        })
-    },
-
-    door_save: function(pictures, s_id ) {
-        if (repository.objects('Door').filtered("Uri = '" + pictures.Uri + "'").length) return;
-
-        repository.write(() => {
-          pictures.updatedAt = new Date();
-          repository.create('Door', pictures);
-        })
-    },
-    inside_save: function(pictures, s_id ) {
-        if (repository.objects('Inside').filtered("Uri = '" + pictures.Uri + "'").length) return;
-
-        repository.write(() => {
-          pictures.updatedAt = new Date();
-          repository.create('Inside', pictures);
-        })
-    },
-    outside_save: function(pictures, s_id ) {
-        if (repository.objects('Outside').filtered("Uri = '" + pictures.Uri + "'").length) return;
-
-        repository.write(() => {
-          pictures.updatedAt = new Date();
-          repository.create('Outside', pictures);
+          repository.create('Capture', pictures);
         })
     },
 
     findPictures: function(sortBy) {
         if (!sortBy) sortBy = [['completed', false]];
-        return repository.objects('Seal').sorted(sortBy);
+        return repository.objects('Capture').sorted(sortBy);
     },
   
     getRow: function (sez) {
-        let picture = repository.objects('Seal');
+        let picture = repository.objects('Capture');
         return picture.length;
     },
 
     sealData : function (sez) {
         const c_id = sez;
-        const picture = repository.objects('Seal').filtered("c_id = '" + c_id + "'")
+        const picture = repository.objects('Capture').filtered("c_id = '" + c_id + "'")
         return picture;
     },
 };

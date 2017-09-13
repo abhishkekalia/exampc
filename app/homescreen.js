@@ -7,54 +7,20 @@ import {
   TouchableOpacity
 } from 'react-native';
 import AddDetails from './AddContainer/InsertContainer'
-import HomeApp from './ListView';
+import ListView from './ListView';
+import DetailScreen from './AddContainer/DetailScreen';
+
+
 import Sinkable from './sinkable/app';
 import SinkListViewItem from './sinkable/SinkListViewItem';
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import { TabNavigator, TabBarBottom } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 
-class awesome extends Component {
-  render() {
-    return (
-        <HomeApp/>
-    );
-  }
-}
-
-const HomeScreen = TabNavigator({
-  Container: {
-    screen: awesome,
-  },
-
-  InsertItem: {
-    screen: AddDetails,
-  },
-
-  Sink: {
-    screen: SinkListViewItem,
-  },
-},
-{
-    tabBarComponent: TabBarBottom,
-    tabBarPosition: 'bottom',
-},
-{
-  tabBarOptions: {
-    activeTintColor: '#e91e63',
-  },
+const HomeScreen = StackNavigator({
+    ListView: { screen: ListView },
+    Detail: { screen: DetailScreen },
+    AddDetails: { screen: AddDetails },
 });
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingTop: 30,
-    paddingBottom: 10,
-    paddingLeft: 2,
-    paddingRight: 2,
-    backgroundColor: '#F8F8F8',
-  }
-});
 module.exports = HomeScreen;

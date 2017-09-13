@@ -40,13 +40,13 @@ class ListViewItem extends Component {
     let data = this.state.data;
     let color = data.completed ? '#C5C8C9' : '#000';
     let textDecorationLine = data.completed ? 'line-through' : 'none';
-    let id = data.id;
+    let id = data.container_no;
     return (
       <TouchableHighlight onPress={() => this.moveNextView(id) } 
        underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#fff", borderBottomWidth:1, borderColor: '#dcdcdc', borderRadius:10, borderWidth: 1, marginTop :  5}} {...this.props.sortHandlers}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text>{this.state.c_id}</Text>
-         <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>container no: {data.container_no} & id : {id}</Text>
+         <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>container no: {data.container_no}</Text>
         </View>
       </TouchableHighlight>
     )

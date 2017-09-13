@@ -15,6 +15,8 @@ import Utils from '../Utils';
 import SezModel from '../SezModel';
 import SezServices from '../SezServices'
 import ContainerView from './ContainerView';
+import DetailScreen from './DetailScreen';
+
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 
@@ -50,17 +52,12 @@ export default class InsertContainer extends Component{
 			SezServices.save(new SezModel( uuid ,text))
 			ToastAndroid.show(this.state.toastMsg, ToastAndroid.LONG);
 
-			navigate('containerview', { c_id : uuid, container_no :text })
+			navigate('detailScreen', { c_id : uuid, container_no :text })
 		}
 	}
 	
 	static navigationOptions = {
-    title: 'Enter Container No',
-    headerStyle: { backgroundColor: '#1e90ff'  },
-  	headerTitleStyle: { color: '#fff' },
-  	headerBackTitleStyle: {
-            color: '#fff',
-        },
+    headerStyle: { backgroundColor: '#6a5acd'  },
 	};
 	render(){
 		var text = this.state.text;
@@ -118,7 +115,9 @@ const styles = StyleSheet.create({
 
 const AddDetails = StackNavigator({
     insertcontainer: { screen: InsertContainer },
-    containerview: { screen: ContainerView },
+    detailScreen: { screen: DetailScreen },
+	containerview: { screen: ContainerView },
+
 });
 
 module.exports = AddDetails;

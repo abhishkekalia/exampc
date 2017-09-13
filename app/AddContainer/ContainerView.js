@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Camera from 'react-native-camera';
 import SezServices from '../SezServices';
-import PicturesModel from '../PicturesModel';
+import CaptureModel from '../CaptureModel';
 import ControlPanel from './panel';
 
 
@@ -20,7 +20,8 @@ export default class ContainerView extends Component{
 	  	const { params } = this.props.navigation.state;
 		this.state={
 			c_id : params.c_id,
-      container_no : params.container_no
+      container_no : params.c_no,
+      type : params.type
 		}
 	}
 	static navigationOptions = ({ navigation }) => ({
@@ -34,7 +35,6 @@ export default class ContainerView extends Component{
   render() {
     return (
     	<View style={styles.container}>
-<ControlPanel/>
     		<Camera 
     		ref={(cam) => {
             this.camera = cam; }}
@@ -50,7 +50,7 @@ export default class ContainerView extends Component{
     const options = {};
     //options.location = ...
     this.camera.capture({metadata: options})
-      .then((data) => SezServices.seal_save(new PicturesModel( this.state.c_id , data.path)))
+      .then((data) => SezServices.capture_save(new CaptureModel( this.state.c_id , data.path, this.state.type )))
       .catch(err => console.error(err));
   }
 }
