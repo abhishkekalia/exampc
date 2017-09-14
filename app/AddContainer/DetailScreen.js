@@ -13,7 +13,9 @@ import SezServices from '../SezServices';
 const window = Dimensions.get('window');
 
 export default class DetailScreen extends React.Component {
-
+static navigationOptions = {
+         header: null
+    };
     render() {
         const { navigate } = this.props.navigation;
 

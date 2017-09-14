@@ -57,7 +57,7 @@ export default class InsertContainer extends Component{
 	}
 	
 	static navigationOptions = {
-    headerStyle: { backgroundColor: '#6a5acd'  },
+		 header: null
 	};
 	render(){
 		var text = this.state.text;
@@ -75,6 +75,7 @@ export default class InsertContainer extends Component{
 			/>
 			<Button
 			 	onPress = {this.onSubmit.bind(this, text, navigate)}
+			 	 color="#6a5acd"
 				title='Add Container'/>
 			<Text style= {styles.error}> { this.state.errorMsg == false ? this.state.msg : ''} </Text>
 

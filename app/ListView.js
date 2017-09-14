@@ -6,6 +6,8 @@ import {
 	Image, 
 	RefreshControl
 	 } from 'react-native';
+
+import PropTypes from 'prop-types';
 import SezModel from './SezModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
@@ -32,6 +34,7 @@ class ListView extends Component {
 	    super(props);
 	    this.updateDataList = this.updateDataList.bind(this);
 	    this._onCompletedChange = this._onCompletedChange.bind(this);
+	    this.getResponse = this.getResponse.bind(this);
 	    this.movedItem = this.movedItem.bind(this)
 	    this.state = {
 	    	dataList: dataList,
@@ -66,8 +69,7 @@ class ListView extends Component {
 	}
 
 	static navigationOptions = {
-		headerStyle: { backgroundColor: '#6a5acd'  },
-		headerTitleStyle: { color: '#fff' },
+		 header: null
 	};
 
 	render() {
@@ -86,14 +88,14 @@ class ListView extends Component {
 				}
 				onRowMoved={e => moveOrderItem(this, e.from, e.to)}
 	        	renderRow={(dataItem, section, index) => <ListViewItem callback={this.getResponse.bind(this)} 
-	        	gotonext = {() => navigate('Detail', { id : this.movedItem()})} 
+	        	gotonext = {() => navigate('Detail', { c_id : this.movedItem() , container_no : this.movedItem()})} 
 	        	data={dataItem} onCompletedChange={this._onCompletedChange}/>}
 	        	/>
 	        );
 	    }
 
 	    return (
-	    	<View style={{flex: 1, marginLeft: 10, marginRight: 10}}>
+	    	<View style={{flex: 1, paddingLeft: 10, paddingRight: 10, backgroundColor :'#dcdcdc'}}>
     			<OmniBox
             	data={Array.from(dataList)}
             	updateDataList={this.updateDataList}/>

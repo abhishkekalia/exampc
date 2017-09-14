@@ -21,6 +21,9 @@ const HomeScreen = StackNavigator({
     ListView: { screen: ListView },
     Detail: { screen: DetailScreen },
     AddDetails: { screen: AddDetails },
-});
+    SinkListViewItem: { screen: SinkListViewItem },
+}, {
+  initialRouteName: 'SinkListViewItem',
+})
 
 module.exports = HomeScreen;

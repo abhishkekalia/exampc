@@ -62,20 +62,20 @@ let SezServices = {
         })
     },
 
-    findPictures: function(sortBy) {
+    findPictures : function(sortBy) {
         if (!sortBy) sortBy = [['completed', false]];
-        return repository.objects('Capture').sorted(sortBy);
+        return repository.objects('Capture');
     },
-  
+
     getRow: function (sez) {
         let picture = repository.objects('Capture');
         return picture.length;
     },
 
-    sealData : function (sez) {
-        const c_id = sez;
-        const picture = repository.objects('Capture').filtered("c_id = '" + c_id + "'")
-        return picture;
+    getData : function (sez) {
+        const id = sez;
+        const container = repository.objects('Sez').filtered("id = '" + id + "'")
+        return container[0].container_no;
     },
 };
 

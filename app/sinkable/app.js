@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
 import {
-      Image,
-      ListView,
-      TouchableOpacity,
-      StyleSheet,
-      RecyclerViewBackedScrollView,
-      Text,
-      View,
-      Picker,
-      Navigator,
-      ActivityIndicator,
-      ScrollView,
-      Button,
-      RefreshControl
-  } from 'react-native';
+    Image,
+    ListView,
+    TouchableOpacity,
+    StyleSheet,
+    Text,
+    View,
+    ActivityIndicator,
+    ScrollView,
+    Button,
+    RefreshControl
+} from 'react-native';
 import SortableListView from 'react-native-sortable-listview';
 import SezServices from '../SezServices';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-var REQUEST_URL = 'http://abhishekkalia1792.esy.es/index.php/api/rest/question';
+let image = "file:///storage/emulated/0/DCIM/IMG_20170914_152006.jpg";
 
+var dataList = SezServices.findPictures();
 
 var Sinkable = React.createClass({
     getInitialState: function() {
@@ -30,33 +28,28 @@ var Sinkable = React.createClass({
             loaded: false,
             toggle : false,
             refreshing: false,
-
-
         };
     },
 
     componentDidMount: function() {
         this.fetchData();
     },
-     _onRefresh : function() {
-    this.setState({refreshing: true});
-            this.fetchData();
-  },
+    
+    _onRefresh : function() {
+        this.setState({refreshing: true});
+        this.fetchData();
+    },
 
     fetchData:function (){
-        fetch(REQUEST_URL)
-        .then((response) => response.json())
-        .then((responseData) => {
             this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(responseData.que_ans),
+            dataSource: this.state.dataSource.cloneWithRows(dataList),
             loaded: true,
             refreshing: false
         });
-        }).done();
     },
 
     render: function() {
-//        console.warn(JSON.stringify(dataList));
+        console.warn(JSON.stringify(this.state.dataSource));
         var scrChange = this.state.actionText;
         if (!this.state.loaded) {
             return this.renderLoadingView();
@@ -87,16 +80,21 @@ var Sinkable = React.createClass({
             );
     },
 
-    renderData: function(que_ans, rowData, sectionID, rowID, index) {
+    renderData: function(_dataBlob, rowData, sectionID, rowID, index) {
         const { navigate } = this.props.navigation;
-        return (
+        let id = _dataBlob.c_id;
+        //let image = _dataBlob.Uri;
+       return (
             <TouchableOpacity key={rowID} data={rowData} onLongPress ={(e)=>{
                   console.warn(' onLongPress');
                   console.warn(Date.now());
                }} >
             <View style={styles.row}>
-                       <Text style={styles.textQue}>{que_ans.feed}</Text>
-            </View>
+                       <Text style={styles.textQue}>{SezServices.getData(id)}</Text>
+                       <Text style={styles.textQue}>{image}</Text>
+
+                <Image source={{ uri: image}}/>
+                </View>
             </TouchableOpacity>
             );
     },

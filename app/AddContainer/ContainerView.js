@@ -5,7 +5,8 @@ import {
 	Text, 
 	TextInput,
 	StyleSheet,
-	ToastAndroid
+	ToastAndroid,
+  ActivityIndicator
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Camera from 'react-native-camera';
@@ -31,6 +32,8 @@ export default class ContainerView extends Component{
   	headerBackTitleStyle: {
             color: 'white',
         },
+             header: null
+
   });
   render() {
     return (
@@ -72,5 +75,6 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 5,
     margin: 40
-  }
+  },
+   centering: { flex:0 ,alignItems: 'center', justifyContent: 'center', padding: 8, }, gray: { backgroundColor: 'transparent', },
 });

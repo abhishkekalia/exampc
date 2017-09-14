@@ -9,10 +9,13 @@ import {
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 import HomeScreen from '../homescreen';
+import ListView from '../ListView';
+
 import AddDetails from '../AddContainer/InsertContainer'
 
 import Icon from 'react-native-vector-icons/Entypo';
 import { StackNavigator } from 'react-navigation';
+import ActionBar from 'react-native-action-bar';
 
 
 export default class Basic extends Component {
@@ -53,13 +56,26 @@ export default class Basic extends Component {
         onChange={isOpen => this.updateMenuState(isOpen)}
 
       >
+      <ActionBar
+                    containerStyle={styles.bar}
+                    title={''}
+//                    rightText={'Hello'}
+                    leftIconName={'menu'}
+                  //  leftBadge={''}
+                    onLeftPress={this.toggle}
+                   // onTitlePress={() => console.warn('Title!')}
+                    rightIcons={[
+                       
+                        {
+                            name: 'plus',
+                        //        badge: '1',
+                            onPress: () => console.warn('Right Plus !'),
+                        },
+                        
+                    ]}
+                />
        <HomeScreen/>
-        <TouchableOpacity
-          onPress={this.toggle}
-          style={styles.button}
-        >
-          <Icon name = 'menu' size= {30} style = {{color : '#fff'}} />
-        </TouchableOpacity>
+      
       </SideMenu>
     );
   }
@@ -68,8 +84,7 @@ export default class Basic extends Component {
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    top: 20,
-    padding: 10,
+    padding: 15,
   },
   caption: {
     fontSize: 20,
@@ -92,4 +107,8 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  bar : {
+    backgroundColor : '#6a5acd',
+    height : 50
+  }
 });
