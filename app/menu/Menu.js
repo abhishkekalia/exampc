@@ -11,6 +11,7 @@ import {
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StackNavigator } from 'react-navigation';
 
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
@@ -26,7 +27,7 @@ export default function Menu({ onItemSelected }) {
             </View>
 
             <Text
-            onPress={() => onItemSelected('Container')}
+            onPress={() => onItemSelected('container')}
             style={styles.item}> < Entypo name= "home" size= {30}/>Container
             </Text>
 
@@ -55,7 +56,6 @@ const styles = StyleSheet.create({
         width: window.width - 30,
         height: window.height,
         backgroundColor: 'gray',
-        paddingTop : 5,
         position : 'absolute'
     },
     
@@ -85,6 +85,6 @@ const styles = StyleSheet.create({
         backgroundColor : '#fff',
         fontWeight: '300',
         padding: 15,
-        marginTop : 2,
+        marginTop : 1,
     },
 });

@@ -75,6 +75,7 @@ let SezServices = {
     getData : function (sez) {
         const id = sez;
         const container = repository.objects('Sez').filtered("id = '" + id + "'")
+    //    console.warn(container);
         return container[0].container_no;
     },
 };

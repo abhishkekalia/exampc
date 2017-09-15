@@ -35,15 +35,15 @@ export default class InsertContainer extends Component{
 		setTimeout(function() { this.setState({ errorMsg: true }); }.bind(this), 10000);
     }
 
-	validateContainerNumber = (con) => {
+	/*validateContainerNumber = (con) => {
 		var reg = /^\d+$/;
     	return reg.test(con);
     }
-
+*/
 	onSubmit(text, navigate){
-		if (!this.validateContainerNumber(text)) {
+		if (text == '') {
 			this.setState ({
-				msg : 'Container Number Should Be Number',
+				msg : 'Container Number Should Not Empty',
 				errorMsg : false
 			})
 		} else {

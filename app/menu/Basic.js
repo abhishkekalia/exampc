@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import SideMenu from 'react-native-side-menu';
+
 import Menu from './Menu';
-import HomeScreen from '../homescreen';
-import ListView from '../ListView';
+import ContainerShow from '../ListView';
 
 import AddDetails from '../AddContainer/InsertContainer'
+import SinkListViewItem from '../sinkable/SinkListViewItem';
 
 import Icon from 'react-native-vector-icons/Entypo';
 import { StackNavigator } from 'react-navigation';
@@ -26,7 +27,7 @@ export default class Basic extends Component {
 
     this.state = {
       isOpen: false,
-      selectedItem: 'About',
+      selectedItem: 'container',
     };
   }
 
@@ -46,8 +47,26 @@ export default class Basic extends Component {
       selectedItem: item,
     });
 
+    updateFrontView () {
+    switch (this.state.selectedItem ) {
+      case 'container':
+        return <ContainerShow />;
+      case 'addcontainer':
+        return <AddDetails />;
+      case 'datasink':
+        return <SinkListViewItem/>;
+    }
+}
+  routeFrontView(fragmentId) {
+    this.refs.SideMenu.blockSideMenu(false);
+    this.setState({ selectedItem : fragmentId });
+  }
+
   render() {
+//    console.warn(this.state.selectedItem);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    let fragment = this.updateFrontView();
+
 
     return (
       <SideMenu
@@ -74,7 +93,7 @@ export default class Basic extends Component {
                         
                     ]}
                 />
-       <HomeScreen/>
+      {fragment}      
       
       </SideMenu>
     );

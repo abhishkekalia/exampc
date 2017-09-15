@@ -16,6 +16,8 @@ import SezServices from './SezServices';
 import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DetailScreen from './AddContainer/DetailScreen';
+import ContainerView from './AddContainer/ContainerView';
+
 
 let dataList = SezServices.findAll();
 var dataListOrder = getOrder(dataList);
@@ -46,7 +48,8 @@ class ListView extends Component {
 	updateDataList(dataList) {
 		dataListOrder = getOrder(dataList);
 		this.setState({
-			dataList: dataList
+			dataList: dataList,
+			refreshing : false
 		});
 	}
 
@@ -55,6 +58,7 @@ class ListView extends Component {
 	}
 
 	_onRefresh () {
+		this.updateDataList(dataList);
 		this.setState ({
 			refreshing : true
 		})
@@ -106,4 +110,11 @@ class ListView extends Component {
 }
 
 
-module.exports = ListView;
+const ContainerShow = StackNavigator({
+    container: { screen: ListView },
+    Detail: { screen: DetailScreen },
+    containerview: { screen: ContainerView },
+});
+
+
+module.exports = ContainerShow;

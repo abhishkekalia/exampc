@@ -83,6 +83,8 @@ let icon = ( this.state.securesend == true ? <MaterialCommunityIcons name ='send
                         <View style= {styles.seprate}>
                         <TouchableOpacity onLongPress = { ()=>{ this.getDemo()}}>
                             <Text style={styles.textQue}>{SezServices.getData(_dataBlob.c_id)}</Text>
+                            <Text style={styles.textQue}>{_dataBlob.type}</Text>
+
                             <Image style={styles.image} source={{ uri: _dataBlob.Uri }} />
                             
                         </TouchableOpacity>

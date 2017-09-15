@@ -18,12 +18,12 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import { StackNavigator } from 'react-navigation';
 
 const HomeScreen = StackNavigator({
-    ListView: { screen: ListView },
+    container: { screen: ListView },
     Detail: { screen: DetailScreen },
     AddDetails: { screen: AddDetails },
-    SinkListViewItem: { screen: SinkListViewItem },
+    datasink: { screen: SinkListViewItem },
 }, {
-  initialRouteName: 'SinkListViewItem',
+  initialRouteName: 'AddDetails',
 })
 
 module.exports = HomeScreen;
