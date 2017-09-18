@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 //import InsertContainer from './app/AddContainer/InsertContainer'
 import Basic from './app/menu/Basic';
-
+import Root from './app/Root';
+import Login from './app/auth/components/Login'
 
 export default class awesome extends Component {
   render() {
@@ -37,4 +38,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('awesome', () => Basic);
+AppRegistry.registerComponent('awesome', () => Root);

@@ -14,15 +14,14 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { StackNavigator } from 'react-navigation';
 
 const window = Dimensions.get('window');
-const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
-
+ 
 export default function Menu({ onItemSelected }) { 
     return (
         <ScrollView scrollsToTop={false} style={styles.menu}>
             <View style={styles.avatarContainer}>
                 <Image
                 style={styles.avatar}
-                source={{ uri }}/>
+                source={require('../img/logo.png')}/>
                 <Text style={styles.name}>Empezar Tech</Text>
             </View>
 
@@ -37,7 +36,7 @@ export default function Menu({ onItemSelected }) {
 
             <Text
             onPress={() => onItemSelected('datasink')}
-            style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sink Data</Text>
+            style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
 
             <Text
             onPress={() => onItemSelected('signout')}
@@ -65,8 +64,8 @@ const styles = StyleSheet.create({
     },
     
     avatar: {
-        width: 60,
-        height: 60,
+        width :60,
+        height : 60,
         borderRadius: 30,
         flex: 1,
     },
