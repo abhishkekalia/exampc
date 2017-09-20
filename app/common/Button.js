@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, Dimensions} from 'react-native';
+var {height, width} = Dimensions.get('window');
 
 export default class Button extends Component {
 	render() {

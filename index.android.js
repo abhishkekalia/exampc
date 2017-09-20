@@ -12,9 +12,9 @@ import {
   View
 } from 'react-native';
 //import InsertContainer from './app/AddContainer/InsertContainer'
-import Basic from './app/menu/Basic';
+//import Basic from './app/menu/Basic';
 import Root from './app/Root';
-import Login from './app/auth/components/Login'
+//import Login from './app/auth/components/Login'
 
 export default class awesome extends Component {
   render() {

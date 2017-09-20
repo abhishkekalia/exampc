@@ -43,8 +43,7 @@ module.exports = {
         fontStyle: 'italic'
     },
     errorText: {
-        backgroundColor: 'red',
-        color: 'white',
+        color: 'red',
         padding: 5,
         fontWeight: "700",
         fontStyle: 'italic'

@@ -10,12 +10,6 @@ var styles = StyleSheet.create({
         right: 0,
         justifyContent: 'center',
         alignItems: 'center'
-    },
-    text: {
-        padding: 10,
-        fontSize: 25,
-        alignSelf: 'center',
-        color: 'orange'
     }
 });
 

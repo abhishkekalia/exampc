@@ -46,7 +46,7 @@ class ListViewItem extends Component {
        underlayColor={'#eee'} style={{paddingTop: 6, paddingBottom: 6, backgroundColor: "#fff", borderBottomWidth:1, borderColor: '#dcdcdc', borderRadius:10, borderWidth: 1, marginTop :  5}} {...this.props.sortHandlers}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Text>{this.state.c_id}</Text>
-         <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>container no: {data.container_no}</Text>
+         <Text style={{fontSize:18, color: color, paddingLeft : 10, textDecorationLine: textDecorationLine}}>{data.container_no}</Text>
         </View>
       </TouchableHighlight>
     )

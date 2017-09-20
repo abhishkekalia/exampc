@@ -18,11 +18,12 @@ import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyl
 import { connect } from 'react-redux';
 
 import Login from './auth/LoginPage';
-import Basic from './menu/Basic';
+import Homepage from './menu/Homepage';
 
 import LoginPage from './auth/LoginPage';
 import ProfilePage from './profile/ProfilePage';
 import Loader from './common/Loader';
+import MessageBar from './messagebar/MessageBar';
 
 
 const styles = StyleSheet.create({
@@ -66,14 +67,15 @@ const Routes = ({loading, needSignIn}) => (
                 key="root"
                 titleStyle={{ alignSelf: 'center' }}>
 
-                    <Scene key="launch" initial={needSignIn} component={LoginPage} title="login" initial />
+                    <Scene key="login" initial={needSignIn} component={LoginPage} title="login" type="reset"/>
             </Stack>
 
             <Stack 
             hideNavBar 
             key="login" 
             titleStyle={{ alignSelf: 'center' }}>
-                <Scene key="Basic" component={Basic} initial={!needSignIn} />
+                <Scene key="home" component={Homepage} initial={!needSignIn} title="home" type="replace"/>
+                <Scene key="profilePage" component={ProfilePage} title="Profile"/>
 
                 <Scene 
                 key="loginModal2"
@@ -82,6 +84,12 @@ const Routes = ({loading, needSignIn}) => (
                 backTitle="Back"
                 panHandlers={null}
                 duration={1}/>
+            </Stack>
+            <Stack 
+            key="msg" 
+            titleStyle={{ alignSelf: 'center' }}>
+                <Scene component={MessageBar} />
+
             </Stack>
             </Modal>
         </Overlay>

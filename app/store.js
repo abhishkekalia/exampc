@@ -5,10 +5,10 @@ import thunk from "redux-thunk";
 import {createLogger} from "redux-logger";
 import rootReducer from "./rootReducer";
 
-//const logger = createLogger();
+const logger = createLogger();
 
 const store = createStore(rootReducer, compose(
-	applyMiddleware(thunk),
+	applyMiddleware(thunk, logger),	
 	autoRehydrate()
 ));
 

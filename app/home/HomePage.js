@@ -2,7 +2,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import Counter from './components/Counter';
 import {Actions as routes} from 'react-native-router-flux';
-import * as actions from './counter.actions';
+import * as actions from './home.actions';
 
 function mapStateToProps(state) {
     return {
