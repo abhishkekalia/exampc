@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
-import {Actions as routes} from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
+import { MessageBarManager } from 'react-native-message-bar';
 import Loader from '../../common/Loader';
 import { StyleSheet, 
     View, 
@@ -38,7 +39,7 @@ class Login extends Component {
     render() {
         const {errorStatus, loading} = this.props;
         return (
-            <View style={styles.container}>
+            <View {...this.props} style={styles.container}>
                 <View style= {styles.logocont}>
                     <Image source={require('../../img/logo.png')} style ={styles.logo} />
                 </View>
@@ -97,7 +98,10 @@ class Login extends Component {
                 //alert(res.status) 
             } else { 
                 AsyncStorage.setItem('jwt', res.token)
-                routes.home();
+                
+                AsyncStorage.setItem('Uid', res.user.image) 
+
+                Actions.home();
             //    console.warn(JSON.stringify(res))
             //  Redirect to home screen
             // this.props.navigator.pop()

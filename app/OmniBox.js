@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { TextInput } from 'react-native';
+import {Actions} from 'react-native-router-flux';
 import SezModel from './SezModel';
 import SezServices from './SezServices';
 import Utils from './Utils';
@@ -60,8 +61,7 @@ class OmniBox extends Component {
         blurOnSubmit={false}
         underlineColorAndroid = 'transparent'
         value={this.state.newValue}
-        onKeyPress={this.onKeyPress}
-        onChange={this.onChange}>
+        onChange={Actions.flatlist}>
       </TextInput>
     );
   }

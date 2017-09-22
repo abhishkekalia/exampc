@@ -29,6 +29,7 @@ const loginSuccess = username => {
     return {
         type: AUTH_LOGIN_SUCCESS,
         payload: {
+            token: Math.random().toString(),
             username: username
         }
     }

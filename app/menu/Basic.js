@@ -4,6 +4,7 @@ import { StyleSheet,
     View,
     Image,
     TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 
 import SideMenu from 'react-native-side-menu';
@@ -24,8 +25,12 @@ export default class Basic extends Component {
 
         this.state = {
             isOpen: false,
-            selectedItem: 'container'
+            selectedItem: 'container',
+            image : ''
         };
+    }
+    componentWillMount() {
+        
     }
 
     toggle() {
@@ -43,6 +48,13 @@ export default class Basic extends Component {
             isOpen: false,
             selectedItem: item
         });
+    adminImage () {
+        AsyncStorage.getItem('Uid', (err, result) => {
+            this.setState({
+                image : result
+            })
+             }); 
+    }
 
     updateFrontView () {
         switch (this.state.selectedItem ) {
@@ -85,9 +97,9 @@ export default class Basic extends Component {
 //              onTitlePress={() => console.warn('Title!')} 
                 rightIcons={[    
                         { 
-                            name: 'plus',
-//                          badge: '1',
-                            onPress: () => openProfile(),
+                            name: 'search',
+//                          badge: '1', 
+                            onPress: () => console.warn('Right Plus !'),
                         },
                     ]}
                 />
@@ -134,3 +146,8 @@ const styles = StyleSheet.create({
         height      : 50
     }
 });
+/*
+AsyncStorage.getItem('Uid', (err, result) => {
+                 console.warn(result);
+             }); 
+*/

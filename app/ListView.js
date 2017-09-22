@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component ,PropTypes} from 'react';
 import { 
 	Text, 
 	View, 
@@ -7,7 +7,6 @@ import {
 	RefreshControl
 	 } from 'react-native';
 
-import PropTypes from 'prop-types';
 import SezModel from './SezModel';
 import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
@@ -52,16 +51,23 @@ class ListView extends Component {
 			refreshing : false
 		});
 	}
-
+    componentWillUnmount() {
+    	this.updateDataList();
+}
 	_onCompletedChange() {
 		if (this.forceUpdate) this.forceUpdate();
 	}
 
 	_onRefresh () {
-		this.updateDataList(dataList);
 		this.setState ({
 			refreshing : true
 		})
+	this.updateDataList(dataList, ()=> {
+		this.setState({
+			refreshing : false
+		})
+	});
+
 	}
 
 	getResponse (result){

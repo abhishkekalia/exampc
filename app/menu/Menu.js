@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Actions} from 'react-native-router-flux';
+
 import {
     Dimensions, 
     StyleSheet, 
@@ -21,8 +23,8 @@ export default function Menu({ onItemSelected }) {
             <View style={styles.avatarContainer}>
                 <Image
                 style={styles.avatar}
-                source={require('../img/logo.png')}/>
-                <Text style={styles.name}>Empezar Tech</Text>
+                source={require('../img/logo21.png')}/>
+                <Text style={styles.name}>JR Roadlines</Text>
             </View>
 
             <Text
@@ -39,7 +41,7 @@ export default function Menu({ onItemSelected }) {
             style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
 
             <Text
-            onPress={() => onItemSelected('signout')}
+            onPress={Actions.flatlist}
             style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
         </ScrollView>
     );
