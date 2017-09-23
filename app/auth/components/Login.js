@@ -97,7 +97,7 @@ class Login extends Component {
             }) 
                 //alert(res.status) 
             } else { 
-                AsyncStorage.setItem('jwt', res.token)
+                AsyncStorage.setItem('jwt', res.session_id)
                 
                 AsyncStorage.setItem('Uid', res.user.image) 
 

@@ -87,24 +87,13 @@ export default class Basic extends Component {
             isOpen={this.state.isOpen}
             onChange={isOpen => this.updateMenuState(isOpen)}>
 
-                <ActionBar 
-                containerStyle={styles.bar}
-                title={''}
-//              rightText={'Hello'}
-                leftIconName={'menu'}
-//              leftBadge={''}
-                onLeftPress={this.toggle}
-//              onTitlePress={() => console.warn('Title!')} 
-                rightIcons={[    
-                        { 
-                            name: 'search',
-//                          badge: '1', 
-                            onPress: () => console.warn('Right Plus !'),
-                        },
-                    ]}
-                />
-
-                {fragment} 
+          {fragment}
+        <TouchableOpacity
+          onPress={this.toggle}
+          style={styles.button}
+        >
+        <Icon name='menu' size={30} color='#000'/>
+        </TouchableOpacity>
             </SideMenu> 
         );
     }

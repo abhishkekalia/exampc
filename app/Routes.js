@@ -20,7 +20,8 @@ import { connect } from 'react-redux';
 import Login from './auth/components/Login';
 import Homepage from './menu/Homepage';
 import LoginPage from './auth/LoginPage';
-import ProfilePage from './profile/ProfilePage';
+import AddDetails from './AddContainer/InsertContainer'
+import SinkListViewItem from './sinkable/SinkListViewItem';
 import Loader from './common/Loader';
 import MessageBar from './messagebar/MessageBar';
 import Searchwebcontainer from './AddContainer/Searchwebcontainer'
@@ -62,7 +63,8 @@ const Routes = (loading, needSignIn) => (
             key="home" 
             titleStyle={{ alignSelf: 'center' }}>
                 <Scene key="home" component={Homepage} initial={!needSignIn} title="home" type={ActionConst.REPLACE}/>
-                <Scene key="profilePage" component={ProfilePage} title="Profile"/>
+                <Scene key="addcontainer" component={AddDetails} title="Containers"/>
+                <Scene key="datasink" component={SinkListViewItem} title="Sync"/>
                 <Scene key="flatlist" component={Searchwebcontainer} title="SearchContainer"/>
                 <Scene 
                 key="loginModal2"

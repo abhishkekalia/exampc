@@ -79,7 +79,11 @@ class ListView extends Component {
 	}
 
 	static navigationOptions = {
-		 header: null
+		    headerStyle: { 
+		    	backgroundColor: '#6a5acd', 
+		    	opacity : 0.3, 
+		    },
+
 	};
 
 	render() {
@@ -106,9 +110,7 @@ class ListView extends Component {
 
 	    return (
 	    	<View style={{flex: 1, paddingLeft: 10, paddingRight: 10, backgroundColor :'#dcdcdc'}}>
-    			<OmniBox
-            	data={Array.from(dataList)}
-            	updateDataList={this.updateDataList}/>
+    			
           		{listView}
         	</View>
         )
