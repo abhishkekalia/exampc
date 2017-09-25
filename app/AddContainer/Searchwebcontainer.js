@@ -6,6 +6,7 @@ import {
 	View, 
 	NetInfo 
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import Autocomplete from './Autocomplete';
 
 class Searchwebcontainer extends Component {
@@ -15,9 +16,11 @@ class Searchwebcontainer extends Component {
 		return (
 			<View>
 				<Text style={styles.titleText}> {container_no}</Text>
-				<TouchableOpacity>
+
+				<TouchableOpacity onPress={ ()=> Actions.CaptureConfig({c_id : job_id , container_no : container_no}) }>
 					<Text style={styles.titleText}> add Image</Text>
 				</TouchableOpacity>
+
 			</View>
 		);
 	}
@@ -83,7 +86,6 @@ class Searchwebcontainer extends Component {
 						Searchwebcontainer.renderFilm(dataSource[0])
 					) : (
 						<Text style={styles.infoText}>
-							Enter container_no of a Star Wars movie
 						</Text>
 					)}
 				</View>

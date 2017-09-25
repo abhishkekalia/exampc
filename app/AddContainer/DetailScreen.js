@@ -7,41 +7,37 @@ import { Text,
     StyleSheet,
     Dimensions
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
-
 import SezServices from '../SezServices';
+
 const window = Dimensions.get('window');
 
 export default class DetailScreen extends React.Component {
-static navigationOptions = {
-         header: null
-    };
-    render() {
-        const { navigate } = this.props.navigation;
 
-        const { params } = this.props.navigation.state;
-        const c_id = params.c_id;
-        const c_no = params.container_no;
+    render() {
+
+        const { c_id, container_no } = this.props
         
         return (
             <View style= {styles.container}>
                 <View style={styles.horizontalCross} >
                     <Text style = {styles.containerTitle}>Container No :</Text>
-                    <Text style = {styles.containerNo}>{c_no}</Text>
+                    <Text style = {styles.containerNo}>{container_no}</Text>
 
-                    <TouchableOpacity onPress ={() => navigate('containerview', {c_id : c_id, c_no : c_no, type : 'seal'}) } style = {[styles.iconSeal, styles.seprate]}>
+                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'seal'}) } style = {[styles.iconSeal, styles.seprate]}>
                     <Text style = {styles.iconText}>Seal</Text>
                         <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => navigate('containerview', {c_id : c_id, c_no : c_no, type : 'door'}) } style = {[styles.iconSeal, styles.seprate]}>
+                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'door'}) } style = {[styles.iconSeal, styles.seprate]}>
                     <Text style = {styles.iconText}>Door</Text>
                         <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => navigate('containerview', {c_id : c_id, c_no : c_no, type : 'inside'}) } style = {[styles.iconSeal, styles.seprate]}>
+                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'inside'}) } style = {[styles.iconSeal, styles.seprate]}>
                     <Text style = {styles.iconText}>Inside</Text>
                         <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => navigate('containerview', {c_id : c_id, c_no : c_no, type : 'outside'}) } style = {[styles.iconSeal, styles.seprate]}>
+                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'outside'}) } style = {[styles.iconSeal, styles.seprate]}>
                     <Text style = {styles.iconText}>Outside</Text>
                         <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
                     </TouchableOpacity>

@@ -8,9 +8,8 @@ import {
 	ToastAndroid,
 	Button
 } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-
 import Utils from '../Utils';
+import { Actions } from 'react-native-router-flux';
 
 import SezModel from '../SezModel';
 import SezServices from '../SezServices'
@@ -51,14 +50,12 @@ export default class InsertContainer extends Component{
 		 let uuid = Utils.guid();
 			SezServices.save(new SezModel( uuid ,text))
 			ToastAndroid.show(this.state.toastMsg, ToastAndroid.LONG);
-
-			navigate('detailScreen', { c_id : uuid, container_no :text })
+			Actions.DetailScreen({ c_id : uuid, container_no :text });
+//			navigate('detailScreen', { c_id : uuid, container_no :text })
 		}
 	}
 	
-	static navigationOptions = {
-		 header: null
-	};
+
 	render(){
 		var text = this.state.text;
 		const { navigate } = this.props.navigation;
@@ -114,11 +111,3 @@ const styles = StyleSheet.create({
 
 });
 
-const AddDetails = StackNavigator({
-    insertcontainer: { screen: InsertContainer },
-    detailScreen: { screen: DetailScreen },
-	containerview: { screen: ContainerView },
-
-});
-
-module.exports = AddDetails;

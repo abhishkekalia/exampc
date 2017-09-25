@@ -8,14 +8,10 @@ import {
 	 } from 'react-native';
 
 import SezModel from './SezModel';
-import OmniBox from './OmniBox';
 import SortableListView from 'react-native-sortable-listview';
 import ListViewItem from './ListViewItem';
 import SezServices from './SezServices';
-import { StackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import DetailScreen from './AddContainer/DetailScreen';
-import ContainerView from './AddContainer/ContainerView';
 
 
 let dataList = SezServices.findAll();
@@ -78,14 +74,6 @@ class ListView extends Component {
 		return this.state.result;
 	}
 
-	static navigationOptions = {
-		    headerStyle: { 
-		    	backgroundColor: '#6a5acd', 
-		    	opacity : 0.3, 
-		    },
-
-	};
-
 	render() {
 		const { navigate } = this.props.navigation;
 		let listView = (<View></View>);
@@ -117,12 +105,4 @@ class ListView extends Component {
     }
 }
 
-
-const ContainerShow = StackNavigator({
-    container: { screen: ListView },
-    Detail: { screen: DetailScreen },
-    containerview: { screen: ContainerView },
-});
-
-
-module.exports = ContainerShow;
+module.exports = ListView;

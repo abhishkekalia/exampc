@@ -7,6 +7,7 @@ import {
   TextInput,
   View
 } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 class Autocomplete extends Component {
   static propTypes = {
@@ -135,8 +136,8 @@ const androidStyles = {
     ...border,
     margin: 10,
     borderColor: '#a9a9a9',
-    borderRadius:20, 
-    borderWidth: 1,
+    borderRadius:10, 
+    borderWidth: 2,
   },
   list: {
     ...border,
@@ -171,7 +172,6 @@ const iosStyles = {
 
 const styles = StyleSheet.create({
   input: {
-    backgroundColor: 'white',
     height: 40,
     paddingLeft: 3
   },

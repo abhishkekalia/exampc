@@ -68,7 +68,6 @@ class Login extends Component {
                     <Button onPress={() => this.onSubmit()} title= 'Login' color= '#6a5acd' style= {{fontSize: 20, color: 'green' }}/>
 
                     {errorStatus ? <Text style={styles.errorText}>{errorStatus}</Text> : undefined}
-                    {this.state.error != '' ? <Text style={styles.errorText}>{this.state.error} </Text> : <Text></Text>}
                     {loading ? <Loader/> : undefined}
                 </View>
             </View>
@@ -95,16 +94,23 @@ class Login extends Component {
             this.setState({
                 error : res.status
             }) 
-                //alert(res.status) 
-            } else { 
+
+            MessageBarManager.showAlert({ 
+                message: res.status,
+                alertType: 'error',
+                }) 
+        } else { 
                 AsyncStorage.setItem('jwt', res.session_id)
                 
                 AsyncStorage.setItem('Uid', res.user.image) 
 
                 Actions.home();
-            //    console.warn(JSON.stringify(res))
-            //  Redirect to home screen
-            // this.props.navigator.pop()
+
+                MessageBarManager.showAlert({
+                
+                message: 'login success',
+                alertType: 'success',
+                })
             }
         })
         .catch(() => { 

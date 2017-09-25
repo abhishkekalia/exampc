@@ -18,23 +18,12 @@ import ControlPanel from './panel';
 export default class ContainerView extends Component{
 	constructor(props){
 		super(props);
-	  	const { params } = this.props.navigation.state;
 		this.state={
-			c_id : params.c_id,
-      container_no : params.c_no,
-      type : params.type
+			c_id : this.props.c_id,
+      container_no : this.props.c_no,
+      type : this.props.capt
 		}
 	}
-	static navigationOptions = ({ navigation }) => ({
-    title: `Click Image For Container Nu ${navigation.state.params.container_no}`,
-    headerStyle: { position: 'absolute', backgroundColor: '#fff', opacity : 0.1, zIndex: 100, top: 0, left: 0, right: 0 },
-  	headerTitleStyle: { color: '#fff' },
-  	headerBackTitleStyle: {
-            color: 'white',
-        },
-             header: null
-
-  });
   render() {
     return (
     	<View style={styles.container}>
