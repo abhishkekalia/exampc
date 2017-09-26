@@ -4,8 +4,10 @@ import {
 	Text, 
 	TouchableOpacity, 
 	View, 
-	NetInfo 
+	NetInfo,
+	AsyncStorage 
 } from 'react-native';
+import { MessageBarManager } from 'react-native-message-bar';
 import { Actions } from 'react-native-router-flux';
 import Autocomplete from './Autocomplete';
 
@@ -29,7 +31,8 @@ class Searchwebcontainer extends Component {
 		super(props);
 		this.state = {
 			dataSource : [],
-			query: ''
+			query: '',
+			result : ''
 		};
 	}
 
@@ -38,17 +41,28 @@ class Searchwebcontainer extends Component {
 		if (query === '') {
 			return [];
 		}
+		
 		fetch(`http://jr.econ14.com/api/containers?id=${this.state.id}&search=${this.state.query}`, { 
-			method: "GET",headers: { 
+			method: "GET",
+			headers: { 
 				'Accept': 'application/json', 
-				'Content-Type': 'application/json' 
+				'Content-Type': 'application/json',
+				// 'Authorization' : this.state.result 
 			}   
 		}) 
 		.then((response) => response.json())
-		.then((responseData) => { 
-			this.setState({ 
-				dataSource: responseData.containers 
-			}); 
+		.then((responseData) => {
+
+			if (responseData.status) {
+				MessageBarManager.showAlert({ 
+	                message: responseData.message,
+	                alertType: 'info',
+	            }) 
+			}else{ 
+				this.setState({ 
+					dataSource: responseData.containers 
+				}); 
+			}
 		}) 
 		// .then( (js)=> console.warn(JSON.stringify(this.state.dataSource)))                                                                                                                                                                                                                                                                                                                                                             
         .done();
@@ -59,6 +73,9 @@ class Searchwebcontainer extends Component {
 	}
 
 	render() {
+		var token = AsyncStorage.getItem('jwt', (result) => {
+			this.setState({result}) 
+		});
 		const { query } = this.state;
 		const dataSource = this.findContainer(query);
 		const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();

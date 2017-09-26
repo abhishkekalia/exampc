@@ -10,7 +10,7 @@ import { Text,
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import SezServices from '../SezServices';
-
+import CameraController from './CameraController'
 const window = Dimensions.get('window');
 
 export default class DetailScreen extends React.Component {
@@ -23,24 +23,9 @@ export default class DetailScreen extends React.Component {
             <View style= {styles.container}>
                 <View style={styles.horizontalCross} >
                     <Text style = {styles.containerTitle}>Container No :</Text>
-                    <Text style = {styles.containerNo}>{container_no}</Text>
+                    <Text style = {styles.containerNo}>{container_no} {c_id}</Text>
 
-                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'seal'}) } style = {[styles.iconSeal, styles.seprate]}>
-                    <Text style = {styles.iconText}>Seal</Text>
-                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'door'}) } style = {[styles.iconSeal, styles.seprate]}>
-                    <Text style = {styles.iconText}>Door</Text>
-                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'inside'}) } style = {[styles.iconSeal, styles.seprate]}>
-                    <Text style = {styles.iconText}>Inside</Text>
-                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress ={() => Actions.ContainerView({ c_id : c_id, c_no : container_no , capt : 'outside'}) } style = {[styles.iconSeal, styles.seprate]}>
-                    <Text style = {styles.iconText}>Outside</Text>
-                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-                    </TouchableOpacity>
+                    <CameraController/>
                 </View>
                 
 

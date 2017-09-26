@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {Actions} from 'react-native-router-flux';
 import { MessageBarManager } from 'react-native-message-bar';
 import Loader from '../../common/Loader';
-import { StyleSheet, 
+import { 
+    StyleSheet, 
     View, 
     Text, 
     TextInput, 
@@ -12,7 +13,9 @@ import { StyleSheet,
     Button,
     AsyncStorage
 } from 'react-native';
-import { container, 
+
+import { 
+    container, 
     errorText, 
     logo, 
     logocont, 
@@ -91,10 +94,6 @@ class Login extends Component {
         .then((response) => response.json()) 
         .then((res) => { 
             if (res.status) {
-            this.setState({
-                error : res.status
-            }) 
-
             MessageBarManager.showAlert({ 
                 message: res.status,
                 alertType: 'error',
@@ -102,7 +101,7 @@ class Login extends Component {
         } else { 
                 AsyncStorage.setItem('jwt', res.session_id)
                 
-                AsyncStorage.setItem('Uid', res.user.image) 
+                AsyncStorage.setItem('Uid',res.credential.username) 
 
                 Actions.home();
 

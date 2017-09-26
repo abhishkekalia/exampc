@@ -27,6 +27,9 @@ import ContainerView from './AddContainer/ContainerView'
 import DetailScreen from './AddContainer/DetailScreen'
 import Searchwebcontainer from './AddContainer/Searchwebcontainer'
 import SinkListViewItem from './syncable/SinkListViewItem'
+import Intro from './messagebar/Intro';
+import MessageBar from './messagebar/MessageBar';
+import Menu from './menu/Menu';
 
 
 import Launch from '../components/Launch';
@@ -35,14 +38,12 @@ import Login from '../components/Login';
 import Login2 from '../components/Login2';
 import Login3 from '../components/Login3';
 import Home from '../components/Home';
-import DrawerContent from '../components/drawer/DrawerContent';
 import TabView from '../components/TabView';
 import TabIcon from '../components/TabIcon';
 import EchoView from '../components/EchoView';
-import MessageBar from '../components/MessageBar';
 import ErrorModal from '../components/modal/ErrorModal';
 import DemoLightbox from '../components/lightbox/DemoLightbox';
-import MenuIcon from '../images/menu_burger.png';
+import MenuIcon from '../images/menu_b.png';
 
 
 const reducerCreate = params => { 
@@ -72,63 +73,19 @@ const Routes = (loading, needSignIn) => (
                     hideNavBar 
                     key="root" 
                     titleStyle={{ alignSelf: 'center' }} > 
-                        <Scene key="echo" back clone component={EchoView} getTitle={({ navigation }) => navigation.state.key} /> 
                         <Scene key="login" component={LoginPage} title="login" initial /> 
-
-                            <Stack 
-                            back 
-                            backTitle="Back" 
-                            key="register" 
-                            duration={0}
-                            > 
-                                <Scene key="_register" component={Register} title="Register" /> 
-                                <Scene key="register2" component={Register} title="Register2" /> 
-                            </Stack>
 
                             <Drawer 
                             hideNavBar 
                             key="home" 
-                            contentComponent={DrawerContent} 
+                            contentComponent={Menu} 
                             drawerImage={MenuIcon}> 
 
                                 <Scene hideNavBar> 
-                                    <Stack 
-                                    key="add"
-                                    title="Add Containers"
-                                    tabBarLabel="Add"
-                                    inactiveBackgroundColor="#FFF"
-                                    activeBackgroundColor="#DDD"
-                                    icon={TabIcon}
-                                    navigationBarStyle={{ backgroundColor: '#6a5acd' }}
-                                    titleStyle={{ color: 'white', alignSelf: 'center' }}> 
-                                        
-                                        <Scene
-                                        key="add_items"
-                                        component={InsertContainer}
-                                        title="Tab #1_1"
-                                        onRight={() => alert('Right button')}
-                                        rightTitle="ysearch"/> 
-
-                                        <Scene
-                                        key="DetailScreen"
-                                        component={DetailScreen}
-                                        title="DetailScreen"
-                                        back
-                                        titleStyle={{ color: 'black', alignSelf: 'center' }}/>
-
-                                        <Scene
-                                        key="ContainerView"
-                                        component={ContainerView}
-                                        title="capture"
-                                        back
-                                       navigationBarStyle={{ backgroundColor: '#000', opacity :0.3 }}
-
-                                        titleStyle={{ color: 'black', alignSelf: 'center' }}/>
-                                    </Stack>
+                                    
 
                                     <Stack
                                     key="listview"
-                                    title="Containers"
                                     icon={TabIcon}
                                     navigationBarStyle={{ backgroundColor: '#6a5acd' }}
                                     initial>
@@ -136,10 +93,10 @@ const Routes = (loading, needSignIn) => (
                                         <Scene
                                         key="listview"
                                         component={ListView}
-                                        title="containers"
                                         onRight={() => {Actions.search()}}
                                         titleStyle={{ color: '#fff', alignSelf: 'center' }}
-                                        rightTitle="Search"/>
+                                        rightTitle="Search"
+                                        rightButtonTintColor='#fff'/>
                         
                                         <Scene 
                                         key="tab_2_2" 
@@ -165,13 +122,14 @@ const Routes = (loading, needSignIn) => (
                                         />
                                     </Stack> 
 
-                                    <Stack key="tab_4">
+                                    <Stack key="intro">
                                         <Scene 
-                                        key="tab_4_1" 
-                                        component={TabView} 
+                                        key="intro" 
+                                        component={Intro} 
                                         title="Tab #4" 
                                         hideNavBar 
                                         icon={TabIcon} />
+
                                     </Stack>
 
                                     <Stack key="tab_5"> 
@@ -201,7 +159,6 @@ const Routes = (loading, needSignIn) => (
                     <Scene
                     key="Searchwebcontainer"
                     component={Searchwebcontainer}
-                    title="search"
                     leftTitle="Cancel"
                     onLeft={Actions.pop}
                     />
@@ -213,6 +170,14 @@ const Routes = (loading, needSignIn) => (
                     backTitle="Back"
                     panHandlers={null}
                     duration={1}/>
+
+                    <Scene
+                    key="ContainerView"
+                    component={ContainerView}
+                    title="capture"
+                    back
+                    navigationBarStyle={{ backgroundColor: '#000', opacity :0.3 }}
+                    titleStyle={{ color: 'black', alignSelf: 'center' }}/>
 
                     <Scene 
                     key="loginModal3" 

@@ -1,57 +1,81 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Actions} from 'react-native-router-flux';
-
-import {
+import { 
     Dimensions, 
     StyleSheet, 
     ScrollView, 
     View, 
     Image, 
     Text,
+    ViewPropTypes,
+    Button,
+    AsyncStorage,
+    TouchableHighlight
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { StackNavigator } from 'react-navigation';
+import Zocial from 'react-native-vector-icons/Zocial';
 
 const window = Dimensions.get('window');
- 
-export default function Menu({ onItemSelected }) { 
-    return (
-        <ScrollView scrollsToTop={false} style={styles.menu}>
-            <View style={styles.avatarContainer}>
-                <Image
-                style={styles.avatar}
-                source={require('../img/logo21.png')}/>
-                <Text style={styles.name}>JR Roadlines</Text>
-            </View>
 
-            <Text
-            onPress={() => onItemSelected('container')}
-            style={styles.item}> < Entypo name= "home" size= {30}/>Container
-            </Text>
+class Menu extends React.Component { 
+    static propTypes = { 
+        name: PropTypes.string, 
+        sceneStyle: ViewPropTypes.style, 
+        title: PropTypes.string, 
+    } 
+    
+    state = {
+        admin : ''
+    }
 
-            <Text
-            onPress={() => onItemSelected('addcontainer')}
-            style={styles.item}> < EvilIcons name= "sc-telegram" size= {30}/>Add New Container</Text>
+    static contextTypes = { 
+        drawer: React.PropTypes.object
+    }
 
-            <Text
-            onPress={() => onItemSelected('datasink')}
-            style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
+    render() { 
+         AsyncStorage.getItem('Uid', (err, admin) => {this.setState({ admin }) });
 
-            <Text
-            onPress={Actions.flatlist}
-            style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
-        </ScrollView>
-    );
+        return ( 
+            <ScrollView scrollsToTop={false} style={styles.container}> 
+                <View style={styles.avatarContainer}> 
+                    <Image
+                    style={styles.avatar}
+                    source={require('../../app/img/logo21.png')}/>
+                    <Text style={styles.name}>JR Roadlines</Text>
+
+                    <Text style={{ color : '#fff',left :  window.width/2, fontSize : 16}} ><Zocial name='guest' color='#fff' size={30}/> {this.state.admin}</Text>
+
+                </View>
+
+                <Text
+                onPress={Actions.listview}
+                style={styles.item}> < Entypo name= "home" size= {30}/>Container </Text>
+
+                <Text
+                onPress={Actions.intro}
+                style={styles.item}> < EvilIcons name= "sc-telegram" size= {30}/>Introduction</Text>
+
+                <Text
+                onPress={Actions.sync}
+                style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
+
+                <Text
+                onPress={Actions.flatlist}
+                style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
+            </ScrollView>
+        );
+    }
 }
 
-Menu.propTypes = {
-  onItemSelected: PropTypes.func.isRequired,
-};
-
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'gray',
+    }, 
+
     menu: {
         flex: 1,
         width: window.width - 30,
@@ -75,7 +99,9 @@ const styles = StyleSheet.create({
     name: {
         position: 'absolute',
         padding : 20,
-        marginLeft : 70,
+        marginTop : 10,
+
+        marginLeft : 100,
         color : '#fff',
         fontSize : 20,
     },
@@ -89,3 +115,4 @@ const styles = StyleSheet.create({
         marginTop : 1,
     },
 });
+export default Menu;
