@@ -19,7 +19,6 @@ import {
 } from 'react-native-router-flux';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 import { connect } from 'react-redux';
-
 import LoginPage from './auth/LoginPage';
 import ListView from './ListView';
 import InsertContainer from './AddContainer/InsertContainer'
@@ -31,18 +30,7 @@ import Intro from './messagebar/Intro';
 import MessageBar from './messagebar/MessageBar';
 import Menu from './menu/Menu';
 
-
-import Launch from '../components/Launch';
-import Register from '../components/Register';
-import Login from '../components/Login';
-import Login2 from '../components/Login2';
-import Login3 from '../components/Login3';
-import Home from '../components/Home';
-import TabView from '../components/TabView';
 import TabIcon from '../components/TabIcon';
-import EchoView from '../components/EchoView';
-import ErrorModal from '../components/modal/ErrorModal';
-import DemoLightbox from '../components/lightbox/DemoLightbox';
 import MenuIcon from '../images/menu_b.png';
 
 
@@ -85,26 +73,21 @@ const Routes = (loading, needSignIn) => (
                                     
 
                                     <Stack
-                                    key="listview"
+                                    key="search"
                                     icon={TabIcon}
                                     navigationBarStyle={{ backgroundColor: '#6a5acd' }}
                                     initial>
-                                        
+                                      
                                         <Scene
-                                        key="listview"
-                                        component={ListView}
-                                        onRight={() => {Actions.search()}}
+                                        key="Searchwebcontainer"
+                                        component={Searchwebcontainer}
+                                        onRight={() => {console.log('right')}}
                                         titleStyle={{ color: '#fff', alignSelf: 'center' }}
-                                        rightTitle="Search"
-                                        rightButtonTintColor='#fff'/>
+                                         rightTitle=""
+                                        rightButtonTintColor='#fff'
+                                        />
                         
-                                        <Scene 
-                                        key="tab_2_2" 
-                                        component={TabView}
-                                        title="Tab #2_2" 
-                                        onBack={() => alert('onBack button!')} 
-                                        backTitle="Back!" 
-                                        panHandlers={null}/>
+                                        
                                     </Stack> 
 
                                     <Stack
@@ -132,25 +115,14 @@ const Routes = (loading, needSignIn) => (
 
                                     </Stack>
 
-                                    <Stack key="tab_5"> 
-                                        <Scene 
-                                        key="tab_5_1" 
-                                        component={TabView} 
-                                        title="Tab #5" 
-                                        icon={TabIcon} />
-                                    </Stack>
                                 </Scene>
                             </Drawer>
-                        </Stack>
+                            </Stack>
 
-                    <Scene 
-                    key="demo_lightbox" 
-                    component={DemoLightbox} />
+                   
                 </Lightbox>
 
-                <Scene 
-                key="error" 
-                component={ErrorModal} /> 
+                
 
                 <Stack 
                 key="search" 
@@ -179,13 +151,7 @@ const Routes = (loading, needSignIn) => (
                     navigationBarStyle={{ backgroundColor: '#000', opacity :0.3 }}
                     titleStyle={{ color: 'black', alignSelf: 'center' }}/>
 
-                    <Scene 
-                    key="loginModal3" 
-                    hideNavBar 
-                    component={Login3} 
-                    title="Login3" 
-                    panHandlers={null} 
-                    duration={1}/> 
+                    
                 </Stack> 
             </Modal> 
             <Scene component={MessageBar} /> 

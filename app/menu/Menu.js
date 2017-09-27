@@ -34,6 +34,13 @@ class Menu extends React.Component {
     static contextTypes = { 
         drawer: React.PropTypes.object
     }
+    signOut(){
+        let keys = ['jwt', 'Uid'];
+        AsyncStorage.multiRemove(keys, (err) => {
+        })
+        Actions.root;          
+
+    }
 
     render() { 
          AsyncStorage.getItem('Uid', (err, admin) => {this.setState({ admin }) });
@@ -51,7 +58,7 @@ class Menu extends React.Component {
                 </View>
 
                 <Text
-                onPress={Actions.listview}
+                onPress={Actions.search}
                 style={styles.item}> < Entypo name= "home" size= {30}/>Container </Text>
 
                 <Text
@@ -63,7 +70,7 @@ class Menu extends React.Component {
                 style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
 
                 <Text
-                onPress={Actions.flatlist}
+                onPress={Actions.root}
                 style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
             </ScrollView>
         );

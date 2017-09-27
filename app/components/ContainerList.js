@@ -15,37 +15,58 @@ import {
       RefreshControl
   } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Icons from 'react-native-vector-icons/MaterialIcons';
 
-var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
+import SezModel from '../SezModel';
+import SezServices from '../SezServices';
 
-var CameraController = React.createClass({
+let dataList = SezServices.findAll();
+var dataListOrder = getOrder(dataList);
+
+function getOrder(list) {
+  return Object.keys(list);
+}
+
+function moveOrderItem(listView, fromIndex, toIndex) {
+  Utils.move(dataListOrder, parseInt(fromIndex), parseInt(toIndex));
+  if (listView.forceUpdate) listView.forceUpdate();
+}
+
+var ContainerList = React.createClass({
     getInitialState: function() {
         return {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
-
+            loaded: false,
+            toggle : false,
+            refreshing: false,
         };
     },
 
-    componentDidMount: function() {
+    componentDidMount : function() {
+   this.fetchData()
+    },
+
+    fetchData :function (){ 
+        this.setState({
+            dataSource: this.state.dataSource.cloneWithRows(dataList),
+            refreshing: false
+        });        
+    },
+    
+    _onRefresh :function () {
+        this.setState({refreshing: true});
         this.fetchData();
     },
-
-    fetchData:function (){
-        fetch(REQUEST_URL)
-        .then((response) => response.json())
-        .then((responseData) => {
-            this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(responseData.job_types),
-        });
-        }).done();
-    },
-
+    
     render: function() {
-        const {c_id , c_no } = this.props
         return (
-      <ListView 
+      <ListView
+      refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh} />
+        } 
         dataSource={this.state.dataSource}
         renderRow={this.renderData}
         renderSeparator={this._renderSeparator}
@@ -56,16 +77,15 @@ var CameraController = React.createClass({
         );
     },
 
-    renderData: function(job_types, rowData, sectionID, rowID, index) {
+    renderData: function(data, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView() }> 
-
+            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.CaptureConfig({ c_id : data.c_id, container_no : data.container_no }) }>
             <View style={styles.row}>
             <View>
-                                    <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
+            <Icons name= 'local-shipping'  size={25} color='#000'/>
 
             </View>
-            <Text style={styles.textQue}>{job_types.type}</Text>
+            <Text style={styles.textQue}>{data.container_no}</Text>
             </View>
             </TouchableOpacity>
             );
@@ -88,7 +108,8 @@ var styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF'
+        backgroundColor: '#F5FCFF',
+        top : 10
     },
 
     row: {
@@ -139,4 +160,4 @@ var styles = StyleSheet.create({
         fontWeight : 'bold'
     }
 });
-export default CameraController;
+export default ContainerList;

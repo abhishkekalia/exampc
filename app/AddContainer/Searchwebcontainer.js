@@ -10,10 +10,11 @@ import {
 import { MessageBarManager } from 'react-native-message-bar';
 import { Actions } from 'react-native-router-flux';
 import Autocomplete from './Autocomplete';
+import ContainerList from '../components/ContainerList'
 
 class Searchwebcontainer extends Component {
 	static renderFilm(jrc) {
-		const { container_no, id, job_id } = jrc;
+		const { container_no, id, job_id, job_no } = jrc;
 
 		return (
 			<View>
@@ -86,12 +87,14 @@ class Searchwebcontainer extends Component {
 					autoCapitalize="none"
 					autoCorrect={false}
 					containerStyle={styles.autocompleteContainer}
-					data={dataSource.length === 1 && comp(query, dataSource[0].container_no) ? [] : dataSource}
+					data={dataSource.length === 1 && comp(query, dataSource[0].container_no, ) ? [] : dataSource}
 					defaultValue={query}
 					onChangeText={text => this.setState({ query: text })}
 					placeholder="Enter Container Number"
-					renderItem={({ container_no, release_date }) => (
-						<TouchableOpacity onPress={() => this.setState({ query: container_no })}>
+					renderItem={({ container_no, job_id, release_date }) => (
+						<TouchableOpacity 
+						onPress={() =>Actions.CaptureConfig({ c_id : job_id , container_no : container_no}) }
+						>
 							<Text style={styles.itemText}>
 								{container_no} 
 							</Text>
@@ -102,8 +105,8 @@ class Searchwebcontainer extends Component {
 					{dataSource.length > 0 ? (
 						Searchwebcontainer.renderFilm(dataSource[0])
 					) : (
-						<Text style={styles.infoText}>
-						</Text>
+					<ContainerList/>
+
 					)}
 				</View>
 			</View>
@@ -124,7 +127,8 @@ const styles = StyleSheet.create({
 		position			: 'absolute',
 		right				: 0,
 		top 				: 0,
-		zIndex				: 1
+		zIndex				: 1,
+		backgroundColor 	: '#6a5acd'
 	},
 
 	itemText	: {
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
 
 	descriptionContainer	: {
 		backgroundColor		: '#F5FCFF',
-		marginTop			: 25,
+		marginTop			: 30,
 	},
 
 	infoText	: {

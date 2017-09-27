@@ -90,7 +90,6 @@ class ListView extends Component {
 				}
 				onRowMoved={e => moveOrderItem(this, e.from, e.to)}
 	        	renderRow={(dataItem, section, index) => <ListViewItem callback={this.getResponse.bind(this)} 
-	        	gotonext = {() => navigate('Detail', { c_id : this.movedItem() , container_no : this.movedItem()})} 
 	        	data={dataItem} onCompletedChange={this._onCompletedChange}/>}
 	        	/>
 	        );

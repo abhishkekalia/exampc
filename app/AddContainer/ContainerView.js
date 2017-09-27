@@ -8,7 +8,8 @@ import {
 	ToastAndroid,
     ActivityIndicator,
     StatusBar,
-    TouchableOpacity
+    TouchableOpacity,
+    AsyncStorage
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
@@ -20,31 +21,36 @@ import SezServices from '../SezServices';
 import CaptureModel from '../CaptureModel';
 import { LineDotsLoader } from 'react-native-indicator';
 
-export default class ContainerView extends Component{
-	constructor(props){
-		super(props);
-		this.state={
-			c_id : this.props.c_id,
+const PicturePath = "";
+
+export default class ContainerView extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            result : '',
+            c_id : this.props.c_id,
             container_no : this.props.c_no,
             type : this.props.capt,
-            data : '',
             loading : false
-		}
-	} 
+        }
+    } 
 
-    render() { 
-        return ( 
-            <View style={styles.container}>
+  render() {
+    var token = AsyncStorage.getItem('jwt', (result) => {
+            this.setState({result}) 
+        });
+    return (
+      <View style={styles.container}>
+       <Camera
+           ref={(cam) => {
+             this.camera = cam;
+           }}
+           style={styles.preview}
+           aspect={Camera.constants.Aspect.fill}
+           orientation={Camera.constants.Orientation.auto}
+           captureTarget={Camera.constants.CaptureTarget.disk}/>
 
-                <Camera 
-        		ref={(cam) => {
-                this.camera = cam; }}
-                style={styles.preview} 
-                aspect={Camera.constants.Aspect.fill}/>
-
-                
-
-                <View style={[styles.overlay, styles.bottomOverlay]}>
+       <View style={[styles.overlay, styles.bottomOverlay]}>
                    {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
                     <TouchableOpacity 
                     style={styles.miniButton} 
@@ -60,43 +66,66 @@ export default class ContainerView extends Component{
 
                     <TouchableOpacity 
                     style={styles.miniButton} 
-                    onPress= {this.successPress.bind(this)}>
+                    onPress= {this.storePicture.bind(this)}>
                         <MaterialIcons name= 'done'  size={35} color='#6495ed'/>
                     </TouchableOpacity>
-                </View> 
-            </View>
-        );
-    }
+                </View>
+      </View> 
+    );
+  }
 
-    takePicture() {
+  storePicture(){
+      console.log( PicturePath );
+      if (PicturePath) {
+        var data = new FormData();
+        data.append('picture', { uri: PicturePath, name: 'selfie.jpg', type: 'image/jpg'});
+
+        const config = {
+         method: 'POST',
+         headers: {
+           'Accept': 'application/json',
+           'Content-Type': 'multipart/form-data;',
+           // 'Authorization': ,
+         },
+         body: data,
+        }
+        console.warn(this.state.result);
+
+        fetch("http://jr.econ14.com/api/file", config)
+         .then((responseData) => {
+             // Log the response form the server
+             // Here we get what we sent to Postman back
+             console.warn(responseData);
+         })
+         .catch(err => {
+           console.log(err);
+         })
+    }
+  }
+
+  takePicture() {
     this.setState({
         loading : true
-    }) 
-        const options = {};
-        //options.location = ...
-        this.camera.capture({metadata: options})
-        .then((data) => this.setState({
-            data : data.path
-        }) )
-        .catch(err => console.error(err));
+    });
 
-        setTimeout(()=> { 
+   this.camera.capture()
+     .then((data) => {
+         console.log(data);
+         PicturePath = data.path;
+     })
+     .catch(err => console.error(err));
+
+    setTimeout(()=> { 
             this.setState({ 
                 loading : false 
             })
         }, 1000)
-         
-    }
-
-    cancelPress () {
-        this.setState({
-            data : ''
-        });
+  }
+  cancelPress () {
+        // this.setState({
+        //     data : ''
+        // });
         Actions.pop();
-    }
-    
-    successPress () {
-    SezServices.capture_save(new CaptureModel( this.state.c_id , this.state.data, this.state.type ))
     }
 }
 

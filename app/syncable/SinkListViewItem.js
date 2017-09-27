@@ -64,14 +64,9 @@ export default class SinkListViewItem extends Component {
         this.fetchPhotos(PHOTOS_COUNT_BY_FETCH, this.lastPhotoFetched);
     }
 
-    getDemo () {
-        console.warn('helo');
-    }
+
 
     render() {
-//    console.warn(JSON.stringify(this.state.dataSource))
-
-let icon = ( this.state.securesend == true ? <MaterialCommunityIcons name ='send-secure' size= {30}/> : '');
         return (
             <View style={styles.container}>
                 <ListView
@@ -81,13 +76,10 @@ let icon = ( this.state.securesend == true ? <MaterialCommunityIcons name ='send
                     showsVerticalScrollIndicator={false}
                     renderRow={(_dataBlob , image) => {return (
                         <View style= {styles.seprate}>
-                        <TouchableOpacity onLongPress = { ()=>{ this.getDemo()}}>
-                            <Text style={styles.textQue}>{SezServices.getData(_dataBlob.c_id)}</Text>
                             <Text style={styles.textQue}>{_dataBlob.type}</Text>
 
                             <Image style={styles.image} source={{ uri: _dataBlob.Uri }} />
                             
-                        </TouchableOpacity>
                         </View>
                 )}}/>
             </View>

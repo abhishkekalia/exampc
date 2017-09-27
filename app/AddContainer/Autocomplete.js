@@ -137,7 +137,7 @@ const androidStyles = {
     margin: 10,
     borderColor: '#a9a9a9',
     borderRadius:10, 
-    borderWidth: 2,
+    borderWidth: 1,
   },
   list: {
     ...border,
