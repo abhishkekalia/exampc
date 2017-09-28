@@ -7,7 +7,7 @@ const CaptureSchema = {
     primaryKey  : 'id',
     properties  : {
         id          : { type : 'string', indexed : true },
-        c_id        : { type : 'string' },
+        job_id        : { type : 'string' },
         Uri         : 'string',
         type        : 'string',
         completed   : 'bool',
@@ -20,6 +20,7 @@ const ContainerSchema = {
     primaryKey  : 'id',
     properties  : {
         id          : { type : 'string', indexed : true},
+        job_id      : 'string',
         container_no: 'string',
         completed   : 'bool',
         createdAt   : 'date',

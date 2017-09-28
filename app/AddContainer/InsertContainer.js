@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import SezModel from '../SezModel';
 import SezServices from '../SezServices'
 import ContainerView from './ContainerView';
-import DetailScreen from './DetailScreen';
+import CaptureConfig from './CaptureConfig';
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 

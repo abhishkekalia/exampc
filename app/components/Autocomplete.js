@@ -136,7 +136,7 @@ const androidStyles = {
     ...border,
     margin: 10,
     borderColor: '#a9a9a9',
-    borderRadius:10, 
+    borderRadius:30, 
     borderWidth: 1,
   },
   list: {
@@ -173,7 +173,7 @@ const iosStyles = {
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    paddingLeft: 3
+    paddingLeft: 20
   },
   ...Platform.select({
     android: { ...androidStyles },

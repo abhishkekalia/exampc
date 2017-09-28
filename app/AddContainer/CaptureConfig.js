@@ -12,29 +12,32 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import SezModel from '../SezModel';
 import SezServices from '../SezServices';
 
-import CameraController from './CameraController'
+import CameraController from './CameraController';
+import Utils from '../Utils';
+
+let uuid = Utils.guid();
+
 const window = Dimensions.get('window');
 
-export default class DetailScreen extends React.Component {
+export default class CaptureConfig extends React.Component {
     constructor(props){
         super(props);
+        this.state={
+            job_id : this.props.job_id,
+            container_no : this.props.container_no,
+        }
 
     }
-    componentWillMount(){
-            SezServices.save(new SezModel(this.props.c_id , this.props.container_no))
-    }
-
     render() {
+        const { job_id, container_no } = this.state
 
-        const { c_id, container_no } = this.props
-        
         return (
             <View style= {styles.container}>
                 <View style={styles.horizontalCross} >
                     <Text style = {styles.containerTitle}>Container No :</Text>
                     <Text style = {styles.containerNo}>{container_no}</Text>
 
-                    <CameraController c_id={c_id} c_no={container_no}/>
+                    <CameraController job_id = {job_id} container_no = {container_no}/>
                 </View>
                 
 

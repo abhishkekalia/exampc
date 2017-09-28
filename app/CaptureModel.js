@@ -1,9 +1,9 @@
 import Utils from './Utils';
 
 class CaptureModel {
-  constructor( c_id, uri, type , completed ) {
+  constructor( job_id, uri, type , completed ) {
     this.id 			= 	Utils.guid();
-    this.c_id 			= 	c_id;
+    this.job_id 		= 	job_id;
     this.Uri 			= 	uri;
     this.type 			= 	type;
     this.completed 		= 	completed || false;

@@ -16,6 +16,8 @@ import {
   } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ImagesView from './ImagesView'
 
 var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 
@@ -24,7 +26,7 @@ var CameraController = React.createClass({
         return {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
-
+            job_id : this.props.job_id
         };
     },
 
@@ -58,13 +60,16 @@ var CameraController = React.createClass({
 
     renderData: function(job_types, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView() }> 
+            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView({ job_id : this.state.job_id, capt : job_types.type}) }> 
 
             <View style={styles.row}>
             <View>
             <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
             </View>
             <Text style={styles.textQue}>{job_types.type}</Text>
+            <ImagesView job_id={this.state.job_id} type={job_types.type} />
+            <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
+
             </View>
             </TouchableOpacity>
             );

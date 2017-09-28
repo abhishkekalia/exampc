@@ -21,10 +21,9 @@ import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyl
 import { connect } from 'react-redux';
 import LoginPage from './auth/LoginPage';
 import ListView from './ListView';
-import InsertContainer from './AddContainer/InsertContainer'
-import ContainerView from './AddContainer/ContainerView'
-import DetailScreen from './AddContainer/DetailScreen'
-import Searchwebcontainer from './AddContainer/Searchwebcontainer'
+import ContainerView from './components/ContainerView'
+import CaptureConfig from './components/CaptureConfig'
+import Searchwebcontainer from './components/Searchwebcontainer'
 import SinkListViewItem from './syncable/SinkListViewItem'
 import Intro from './messagebar/Intro';
 import MessageBar from './messagebar/MessageBar';
@@ -125,20 +124,14 @@ const Routes = (loading, needSignIn) => (
                 
 
                 <Stack 
-                key="search" 
-                titleStyle={{ alignSelf: 'center' }}> 
+                key="searchItem" 
+                titleStyle={{ alignSelf: 'center' }}>
 
                     <Scene
-                    key="Searchwebcontainer"
-                    component={Searchwebcontainer}
-                    leftTitle="Cancel"
-                    onLeft={Actions.pop}
-                    />
-
-                    <Scene
-                    key="CaptureConfig"
-                    component={DetailScreen}
-                    title="DetailScreen"
+                    key="captureconfig"
+                    component={CaptureConfig}
+                    title="CaptureConfig"
+                    back
                     backTitle="Back"
                     panHandlers={null}
                     duration={1}/>

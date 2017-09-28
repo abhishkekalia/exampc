@@ -55,6 +55,8 @@ var ContainerList = React.createClass({
     },
     
     _onRefresh :function () {
+                console.warn(JSON.stringify(this.state.dataSource))
+
         this.setState({refreshing: true});
         this.fetchData();
     },
