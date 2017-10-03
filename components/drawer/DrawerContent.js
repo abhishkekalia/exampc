@@ -20,7 +20,7 @@ import Zocial from 'react-native-vector-icons/Zocial';
 
 const window = Dimensions.get('window');
 
-class Menu extends React.Component { 
+class DrawerContent extends React.Component { 
     static propTypes = { 
         name: PropTypes.string, 
         sceneStyle: ViewPropTypes.style, 
@@ -33,13 +33,6 @@ class Menu extends React.Component {
 
     static contextTypes = { 
         drawer: React.PropTypes.object
-    }
-    signOut(){
-        let keys = ['jwt', 'Uid'];
-        AsyncStorage.multiRemove(keys, (err) => {
-        })
-        Actions.root;          
-
     }
 
     render() { 
@@ -58,21 +51,19 @@ class Menu extends React.Component {
                 </View>
 
                 <Text
-                onPress={Actions.search}
+                onPress={Actions.listview}
                 style={styles.item}> < Entypo name= "home" size= {30}/>Container </Text>
 
                 <Text
-                onPress={Actions.intro}
-                style={styles.item}> < EvilIcons name= "sc-telegram" size= {30}/>Introduction</Text>
+                onPress={Actions.add}
+                style={styles.item}> < EvilIcons name= "sc-telegram" size= {30}/>Add New Container</Text>
 
                 <Text
                 onPress={Actions.sync}
                 style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
-<Text
-                onPress={Actions.testList}
-                style={styles.item}> Test</Text>
+
                 <Text
-                onPress={Actions.root}
+                onPress={Actions.flatlist}
                 style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
             </ScrollView>
         );
@@ -124,4 +115,4 @@ const styles = StyleSheet.create({
         marginTop : 1,
     },
 });
-export default Menu;
+export default DrawerContent;

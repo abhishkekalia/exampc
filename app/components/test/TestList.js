@@ -12,22 +12,22 @@ import {
       ActivityIndicator,
       ScrollView,
       Button,
+      Alert,
       RefreshControl
   } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ImagesView from './ImagesView'
+import { MessageBarManager } from 'react-native-message-bar';
 
-var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 
-var CameraController = React.createClass({
+var REQUEST_URL = 'http://jr.econ14.com/api/test/';
+
+var TestList = React.createClass({
     getInitialState: function() {
         return {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
-            job_id : this.props.job_id,
-            container_id : this.props.container_id
         };
     },
 
@@ -40,13 +40,37 @@ var CameraController = React.createClass({
         .then((response) => response.json())
         .then((responseData) => {
             this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(responseData.job_types),
+            dataSource: this.state.dataSource.cloneWithRows(responseData.crediantial),
         });
         }).done();
     },
 
+    deleteTest(id){
+        fetch(`http://jr.econ14.com/api/test/{id}`, { 
+        method: "DELETE",
+        headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }) 
+        
+        .then((response) => response.json())
+        .then((res) => { 
+            if (res.status) {
+            MessageBarManager.showAlert({ 
+                message: res.status,
+                alertType: 'error',
+                }) 
+        }
+    })
+    .catch(() => { 
+        console.log('error');
+    })
+    .done();
+    
+    },
+
     render: function() {
-        const {job_id , container_no } = this.props
         return (
       <ListView 
         dataSource={this.state.dataSource}
@@ -59,18 +83,20 @@ var CameraController = React.createClass({
         );
     },
 
-    renderData: function(job_types, rowData, sectionID, rowID, index) {
+    renderData: function(crediantial, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView({ job_id : this.state.job_id, capt : job_types.type, container_id: this.state.container_id}) }> 
+            <TouchableOpacity 
+            key={rowID} 
+            data={rowData} 
+            onLongPress={(e)=>{ 
+                Alert.alert( 'Alert', 'Are You Sure Want To Delete', 
+                [ 
+                {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, 
+                {text: 'OK', onPress: () => this.deleteTest(crediantial.id) }, ] ) }} 
+            onPress ={() => Actions.testEdit({ id : crediantial.id}) }> 
 
             <View style={styles.row}>
-            <View>
-            <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-            </View>
-            <Text style={styles.textQue}>{job_types.type}</Text>
-            <ImagesView job_id={this.state.job_id} type={job_types.type} />
-            <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
-
+                <Text style={styles.textQue}>{crediantial.name} {crediantial.lastname}</Text>
             </View>
             </TouchableOpacity>
             );
@@ -144,4 +170,5 @@ var styles = StyleSheet.create({
         fontWeight : 'bold'
     }
 });
-export default CameraController;
+
+export default TestList;

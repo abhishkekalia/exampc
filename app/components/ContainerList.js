@@ -55,7 +55,6 @@ var ContainerList = React.createClass({
     },
     
     _onRefresh :function () {
-                console.warn(JSON.stringify(this.state.dataSource))
 
         this.setState({refreshing: true});
         this.fetchData();
@@ -81,7 +80,7 @@ var ContainerList = React.createClass({
 
     renderData: function(data, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.CaptureConfig({ c_id : data.c_id, container_no : data.container_no }) }>
+            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.captureconfig({ job_id : data.job_id, container_no : data.container_no , container_id: data.container_id}) }>
             <View style={styles.row}>
             <View>
             <Icons name= 'local-shipping'  size={25} color='#000'/>

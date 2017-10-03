@@ -21,6 +21,7 @@ const ContainerSchema = {
     properties  : {
         id          : { type : 'string', indexed : true},
         job_id      : 'string',
+        container_id :'string',
         container_no: 'string',
         completed   : 'bool',
         createdAt   : 'date',
@@ -73,11 +74,15 @@ let SezServices = {
         return picture.length;
     },
 
-    getData : function (sez) {
-        const id = sez;
-        const container = repository.objects('Sez').filtered("id = '" + id + "'")
+    getPhoto : function (sez, type, sortBy) {
+        if (!sortBy) sortBy = [['completed', false]];
+
+        // const id = '40597';
+        // const type = 'Seal';
+
+        const container = repository.objects('Capture').filtered("job_id = '" + sez + "' AND type ='"+ type+"' " )
     //    console.warn(container);
-        return container[0].container_no;
+        return container;
     },
 };
 

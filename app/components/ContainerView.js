@@ -9,7 +9,8 @@ import {
     ActivityIndicator,
     StatusBar,
     TouchableOpacity,
-    AsyncStorage
+    AsyncStorage,
+    NativeModules
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
@@ -21,6 +22,8 @@ import SezServices from '../SezServices';
 import CaptureModel from '../CaptureModel';
 import { LineDotsLoader } from 'react-native-indicator';
 
+var FileUpload = require('NativeModules').FileUpload;
+
 const PicturePath = "";
 
 export default class ContainerView extends Component {
@@ -29,16 +32,18 @@ export default class ContainerView extends Component {
         this.state={
             result : '',
             job_id : this.props.job_id,
+            container_id : this.props.container_id,
             type : this.props.capt,
             loading : false
         }
     } 
 
-  render() {
+    render() {
     // var token = AsyncStorage.getItem('jwt', (result) => {
     //         this.setState({result}) 
     //     });
-    const { job_id, type } = this.state;
+    const { job_id, type, container_id } = this.state;
+
     return (
       <View style={styles.container}>
        <Camera
@@ -66,38 +71,76 @@ export default class ContainerView extends Component {
 
                     <TouchableOpacity 
                     style={styles.miniButton} 
-                    onPress= {this.storePicture.bind(this, job_id, type)}>
+                    onPress= {this.sendPicture.bind(this, job_id, type, container_id)}>
                         <MaterialIcons name= 'done'  size={35} color='#6495ed'/>
                     </TouchableOpacity>
                 </View>
       </View> 
-    );
-  }
+        );
+    } 
+
+    sendPicture(job_id, type, container_id){ 
+        const form= new FormData();    
+    
+    // body.append('job_id', job_id);
+     form.append('container_id', '520');
+    // body.append('type', type);
+
+    // body.append('fileName', { uri: PicturePath, name: 'photo.jpg',type: 'image/jpg'});
+    
+        form.append('userfile', {
+
+        uri:  PicturePath,
+
+        type: 'image/jpg', 
+
+        name: 'photo.jpg'
+
+        }); 
+
+        let xhr = new XMLHttpRequest(); 
+
+        xhr.open('post', `http://jr.econ14.com/api/upload_file`) 
+
+        xhr.send(form) 
+
+        xhr.onerror = function(e) { 
+            console.log('err', e) 
+        } 
+
+        xhr.onreadystatechange = function() {
+
+            if(this.readyState === this.DONE) { 
+                console.log(this.response)
+            }
+        }
+    }
 
   storePicture( job_id, type){
-    SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
+    // SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
 
       console.log( PicturePath );
       if (PicturePath) {
         var data = new FormData();
-        data.append('picture', { uri: PicturePath, name: 'selfie.jpg', type: 'image/jpg'});
+        data.append('job_id', job_id);
+        data.append('container_id', '154');
+        data.append('type', type);
 
-        const config = {
-         method: 'POST',
-         headers: {
-           'Accept': 'application/json',
-           'Content-Type': 'multipart/form-data;',
+        data.append('fileName', { uri: PicturePath, name: 'selfie.jpg', type: 'image/jpg'});
+
+        const config = { 
+            method: 'POST', 
+            headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'multipart/form-data;',
            // 'Authorization': ,
          },
          body: data,
         }
-        console.warn(this.state.result);
 
         fetch("http://jr.econ14.com/api/file", config)
          .then((responseData) => {
-             // Log the response form the server
-             // Here we get what we sent to Postman back
-             console.warn(responseData);
+             console.warn(JSON.stringify(responseData));
          })
          .catch(err => {
            console.log(err);
@@ -182,3 +225,5 @@ const styles = StyleSheet.create({
         padding: 5,
     },
 });
+
+// https://github.com/react-community/react-native-image-picker/issues/61

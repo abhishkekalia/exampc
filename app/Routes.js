@@ -1,7 +1,8 @@
 import React from 'react';
 import { 
     StyleSheet, 
-    Text, 
+    Text,
+    Alert, 
     View 
 } from 'react-native';
 import { 
@@ -28,6 +29,10 @@ import SinkListViewItem from './syncable/SinkListViewItem'
 import Intro from './messagebar/Intro';
 import MessageBar from './messagebar/MessageBar';
 import Menu from './menu/Menu';
+
+import TestList from './components/test/TestList'
+import Testedit from './components/test/testEdit'
+
 
 import TabIcon from '../components/TabIcon';
 import MenuIcon from '../images/menu_b.png';
@@ -113,6 +118,17 @@ const Routes = (loading, needSignIn) => (
                                         icon={TabIcon} />
 
                                     </Stack>
+                                    <Stack 
+                                    key="testList"
+                                    icon={TabIcon}
+                                    navigationBarStyle={{ backgroundColor: '#6a5acd' }}>
+                                        <Scene 
+                                        key="list" 
+                                        component={TestList}
+                                        rightTitle="Add"
+                                        icon={TabIcon} />
+
+                                    </Stack>
 
                                 </Scene>
                             </Drawer>
@@ -120,6 +136,19 @@ const Routes = (loading, needSignIn) => (
 
                    
                 </Lightbox>
+
+                <Stack 
+                key="testEdit" 
+                titleStyle={{ alignSelf: 'center' }}>
+                     <Scene
+                    key="edit"
+                    component={Testedit}
+                    title="Testedit"
+                    back
+                    backTitle="Back"
+                    panHandlers={null}
+                    duration={1}/>
+                </Stack>
 
                 
 

@@ -15,7 +15,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 let PHOTOS_COUNT_BY_FETCH = 24;
 let dataList = SezServices.findPictures();
-
 export default class ImagesView extends Component {
     constructor(props) {
         super(props);
@@ -25,12 +24,16 @@ export default class ImagesView extends Component {
         this.images = [];
         this.state = this.getDataSourceState();
         this.fetchPhotos();
-        console.warn(JSON.stringify(dataList));
+         // console.warn(JSON.stringify(dataList));
+
+         // let dada = SezServices.getPhoto(this.props.job_id, this.props.type);
+         // console.warn(JSON.stringify(dada));
+
     }
 
     getDataSourceState() {
         return {
-            dataSource: this.ds.cloneWithRows(dataList),
+            dataSource: this.ds.cloneWithRows(SezServices.getPhoto(this.props.job_id , this.props.type)),
             securesend : false
         };
     }

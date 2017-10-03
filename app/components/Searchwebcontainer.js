@@ -49,7 +49,7 @@ class Searchwebcontainer extends Component {
             dataSource: responseData.containers
         });
         })
-        // .then( (js)=> console.warn(JSON.stringify(this.state.dataSource)))                                                                                                                                                                                                                                                                                                                                                             
+         // .then( (js)=> console.warn(JSON.stringify(this.state.dataSource)))                                                                                                                                                                                                                                                                                                                                                             
         .done();
 
 
@@ -64,10 +64,10 @@ class Searchwebcontainer extends Component {
 		})
 		 Actions.CaptureConfig({job_id , job_no:job_no, container_no : container_no})
 	}
-	navigate (job_id, container_no){
+	navigate ( id, job_id, container_no){
 
-        SezServices.save(new SezModel( uuid, job_id, container_no))        
-		Actions.searchItem({ job_id: job_id, container_no : container_no})
+        SezServices.save(new SezModel( uuid, job_id, id, container_no))        
+		Actions.searchItem({ job_id: job_id, container_no : container_no, container_id : id})
 	}
 
 	 render() {
@@ -85,12 +85,12 @@ class Searchwebcontainer extends Component {
           defaultValue={query}
           onChangeText={text => this.setState({ query: text })}
           placeholder="Enter Container Number"
-          renderItem={({ container_no, job_no ,job_id}) => (
+          renderItem={({id, container_no, job_no ,job_id}) => (
             <TouchableOpacity onPress={()=> 
             	this.setState({ 
             		query: '' 
             	}, 
-            	()=>this.navigate(job_id, container_no) ) }>
+            	()=>this.navigate( id, job_id, container_no) ) }>
               <Text style={styles.itemText}>
                 {container_no} {job_no}
               </Text>

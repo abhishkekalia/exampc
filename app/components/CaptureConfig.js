@@ -25,11 +25,12 @@ export default class CaptureConfig extends React.Component {
         this.state={
             job_id : this.props.job_id,
             container_no : this.props.container_no,
+            container_id : this.props.container_id
         }
 
     }
     render() {
-        const { job_id, container_no } = this.state
+        const { job_id, container_no, container_id } = this.state
 
         return (
             <View style= {styles.container}>
@@ -37,7 +38,7 @@ export default class CaptureConfig extends React.Component {
                     <Text style = {styles.containerTitle}>Container No :</Text>
                     <Text style = {styles.containerNo}>{container_no}</Text>
 
-                    <CameraController job_id = {job_id} container_no = {container_no}/>
+                    <CameraController job_id = {job_id} container_no = {container_no} container_id = {container_id}/>
                 </View>
                 
 
