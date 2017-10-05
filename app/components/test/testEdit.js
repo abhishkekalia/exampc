@@ -24,10 +24,7 @@ import {
 var {height, width} = Dimensions.get('window');
 
 class Testedit extends Component {
-    static propTypes = {
-        errorStatus: PropTypes.string.isRequired,
-        login: PropTypes.func.isRequired
-    };
+ 
 
     constructor() {
         super();
@@ -40,6 +37,7 @@ class Testedit extends Component {
     }
 
     render() {
+        const { name, lastname, contact_nu, email } = this.props;
         return (
             <View >
                
@@ -65,7 +63,7 @@ class Testedit extends Component {
                     <TextInput
                         value={this.state.contact_nu}
                         autoCorrect={false}
-                        placeholder="Lastname"
+                        placeholder="Contact Number"
                         maxLength={140}
                         underlineColorAndroid = 'blue'
                         onSubmitEditing={() => this.onSubmit()}
@@ -74,7 +72,7 @@ class Testedit extends Component {
                     <TextInput
                         value={this.state.email}
                         autoCorrect={false}
-                        placeholder="Lastname"
+                        placeholder="Email"
                         maxLength={140}
                         underlineColorAndroid = 'blue'
                         onSubmitEditing={() => this.onSubmit()}
@@ -113,14 +111,16 @@ class Testedit extends Component {
                 MessageBarManager.showAlert({
                 
                 message: 'saved success',
-                alertType: 'success',
+                alertType: 'info',
                 })
+                Actions.pop();
             }
         })
         .catch(() => { 
             console.log('error')
         })
-        .done()
+        .done();
+
         this.setState({name: '', lastname : '', email : '', contact_nu : ''});
 
 

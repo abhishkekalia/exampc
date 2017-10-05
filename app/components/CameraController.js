@@ -17,11 +17,13 @@ import {
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ImagesView from './ImagesView'
+import ImagesView from './ImagesView';
+import TimerMixin from 'react-timer-mixin';
 
 var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 
 var CameraController = React.createClass({
+     mixins: [TimerMixin],
     getInitialState: function() {
         return {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
@@ -32,7 +34,8 @@ var CameraController = React.createClass({
     },
 
     componentDidMount: function() {
-        this.fetchData();
+        this.setTimeout( () => { this.fetchData() }, 1000 );
+        // this.fetchData();
     },
 
     fetchData:function (){
@@ -48,14 +51,14 @@ var CameraController = React.createClass({
     render: function() {
         const {job_id , container_no } = this.props
         return (
-      <ListView 
-        dataSource={this.state.dataSource}
-        renderRow={this.renderData}
-        renderSeparator={this._renderSeparator}
-        enableEmptySections={true}
-        automaticallyAdjustContentInsets={false}
-        showsVerticalScrollIndicator={false}
-        /> 
+            <ListView 
+            dataSource={this.state.dataSource}
+            renderRow={this.renderData}
+            renderSeparator={this._renderSeparator}
+            enableEmptySections={true}
+            automaticallyAdjustContentInsets={false}
+            showsVerticalScrollIndicator={false}
+            /> 
         );
     },
 

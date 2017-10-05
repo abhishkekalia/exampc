@@ -52,9 +52,7 @@ class Menu extends React.Component {
                     style={styles.avatar}
                     source={require('../../app/img/logo21.png')}/>
                     <Text style={styles.name}>JR Roadlines</Text>
-
                     <Text style={{ color : '#fff',left :  window.width/2, fontSize : 16}} ><Zocial name='guest' color='#fff' size={30}/> {this.state.admin}</Text>
-
                 </View>
 
                 <Text
@@ -68,7 +66,8 @@ class Menu extends React.Component {
                 <Text
                 onPress={Actions.sync}
                 style={styles.item}> < MaterialCommunityIcons name= "google-photos" size= {30}/>Sync</Text>
-<Text
+
+                <Text
                 onPress={Actions.testList}
                 style={styles.item}> Test</Text>
                 <Text

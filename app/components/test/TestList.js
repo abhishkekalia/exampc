@@ -28,6 +28,8 @@ var TestList = React.createClass({
         return {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
+            refreshing: false,
+
         };
     },
 
@@ -41,12 +43,20 @@ var TestList = React.createClass({
         .then((responseData) => {
             this.setState({
             dataSource: this.state.dataSource.cloneWithRows(responseData.crediantial),
+            refreshing: false
+
         });
         }).done();
     },
 
+    _onRefresh :function () {
+
+        this.setState({refreshing: true});
+        this.fetchData();
+    },
+
     deleteTest(id){
-        fetch(`http://jr.econ14.com/api/test/{id}`, { 
+        fetch(`http://jr.econ14.com/api/test/${id}`, { 
         method: "DELETE",
         headers: {
                 'Accept': 'application/json',
@@ -73,6 +83,11 @@ var TestList = React.createClass({
     render: function() {
         return (
       <ListView 
+      refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh} />
+        }  
         dataSource={this.state.dataSource}
         renderRow={this.renderData}
         renderSeparator={this._renderSeparator}
@@ -93,7 +108,13 @@ var TestList = React.createClass({
                 [ 
                 {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}, 
                 {text: 'OK', onPress: () => this.deleteTest(crediantial.id) }, ] ) }} 
-            onPress ={() => Actions.testEdit({ id : crediantial.id}) }> 
+            onPress ={
+                () => Actions.edit({ id : crediantial.id, 
+                name : crediantial.name, 
+                lastname : crediantial.lastname,
+                contact_nu : crediantial.contact_nu,
+                email : crediantial.email
+            }) }> 
 
             <View style={styles.row}>
                 <Text style={styles.textQue}>{crediantial.name} {crediantial.lastname}</Text>

@@ -10,7 +10,8 @@ import {
     StatusBar,
     TouchableOpacity,
     AsyncStorage,
-    NativeModules
+    NativeModules,
+    Modal
 } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
@@ -34,60 +35,100 @@ export default class ContainerView extends Component {
             job_id : this.props.job_id,
             container_id : this.props.container_id,
             type : this.props.capt,
-            loading : false
+            loading : false,
+
+            uploading: false,
+            showUploadModal: false,
+            uploadProgress: 0,
+            uploadTotal: 0,
+            uploadWritten: 0,
+            uploadStatus: undefined,
+            cancelled: false,
+
         }
     } 
 
-    render() {
-    // var token = AsyncStorage.getItem('jwt', (result) => {
-    //         this.setState({result}) 
-    //     });
-    const { job_id, type, container_id } = this.state;
+    uploadProgressModal() { 
+        let uploadProgress;
 
-    return (
-      <View style={styles.container}>
-       <Camera
-           ref={(cam) => {
-             this.camera = cam;
-           }}
-           style={styles.preview}
-           aspect={Camera.constants.Aspect.fill}
-           orientation={Camera.constants.Orientation.auto}
-           captureTarget={Camera.constants.CaptureTarget.disk}/>
+        if (this.state.uploading) { 
+            uploadProgress = ( 
+                <View style={{ alignItems: 'center', }}> 
+                    <Text style={ styles.title }>
+                    Uploading 
+                    </Text>
+                    <ActivityIndicator
+                    animating={this.state.animating}
+                    style={[styles.centering, { height: 100}]}
+                    size="large" />
+                    <Text>{ this.state.uploadProgress.toFixed(0) }%</Text>
+                    <Text style={{ fontSize: 11, color: 'gray', marginTop: 5, }}>
+                    </Text>
 
-       <View style={[styles.overlay, styles.bottomOverlay]}>
-                   {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
-                    <TouchableOpacity 
-                    style={styles.miniButton} 
-                    onPress={this.cancelPress.bind(this)}>
-                        <Cross name= 'cross'  size={35} color='#6495ed'/>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity 
-                    style={styles.captureButton} 
-                    onPress={this.takePicture.bind(this)}> 
-                        <Icon name="camera" size={40} color="#6a5acd" /> 
-                    </TouchableOpacity> 
-
-                    <TouchableOpacity 
-                    style={styles.miniButton} 
-                    onPress= {this.sendPicture.bind(this, job_id, type, container_id)}>
-                        <MaterialIcons name= 'done'  size={35} color='#6495ed'/>
-                    </TouchableOpacity>
+                    
                 </View>
-      </View> 
+            );
+        }
+        return uploadProgress; 
+    }
+
+
+    render() {
+    const { job_id, type, container_id } = this.state; 
+        return ( 
+            <View style={styles.container}>
+                <Modal
+                  animationType={'fade'}
+                  transparent={true}
+                  visible={this.state.showUploadModal}>
+
+                  <View style={styles.modal}>
+                    {this.uploadProgressModal()}
+                  </View>
+
+                </Modal>
+
+               <Camera
+                   ref={(cam) => {
+                     this.camera = cam;
+                   }}
+                   style={styles.preview}
+                   aspect={Camera.constants.Aspect.fill}
+                   orientation={Camera.constants.Orientation.auto}
+                   captureTarget={Camera.constants.CaptureTarget.disk}/>
+
+                <View style={[styles.overlay, styles.bottomOverlay]}>
+                       {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
+                        <TouchableOpacity 
+                        style={styles.miniButton} 
+                        onPress={this.cancelPress.bind(this)}>
+                            <Cross name= 'cross'  size={35} color='#6495ed'/>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity 
+                        style={styles.captureButton} 
+                        onPress={this.takePicture.bind(this)}> 
+                            <Icon name="camera" size={40} color="#6a5acd" /> 
+                        </TouchableOpacity> 
+
+                        <TouchableOpacity 
+                        style={styles.miniButton} 
+                        onPress= {this.storePicture.bind(this, job_id, type, container_id)}>
+                            <MaterialIcons name= 'done'  size={35} color='#6495ed'/>
+                        </TouchableOpacity>
+                </View>
+          </View> 
         );
     } 
 
     sendPicture(job_id, type, container_id){ 
         const form= new FormData();    
     
-    // body.append('job_id', job_id);
-     form.append('container_id', '520');
-    // body.append('type', type);
+     form.append('job_id', job_id);
+      form.append('type', type);
 
-    // body.append('fileName', { uri: PicturePath, name: 'photo.jpg',type: 'image/jpg'});
-    
+     form.append('container_id', container_id);
+   
         form.append('userfile', {
 
         uri:  PicturePath,
@@ -100,7 +141,7 @@ export default class ContainerView extends Component {
 
         let xhr = new XMLHttpRequest(); 
 
-        xhr.open('post', `http://jr.econ14.com/api/upload_file`) 
+        xhr.open('POST', `http://jr.econ14.com/api/picture`) 
 
         xhr.send(form) 
 
@@ -116,17 +157,24 @@ export default class ContainerView extends Component {
         }
     }
 
-  storePicture( job_id, type){
-    // SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
+  storePicture( job_id, type, container_id){
+    this.setState ({
+        showUploadModal : true,
+        uploading : true
+    })
+    SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
 
       console.log( PicturePath );
-      if (PicturePath) {
-        var data = new FormData();
-        data.append('job_id', job_id);
-        data.append('container_id', '154');
-        data.append('type', type);
-
-        data.append('fileName', { uri: PicturePath, name: 'selfie.jpg', type: 'image/jpg'});
+      if (PicturePath) { 
+        const form= new FormData(); 
+        form.append('job_id', job_id); 
+        form.append('type', type); 
+        form.append('container_id', container_id); 
+        form.append('userfile', {
+        uri:  PicturePath,
+        type: 'image/jpg', 
+        name: 'photo.jpg'
+        }); 
 
         const config = { 
             method: 'POST', 
@@ -135,12 +183,16 @@ export default class ContainerView extends Component {
                 'Content-Type': 'multipart/form-data;',
            // 'Authorization': ,
          },
-         body: data,
+         body: form,
         }
 
-        fetch("http://jr.econ14.com/api/file", config)
+        fetch("http://jr.econ14.com/api/picture", config)
          .then((responseData) => {
-             console.warn(JSON.stringify(responseData));
+            this.setState ({
+                uploading : false,
+                showUploadModal : false
+            })
+             console.log(responseData);
          })
          .catch(err => {
            console.log(err);
@@ -224,6 +276,17 @@ const styles = StyleSheet.create({
     typeButton: {
         padding: 5,
     },
+
+    modal: {
+    margin: 50,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    padding: 20,
+    borderRadius: 12,
+    backgroundColor: 'lightyellow',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 // https://github.com/react-community/react-native-image-picker/issues/61

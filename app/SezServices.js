@@ -46,13 +46,6 @@ let SezServices = {
         })
     },
 
-    update: function(sez, callback) {
-        if (!callback) return;
-        repository.write(() => {
-          callback();
-          sez.updatedAt = new Date();
-        });
-    },
 // ----------------#picture table ----------------
 
     capture_save: function(pictures, s_id ) {
@@ -76,21 +69,9 @@ let SezServices = {
 
     getPhoto : function (sez, type, sortBy) {
         if (!sortBy) sortBy = [['completed', false]];
-
-        // const id = '40597';
-        // const type = 'Seal';
-
         const container = repository.objects('Capture').filtered("job_id = '" + sez + "' AND type ='"+ type+"' " )
-    //    console.warn(container);
         return container;
     },
 };
 
-/*SezServices.picture_save(new PicturesModel('Hello Koding', '12'));
-SezServices.picture_save(new PicturesModel('Make a Todo App with React Native' , '12'));
-SezServices.save(new SezModel('Check to complete a todo'));
-SezServices.save(new SezModel('Long press, drag and drop a todo to sort'));
-SezServices.save(new SezModel('Save data with Realm'));
-SezServices.save(new SezModel('Sync data with Firebase'));
-*/
 module.exports = SezServices;

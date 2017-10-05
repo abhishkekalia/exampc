@@ -67,7 +67,7 @@ class Searchwebcontainer extends Component {
 	navigate ( id, job_id, container_no){
 
         SezServices.save(new SezModel( uuid, job_id, id, container_no))        
-		Actions.searchItem({ job_id: job_id, container_no : container_no, container_id : id})
+		Actions.captureconfig({ job_id: job_id, container_no : container_no, container_id : id})
 	}
 
 	 render() {
