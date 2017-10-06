@@ -83,6 +83,21 @@ const Routes = (loading, needSignIn) => (
                                     rightTitle=""
                                     rightButtonTintColor='#fff'
                                     />
+                                    <Scene
+                                    key="captureconfig"
+                                    component={CaptureConfig}
+                                    title=""
+                                    back
+                                    // onBack={()=> Actions.pop()}
+                                    panHandlers={null}
+                                    duration={1}/>
+                                    <Scene
+                                    key="ContainerView"
+                                    component={ContainerView}
+                                    title="capture"
+                                    back
+                                    navigationBarStyle={{ backgroundColor: '#000', opacity :0.3 }}
+                                    titleStyle={{ color: 'black', alignSelf: 'center' }}/>
                                 </Stack> 
 
                                 <Stack key="intro">
@@ -123,25 +138,6 @@ const Routes = (loading, needSignIn) => (
                     duration={1}/>
                 </Stack>
 
-                <Stack 
-                key="searchItem" 
-                titleStyle={{ alignSelf: 'center' }}>
-                    <Scene
-                    key="captureconfig"
-                    component={CaptureConfig}
-                    title="CaptureConfig"
-                    back
-                    backTitle="Back"
-                    panHandlers={null}
-                    duration={1}/>
-                    <Scene
-                    key="ContainerView"
-                    component={ContainerView}
-                    title="capture"
-                    back
-                    navigationBarStyle={{ backgroundColor: '#000', opacity :0.3 }}
-                    titleStyle={{ color: 'black', alignSelf: 'center' }}/>
-                </Stack> 
             </Modal> 
             <Scene component={MessageBar} /> 
         </Overlay>

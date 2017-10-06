@@ -14,21 +14,15 @@ import SezServices from '../SezServices';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 let PHOTOS_COUNT_BY_FETCH = 24;
-let dataList = SezServices.findPictures();
+
 export default class ImagesView extends Component {
     constructor(props) {
         super(props);
-
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-        this.lastPhotoFetched = undefined; // Using `null` would crash ReactNative CameraRoll on iOS.
+        this.lastPhotoFetched = undefined; 
         this.images = [];
         this.state = this.getDataSourceState();
-        this.fetchPhotos();
-         // console.warn(JSON.stringify(dataList));
-
-         // let dada = SezServices.getPhoto(this.props.job_id, this.props.type);
-         // console.warn(JSON.stringify(dada));
-
+        this.fetchPhotos= this.fetchPhotos.bind(this);
     }
 
     getDataSourceState() {
@@ -46,14 +40,13 @@ export default class ImagesView extends Component {
 
     onPhotosFetchedSuccess(data) {
         const newPhotos = this.getPhotosFromCameraRollData(data);
-        console.log(JSON.stringify(data));
+        console.warn(JSON.stringify(data));
         this.images = this.images.concat(newPhotos);
         this.setState(this.getDataSourceState());
         if (newPhotos.length) this.lastPhotoFetched = newPhotos[newPhotos.length - 1].uri;
     }
 
     onPhotosFetchError(err) {
-    //    Handle error here
         console.log(err);
     }
 
@@ -74,16 +67,16 @@ export default class ImagesView extends Component {
         return (
             <View style={styles.container}>
                 <ListView
-                 contentContainerStyle={styles.imageGrid}
-                    dataSource={this.state.dataSource}
-                    onEndReached={this.onEndReached.bind(this)}
-                    onEndReachedThreshold={100}
-                    showsVerticalScrollIndicator={false}
-                    renderRow={(_dataBlob , image) => {return (
-                        <View style= {styles.seprate}>
-                            <Image style={styles.image} source={{ uri: _dataBlob.Uri }} />
-                        </View>
-                )}}/>
+                contentContainerStyle={styles.imageGrid}
+                dataSource={this.state.dataSource}
+                onEndReached={this.onEndReached.bind(this)}
+                onEndReachedThreshold={100}
+                showsVerticalScrollIndicator={false}
+                renderRow={(_dataBlob , image) => {return (
+                    <View style= {styles.seprate}>
+                        <Image style={styles.image} source={{ uri: _dataBlob.Uri }} />
+                    </View>
+                )}} />
             </View>
         );
     }
@@ -92,13 +85,13 @@ export default class ImagesView extends Component {
 const styles = {
     container   : {
         flex            : 1,
+        flexDirection   : 'row',
+
         backgroundColor : '#F5FCFF'
     },
 
     imageGrid: {
-        flexDirection   : 'row',
-        flexWrap        : 'wrap',
-        justifyContent  : 'center'
+        flexWrap        : 'wrap'
     },
 
     image: {
@@ -108,9 +101,8 @@ const styles = {
     },
 
     seprate : {
-        borderTopWidth  : 1, 
+        borderBottomWidth  : 1, 
         borderColor     : '#a9a9a9',
-        paddingBottom   : 10,
+        paddingBottom   : 5,
     }
 };
-

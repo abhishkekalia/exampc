@@ -34,8 +34,8 @@ var CameraController = React.createClass({
     },
 
     componentDidMount: function() {
-        this.setTimeout( () => { this.fetchData() }, 1000 );
-        // this.fetchData();
+        // this.setTimeout( () => { this.fetchData() }, 1000 );
+        this.fetchData();
     },
 
     fetchData:function (){

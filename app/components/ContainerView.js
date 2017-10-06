@@ -36,12 +36,10 @@ export default class ContainerView extends Component {
             container_id : this.props.container_id,
             type : this.props.capt,
             loading : false,
-
+            confirmation : false,
             uploading: false,
             showUploadModal: false,
             uploadProgress: 0,
-            uploadTotal: 0,
-            uploadWritten: 0,
             uploadStatus: undefined,
             cancelled: false,
 
@@ -53,19 +51,25 @@ export default class ContainerView extends Component {
 
         if (this.state.uploading) { 
             uploadProgress = ( 
-                <View style={{ alignItems: 'center', }}> 
-                    <Text style={ styles.title }>
-                    Uploading 
+                <View 
+                style={{ alignItems: 'center', }}> 
+                    <Text 
+                    style={ styles.title }>Uploading 
                     </Text>
                     <ActivityIndicator
                     animating={this.state.animating}
                     style={[styles.centering, { height: 100}]}
                     size="large" />
                     <Text>{ this.state.uploadProgress.toFixed(0) }%</Text>
-                    <Text style={{ fontSize: 11, color: 'gray', marginTop: 5, }}>
+                    <TouchableOpacity 
+                    onPress = { ()=> this.setState({ 
+                        uploading : false,
+                        showUploadModal : false
+                    })}>
+                    <Text 
+                    style={{ fontSize: 15, color: 'gray', marginTop: 5, }}>cancel
                     </Text>
-
-                    
+                    </TouchableOpacity>                   
                 </View>
             );
         }
@@ -74,88 +78,94 @@ export default class ContainerView extends Component {
 
 
     render() {
-    const { job_id, type, container_id } = this.state; 
+    const { job_id, type, container_id, confirmation} = this.state;
+
+    const confirm = ( confirmation ? <MaterialIcons name= 'done'  size={35} color='#6495ed'/> : undefined ) 
         return ( 
-            <View style={styles.container}>
+            <View 
+            style={styles.container}>
                 <Modal
                   animationType={'fade'}
                   transparent={true}
                   visible={this.state.showUploadModal}>
 
-                  <View style={styles.modal}>
+                  <View 
+                  style={styles.modal}>
                     {this.uploadProgressModal()}
                   </View>
 
                 </Modal>
 
                <Camera
-                   ref={(cam) => {
-                     this.camera = cam;
-                   }}
-                   style={styles.preview}
-                   aspect={Camera.constants.Aspect.fill}
-                   orientation={Camera.constants.Orientation.auto}
-                   captureTarget={Camera.constants.CaptureTarget.disk}/>
+               ref={(cam) => { 
+                this.camera = cam; 
+                }}
+                style={styles.preview}
+                aspect={Camera.constants.Aspect.fill}
+                orientation={Camera.constants.Orientation.auto}
+                captureTarget={Camera.constants.CaptureTarget.disk}/>
 
-                <View style={[styles.overlay, styles.bottomOverlay]}>
-                       {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
-                        <TouchableOpacity 
-                        style={styles.miniButton} 
-                        onPress={this.cancelPress.bind(this)}>
-                            <Cross name= 'cross'  size={35} color='#6495ed'/>
-                        </TouchableOpacity>
+                <View 
+                style={[styles.overlay, styles.bottomOverlay]}>
+                    {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
+                    <TouchableOpacity 
+                    style={styles.miniButton} 
+                    onPress={this.cancelPress.bind(this)}>
+                        <Cross name= 'cross'  size={35} color='#6495ed'/>
+                    </TouchableOpacity>
 
-                        <TouchableOpacity 
-                        style={styles.captureButton} 
-                        onPress={this.takePicture.bind(this)}> 
-                            <Icon name="camera" size={40} color="#6a5acd" /> 
-                        </TouchableOpacity> 
+                    <TouchableOpacity 
+                    style={styles.captureButton} 
+                    onPress={this.takePicture.bind(this)}> 
+                        <Icon name="camera" size={40} color="#6a5acd" /> 
+                    </TouchableOpacity> 
 
-                        <TouchableOpacity 
-                        style={styles.miniButton} 
-                        onPress= {this.storePicture.bind(this, job_id, type, container_id)}>
-                            <MaterialIcons name= 'done'  size={35} color='#6495ed'/>
-                        </TouchableOpacity>
+
+                    <TouchableOpacity 
+                    style={[styles.miniButton, confirmation ]} 
+                    onPress= {this.storePicture.bind(this, job_id, type, container_id)}>
+                        {confirm}
+                    </TouchableOpacity>
                 </View>
           </View> 
         );
     } 
 
-    sendPicture(job_id, type, container_id){ 
-        const form= new FormData();    
+    // sendPicture(job_id, type, container_id){ 
+    //     const form= new FormData();    
     
-     form.append('job_id', job_id);
-      form.append('type', type);
+    //  form.append('job_id', job_id);
+    //   form.append('type', type);
 
-     form.append('container_id', container_id);
+    //  form.append('container_id', container_id);
    
-        form.append('userfile', {
+    //     form.append('userfile', {
 
-        uri:  PicturePath,
+    //     uri:  PicturePath,
 
-        type: 'image/jpg', 
+    //     type: 'image/jpg', 
 
-        name: 'photo.jpg'
+    //     name: 'photo.jpg'
 
-        }); 
+    //     }); 
 
-        let xhr = new XMLHttpRequest(); 
+    //     let xhr = new XMLHttpRequest(); 
 
-        xhr.open('POST', `http://jr.econ14.com/api/picture`) 
+    //     xhr.open('POST', `http://jr.econ14.com/api/picture`) 
 
-        xhr.send(form) 
+    //     xhr.send(form) 
 
-        xhr.onerror = function(e) { 
-            console.log('err', e) 
-        } 
+    //     xhr.onerror = function(e) { 
+    //         console.log('err', e) 
+    //     } 
 
-        xhr.onreadystatechange = function() {
+    //     xhr.onreadystatechange = function() {
 
-            if(this.readyState === this.DONE) { 
-                console.log(this.response)
-            }
-        }
-    }
+    //         if(this.readyState === this.DONE) { 
+    //             console.log(this.response)
+    //         }
+    //     }
+    // }
 
   storePicture( job_id, type, container_id){
     this.setState ({
@@ -192,7 +202,7 @@ export default class ContainerView extends Component {
                 uploading : false,
                 showUploadModal : false
             })
-             console.log(responseData);
+            Actions.popTo('captureconfig');
          })
          .catch(err => {
            console.log(err);
@@ -214,14 +224,13 @@ export default class ContainerView extends Component {
 
     setTimeout(()=> { 
             this.setState({ 
-                loading : false 
+                loading : false,
+                confirmation : true 
             })
         }, 1000)
   }
+
   cancelPress () {
-        // this.setState({
-        //     data : ''
-        // });
         Actions.pop();
     }
 }
@@ -269,7 +278,6 @@ const styles = StyleSheet.create({
     
     miniButton: { 
         padding: 8, 
-        backgroundColor: 'white', 
         borderRadius: 40,
     },
  

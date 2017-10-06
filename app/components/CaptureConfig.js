@@ -29,6 +29,7 @@ export default class CaptureConfig extends React.Component {
         }
 
     }
+
     render() {
         const { job_id, container_no, container_id } = this.state
 
@@ -40,9 +41,6 @@ export default class CaptureConfig extends React.Component {
 
                     <CameraController job_id = {job_id} container_no = {container_no} container_id = {container_id}/>
                 </View>
-                
-
-
             </View>
             );
     }

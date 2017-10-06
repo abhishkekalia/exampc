@@ -32,53 +32,59 @@ function moveOrderItem(listView, fromIndex, toIndex) {
   if (listView.forceUpdate) listView.forceUpdate();
 }
 
-var ContainerList = React.createClass({
-    getInitialState: function() {
-        return {
+class ContainerList extends Component { 
+    constructor(props) {
+        super(props);
+        this.fetchData = this.fetchData.bind(this);
+        this.state = {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
             loaded: false,
             toggle : false,
             refreshing: false,
-        };
-    },
+        }
+    }
+    componentDidMount(){
+        this.fetchData()
+    }
 
-    componentDidMount : function() {
-   this.fetchData()
-    },
-
-    fetchData :function (){ 
+    fetchData(){ 
+        dataListOrder = getOrder(dataList);
         this.setState({
             dataSource: this.state.dataSource.cloneWithRows(dataList),
             refreshing: false
         });        
-    },
+    }
     
-    _onRefresh :function () {
-
-        this.setState({refreshing: true});
-        this.fetchData();
-    },
+    _onRefresh() {()=> {
+        this.setState({refreshing: true}); 
+        this.fetchData();}
+    }
     
-    render: function() {
+    render() {
+        let listView = (<View></View>);
+            listView = (
+            <ListView
+            // ref={ref => { this.listView = ref }}
+            refreshControl={
+                <RefreshControl 
+                refreshing={this.state.refreshing}
+                onRefresh={this._onRefresh} />
+            } 
+            dataSource={this.state.dataSource}
+            renderRow={this.renderData}
+            renderSeparator={this._renderSeparator}
+            enableEmptySections={true}
+            automaticallyAdjustContentInsets={false}
+            showsVerticalScrollIndicator={false}
+            /> 
+            )
         return (
-      <ListView
-      refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh} />
-        } 
-        dataSource={this.state.dataSource}
-        renderRow={this.renderData}
-        renderSeparator={this._renderSeparator}
-        enableEmptySections={true}
-        automaticallyAdjustContentInsets={false}
-        showsVerticalScrollIndicator={false}
-        /> 
+        <View>{listView}</View>
         );
-    },
+    }
 
-    renderData: function(data, rowData, sectionID, rowID, index) {
+    renderData(data, rowData, sectionID, rowID, index) {
         return (
             <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.captureconfig({ job_id : data.job_id, container_no : data.container_no , container_id: data.container_id}) }>
             <View style={styles.row}>
@@ -90,9 +96,9 @@ var ContainerList = React.createClass({
             </View>
             </TouchableOpacity>
             );
-    },
+    }
 
-    _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
+    _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
         return (
         <View
         key={`${sectionID}-${rowID}`}
@@ -102,7 +108,7 @@ var ContainerList = React.createClass({
         }}/>
         );
     }
-});
+}
 var styles = StyleSheet.create({
     container: {
         flex: 1,
