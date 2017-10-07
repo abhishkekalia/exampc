@@ -22,6 +22,7 @@ import Camera from 'react-native-camera';
 import SezServices from '../SezServices';
 import CaptureModel from '../CaptureModel';
 import { LineDotsLoader } from 'react-native-indicator';
+import { MessageBarManager } from 'react-native-message-bar';
 
 var FileUpload = require('NativeModules').FileUpload;
 
@@ -42,7 +43,6 @@ export default class ContainerView extends Component {
             uploadProgress: 0,
             uploadStatus: undefined,
             cancelled: false,
-
         }
     } 
 
@@ -96,8 +96,8 @@ export default class ContainerView extends Component {
 
                 </Modal>
 
-               <Camera
-               ref={(cam) => { 
+                <Camera
+                ref={(cam) => { 
                 this.camera = cam; 
                 }}
                 style={styles.preview}
@@ -122,7 +122,7 @@ export default class ContainerView extends Component {
 
 
                     <TouchableOpacity 
-                    style={[styles.miniButton, confirmation ]} 
+                    style={styles.miniButton} 
                     onPress= {this.storePicture.bind(this, job_id, type, container_id)}>
                         {confirm}
                     </TouchableOpacity>
@@ -167,72 +167,80 @@ export default class ContainerView extends Component {
     //     }
     // }
 
-  storePicture( job_id, type, container_id){
-    this.setState ({
-        showUploadModal : true,
-        uploading : true
-    })
+    uid() {
+        return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx.jpg'.replace(/[xy]/g, function(c) {
+            var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+            return v.toString(16);
+        });
+    }
+
+    storePicture( job_id, type, container_id){
+        this.setState ({
+            showUploadModal : true,
+            uploading : true
+        })
+
     SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
 
-      console.log( PicturePath );
-      if (PicturePath) { 
-        const form= new FormData(); 
-        form.append('job_id', job_id); 
-        form.append('type', type); 
-        form.append('container_id', container_id); 
-        form.append('userfile', {
-        uri:  PicturePath,
-        type: 'image/jpg', 
-        name: 'photo.jpg'
-        }); 
+        console.log( PicturePath );
+        if (PicturePath) { 
+            const form= new FormData(); 
+            form.append('job_id', job_id); 
+            form.append('type', type); 
+            form.append('container_id', container_id); 
+            form.append('userfile', {
+            uri:  PicturePath,
+            type: 'image/jpg', 
+            name: this.uid()
+            }); 
 
-        const config = { 
-            method: 'POST', 
-            headers: { 
-                'Accept': 'application/json', 
-                'Content-Type': 'multipart/form-data;',
-           // 'Authorization': ,
-         },
-         body: form,
-        }
+            const config = { 
+                method: 'POST', 
+                headers: { 
+                    'Accept': 'application/json', 
+                    'Content-Type': 'multipart/form-data;',
+                },
+                body: form,
+            }
 
-        fetch("http://jr.econ14.com/api/picture", config)
-         .then((responseData) => {
-            this.setState ({
-                uploading : false,
-                showUploadModal : false
+            fetch("http://jr.econ14.com/api/picture", config)
+            .then((responseData) => {
+                this.setState ({
+                    uploading : false,
+                    showUploadModal : false
+                })
+                Actions.popTo('captureconfig');
             })
-            Actions.popTo('captureconfig');
-         })
-         .catch(err => {
-           console.log(err);
-         })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     }
-  }
 
-  takePicture() {
-    this.setState({
-        loading : true
-    });
+    takePicture() {
+        this.setState({
+            loading : true
+        });
 
-   this.camera.capture()
-     .then((data) => {
-         console.log(data);
-         PicturePath = data.path;
-     })
-     .catch(err => console.error(err));
+        this.camera.capture()
+        .then((data) => {
+            console.log(data);
+            PicturePath = data.path;
+        })
+        .catch(err => console.error(err));
 
-    setTimeout(()=> { 
+        setTimeout(()=> { 
             this.setState({ 
                 loading : false,
                 confirmation : true 
             })
         }, 1000)
-  }
+    }
 
-  cancelPress () {
+    cancelPress () {
         Actions.pop();
     }
+
 }
 
 const styles = StyleSheet.create({ 
@@ -279,6 +287,8 @@ const styles = StyleSheet.create({
     miniButton: { 
         padding: 8, 
         borderRadius: 40,
+        backgroundColor : '#fff',
+        opacity : 0.5
     },
  
     typeButton: {
@@ -286,15 +296,15 @@ const styles = StyleSheet.create({
     },
 
     modal: {
-    margin: 50,
-    borderWidth: 1,
-    borderColor: '#DDD',
-    padding: 20,
-    borderRadius: 12,
-    backgroundColor: 'lightyellow',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+        margin: 50,
+        borderWidth: 1,
+        borderColor: '#DDD',
+        padding: 20,
+        borderRadius: 12,
+        backgroundColor: 'lightyellow',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 // https://github.com/react-community/react-native-image-picker/issues/61

@@ -27,12 +27,10 @@ export default class CaptureConfig extends React.Component {
             container_no : this.props.container_no,
             container_id : this.props.container_id
         }
-
     }
-
+    
     render() {
         const { job_id, container_no, container_id } = this.state
-
         return (
             <View style= {styles.container}>
                 <View style={styles.horizontalCross} >
@@ -42,7 +40,7 @@ export default class CaptureConfig extends React.Component {
                     <CameraController job_id = {job_id} container_no = {container_no} container_id = {container_id}/>
                 </View>
             </View>
-            );
+        );
     }
 }
 
@@ -89,6 +87,4 @@ const styles = StyleSheet.create ({
         marginLeft : 25,
         paddingBottom : 20,
     }
-    
-
 })

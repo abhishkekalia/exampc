@@ -83,26 +83,25 @@ export default class ImagesView extends Component {
 }
 
 const styles = {
-    container   : {
-        flex            : 1,
-        flexDirection   : 'row',
-
+    container : {
+        flex : 1,
+        flexDirection : 'row',
         backgroundColor : '#F5FCFF'
     },
 
     imageGrid: {
-        flexWrap        : 'wrap'
+        flexWrap: 'wrap'
     },
 
     image: {
-        width           : 70,
-        height          : 50,
-        margin          : 10,
+        width : 70,
+        height : 50,
+        margin : 10,
     },
 
     seprate : {
-        borderBottomWidth  : 1, 
-        borderColor     : '#a9a9a9',
-        paddingBottom   : 5,
+        borderBottomWidth : 1, 
+        borderColor : '#a9a9a9',
+        paddingBottom : 5,
     }
 };

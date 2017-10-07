@@ -22,47 +22,64 @@ import TimerMixin from 'react-timer-mixin';
 
 var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 
-var CameraController = React.createClass({
-     mixins: [TimerMixin],
-    getInitialState: function() {
-        return {
+export default class CameraController extends React.Component {
+    constructor(props) {
+        super(props);
+     // mixins: [TimerMixin],
+        this.fetchData= this.fetchData.bind(this);
+        this.state = {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
             job_id : this.props.job_id,
-            container_id : this.props.container_id
-        };
-    },
+            container_id : this.props.container_id,
+            refreshing : false 
+        }
+    }
 
-    componentDidMount: function() {
-        // this.setTimeout( () => { this.fetchData() }, 1000 );
-        this.fetchData();
-    },
+    componentDidMount(){
+        this.fetchData()
+    }
 
-    fetchData:function (){
+    fetchData(){
         fetch(REQUEST_URL)
         .then((response) => response.json())
         .then((responseData) => {
             this.setState({
             dataSource: this.state.dataSource.cloneWithRows(responseData.job_types),
+            refreshing : false
         });
         }).done();
-    },
+    }
+    _onRefresh(){ ()=> {
+                this.setState({refreshing : true})
+        this.fetchData()}
+    }
 
-    render: function() {
-        const {job_id , container_no } = this.props
+    render() {
+        const {job_id , container_no } = this.props;
+
+        let listView = (<View></View>);
+            listView = ( 
+                <ListView 
+                refreshControl={
+                    <RefreshControl 
+                    refreshing={this.state.refreshing}
+                    onRefresh={this._onRefresh} />
+                } 
+                dataSource={this.state.dataSource}
+                renderRow={this.renderData.bind(this)}
+                renderSeparator={this._renderSeparator}
+                enableEmptySections={true}
+                automaticallyAdjustContentInsets={false}
+                showsVerticalScrollIndicator={false}
+                /> 
+            );
         return (
-            <ListView 
-            dataSource={this.state.dataSource}
-            renderRow={this.renderData}
-            renderSeparator={this._renderSeparator}
-            enableEmptySections={true}
-            automaticallyAdjustContentInsets={false}
-            showsVerticalScrollIndicator={false}
-            /> 
+        <View>{listView}</View>
         );
-    },
+    }
 
-    renderData: function(job_types, rowData, sectionID, rowID, index) {
+    renderData(job_types, rowData, sectionID, rowID, index) {
         return (
             <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView({ job_id : this.state.job_id, capt : job_types.type, container_id: this.state.container_id}) }> 
 
@@ -77,9 +94,9 @@ var CameraController = React.createClass({
             </View>
             </TouchableOpacity>
             );
-    },
+    }
 
-    _renderSeparator: function(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
+    _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
         return (
         <View
         key={`${sectionID}-${rowID}`}
@@ -89,7 +106,8 @@ var CameraController = React.createClass({
         }}/>
         );
     }
-});
+}
+
 var styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -147,4 +165,3 @@ var styles = StyleSheet.create({
         fontWeight : 'bold'
     }
 });
-export default CameraController;

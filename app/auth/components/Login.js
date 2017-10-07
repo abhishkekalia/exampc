@@ -11,7 +11,8 @@ import {
     Image, 
     Dimensions, 
     Button,
-    AsyncStorage
+    AsyncStorage,
+    NetInfo
 } from 'react-native';
 
 import { 
@@ -37,6 +38,43 @@ class Login extends Component {
             password : '',
             error : ''
         };
+    }
+
+    componentwillMount(){
+        NetInfo.isConnected.addEventListener('change', this.handleConnectionChange); 
+
+        NetInfo.isConnected.fetch().done(
+            (isConnected) => { this.setState({ netStatus: isConnected }); }
+            );
+
+        NetInfo.isConnected.fetch().done((isConnected) => { 
+            if (isConnected)
+            {
+                // Put your code here when internet is connected
+            }else{
+                console.warn(`is connected: ${this.state.netStatus}`);
+            }
+        });
+    }
+
+    componentDidMount(){
+        NetInfo.isConnected.addEventListener('change', this.handleConnectionChange);
+        NetInfo.isConnected.fetch().done((isConnected) => { 
+            this.setState({ 
+                netStatus: isConnected 
+            }); 
+        });
+    }
+
+    handleConnectionChange = (isConnected) => { 
+        this.setState({ netStatus: isConnected }); 
+        {this.state.netStatus ? MessageBarManager.showAlert({ 
+                message: `connection is available`,
+                alertType: 'info'}) : MessageBarManager.showAlert({ 
+                message: `connection is not available`,
+                alertType: 'error',
+            })
+        }          
     }
 
     render() {
