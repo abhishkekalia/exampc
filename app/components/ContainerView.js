@@ -187,7 +187,7 @@ export default class ContainerView extends Component {
             const form= new FormData(); 
             form.append('job_id', job_id); 
             form.append('type', type); 
-            form.append('container_id', container_id); 
+            form.append('stuffing_id', container_id); 
             form.append('userfile', {
             uri:  PicturePath,
             type: 'image/jpg', 
@@ -306,5 +306,3 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
-
-// https://github.com/react-community/react-native-image-picker/issues/61

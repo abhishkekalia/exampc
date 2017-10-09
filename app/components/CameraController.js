@@ -18,6 +18,7 @@ import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import ImagesView from './ImagesView';
+import GetImage from './GetImage';
 import TimerMixin from 'react-timer-mixin';
 
 var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
@@ -84,14 +85,16 @@ export default class CameraController extends React.Component {
             <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView({ job_id : this.state.job_id, capt : job_types.type, container_id: this.state.container_id}) }> 
 
             <View style={styles.row}>
+            
             <View>
             <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
             </View>
             <Text style={styles.textQue}>{job_types.type}</Text>
-            <ImagesView job_id={this.state.job_id} type={job_types.type} />
             <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
 
             </View>
+            <GetImage job_id={'40711'} type={'Seal'}/>
+            
             </TouchableOpacity>
             );
     }
@@ -165,3 +168,5 @@ var styles = StyleSheet.create({
         fontWeight : 'bold'
     }
 });
+//             <ImagesView job_id={this.state.job_id} type={job_types.type} />
+//             <GetImage job_id={this.state.job_id} type={job_types.type}/>

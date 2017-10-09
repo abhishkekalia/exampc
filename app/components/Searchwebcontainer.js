@@ -20,7 +20,6 @@ let uuid = Utils.guid();
 class Searchwebcontainer extends Component {
 	static renderFilm(jrc) {
 		const { container_no, job_id, job_no } = jrc;
-
 		return true;
 	}
 
@@ -32,81 +31,77 @@ class Searchwebcontainer extends Component {
 		};
 	}
 
-	
-	  findContainer(query) { 
+	findContainer(query) { 
 	  	if (query === '') { 
 	  		return [];
 	  	}
         fetch(`http://jr.econ14.com/api/containers?id=${this.state.id}&search=${this.state.query}`, { 
-        method: "GET",headers: {
+        	method: "GET",headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }   
-    }) 
-    .then((response) => response.json())
-    .then((responseData) => {
-        this.setState({
-            dataSource: responseData.containers
-        });
+    	}) 
+    	.then((response) => response.json())
+    	.then((responseData) => {
+	        this.setState({
+	            dataSource: responseData.containers
+	        });
         })
-         // .then( (js)=> console.warn(JSON.stringify(this.state.dataSource)))                                                                                                                                                                                                                                                                                                                                                             
         .done();
 
-
-    const { dataSource } = this.state;
-    const regex = new RegExp(`${query.trim()}`, 'i');
-    return dataSource.filter(jrc => jrc.container_no.search(regex) >= 0);
-  }
+	    const { dataSource } = this.state;
+	    const regex = new RegExp(`${query.trim()}`, 'i');
+	    return dataSource.filter(jrc => jrc.container_no.search(regex) >= 0);
+	}
 
 	itemSet(job_id, job_no, container_no){
 		this.setState ({
 			query : 'container_no'
 		})
-		 Actions.CaptureConfig({job_id , job_no:job_no, container_no : container_no})
+		Actions.CaptureConfig({job_id , job_no:job_no, container_no : container_no})
 	}
-	navigate ( id, job_id, container_no){
 
+	navigate ( id, job_id, container_no){
         SezServices.save(new SezModel( uuid, job_id, id, container_no))        
 		Actions.captureconfig({ job_id: job_id, container_no : container_no, container_id : id})
 	}
 
-	 render() {
-    const { query } = this.state;
-    const dataSource = this.findContainer(query);
-    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
-
-    return (
-      <View style={styles.container}>
-        <Autocomplete
-          autoCapitalize="none"
-          autoCorrect={false}
-          containerStyle={styles.autocompleteContainer}
-          data={dataSource.length === 1 && comp(query, dataSource[0].container_no) ? [] : dataSource}
-          defaultValue={query}
-          onChangeText={text => this.setState({ query: text })}
-          placeholder="Enter Container Number"
-          renderItem={({id, container_no, job_no ,job_id}) => (
-            <TouchableOpacity onPress={()=> 
-            	this.setState({ 
-            		query: '' 
-            	}, 
-            	()=>this.navigate( id, job_id, container_no) ) }>
-              <Text style={styles.itemText}>
-                {container_no} {job_no}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
-        <View style={styles.descriptionContainer}>
-          {dataSource.length > 0 ? (
-            Searchwebcontainer.renderFilm(dataSource[0])
-          ) : (
-           < ContainerList/>
-          )}
-        </View>
-      </View>
-    );
-  }
+	render() {
+	    const { query } = this.state;
+	    const dataSource = this.findContainer(query);
+	    const comp = (a, b) => a.toLowerCase().trim() === b.toLowerCase().trim();
+		return (
+    		<View style={styles.container}>
+		        <Autocomplete
+			        autoCapitalize="none"
+			        autoCorrect={false}
+			        containerStyle={styles.autocompleteContainer}
+			        data={dataSource.length === 1 && comp(query, dataSource[0].container_no) ? [] : dataSource}
+			        defaultValue={query}
+			        onChangeText={text => this.setState({ query: text })}
+			        placeholder="Enter Container Number"
+			        renderItem={({id, container_no, job_no ,job_id}) => (
+			            <TouchableOpacity onPress={()=> 
+	            			this.setState({ 
+            				query: '' 
+            			}, 
+            			()=>this.navigate( id, job_id, container_no) ) }>
+			              	<Text style={styles.itemText}>
+			                	{container_no} {job_no}
+			              	</Text>
+            			</TouchableOpacity>
+            		)}
+            	/>
+        		<View style={styles.descriptionContainer}>
+          			{dataSource.length > 0 ? (
+            		Searchwebcontainer.renderFilm(dataSource[0])
+          			) : (
+           			< ContainerList/>
+          			)}
+        		</View>
+      		</View>
+      	);
+	}
 }
 
 const styles = StyleSheet.create({
