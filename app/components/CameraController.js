@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component ,PropTypes} from 'react';
 import {
       Image,
       ListView,
@@ -58,6 +58,7 @@ export default class CameraController extends React.Component {
 
     render() {
         const {job_id , container_no } = this.props;
+        // console.warn(JSON.stringify(this.state.dataSource));
 
         let listView = (<View></View>);
             listView = ( 
@@ -93,7 +94,7 @@ export default class CameraController extends React.Component {
             <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
 
             </View>
-            <GetImage job_id={'40711'} type={'Seal'}/>
+            <GetImage job_id={this.props.container_id} type={job_types.type}/>
             
             </TouchableOpacity>
             );
@@ -110,6 +111,12 @@ export default class CameraController extends React.Component {
         );
     }
 }
+
+GetImage.propTypes = {
+  job_id: PropTypes.string,
+  type: PropTypes.string,
+};
+
 
 var styles = StyleSheet.create({
     container: {

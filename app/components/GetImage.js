@@ -33,9 +33,12 @@ export default class GetImage extends Component {
     	super(props);
     	this.fetchData= this.fetchData.bind(this);
 
-    	var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    	// var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     	this.state={
-    		dataSource:ds.cloneWithRows(this._genRows({})),
+            dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
+            dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
+            container_id : this.props.container_id,
+            type : this.props.type
     	}
     }
 
@@ -44,7 +47,9 @@ export default class GetImage extends Component {
     }
 
     fetchData(){
-        fetch('http://jr.econ14.com/api/picture?job_id=${this.props.job_id}&type=${this.props.type}',{
+    	const { container_id, type} = this.state;
+
+        fetch(`http://jr.econ14.com/api/picture?stuffing_id=106473&type=Seal`,{
         	 method: "GET",headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -53,13 +58,15 @@ export default class GetImage extends Component {
         .then((response) => response.json())
         .then((responseData) => {
             this.setState({
-            	dataSource: this.state.dataSource.cloneWithRows(responseData.photos.file),
+            	dataSource: this.state.dataSource.cloneWithRows(responseData.photos),
             	refreshing : false
         });
         }).done();
     }
 
     render() {
+    	    	console.warn(JSON.stringify(this.props));
+
     	// console.warn(JSON.stringify(this.state.dataSource));
         const {job_id , container_no } = this.props;
 
@@ -68,33 +75,45 @@ export default class GetImage extends Component {
             	<ListView
         		contentContainerStyle={styles.list}
         		dataSource={this.state.dataSource}
-        		renderRow={this.renderData}
-        		/>
+        		renderRow={this.renderData.bind(this)}
+                renderSeparator={this._renderSeparator}
+        		enableEmptySections={true}
+                automaticallyAdjustContentInsets={false}
+                showsVerticalScrollIndicator={false}
+                />
             );
         return (
         <View>{listView}</View>
         );
     }
 
-    renderData(photos, rowData: string, sectionID: number, rowID: number) {
-    	var imgSource = THUMB_URLS[rowID];
+    renderData(photos, rowData: string, sectionID: number, rowID: number, index) {
     	return (
           	<View style={styles.row}>
-           		<Image style={styles.thumb} source={{ uri : photos}} />
-            	<Text style={styles.text}>
-             		{photos.file}
-            	</Text>
+           		<Image style={styles.thumb} 
+           		source={{ uri : photos.file}} />
         	</View>
         );
     }
 
-    _genRows(pressData: {[key: number]:boolean}): Array<string> {
-    	var dataBlob = [];
-    	for (var ii = 0; ii < THUMB_URLS.length;ii++) {
-      		dataBlob.push('seal' + ii);
-    	}
-    	return dataBlob;
+    _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
+        return (
+        <View
+        key={`${sectionID}-${rowID}`}
+        style={{
+          height: adjacentRowHighlighted ? 4 : 1,
+          backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+        }}/>
+        );
     }
+
+    // _genRows(pressData: {[key: number]:boolean}): Array<string> {
+    // 	var dataBlob = [];
+    // 	for (var ii = 0; ii < THUMB_URLS.length;ii++) {
+    //   		dataBlob.push('seal' + ii);
+    // 	}
+    // 	return dataBlob;
+    // }
 }
 
 var styles =StyleSheet.create({
@@ -119,8 +138,8 @@ var styles =StyleSheet.create({
     },
 
 	thumb: {
-    	width: 45,
-    	height: 45
+    	width: 75,
+    	height: 75
 	},
 
 	text: {

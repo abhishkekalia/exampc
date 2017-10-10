@@ -12,7 +12,8 @@ import {
     Dimensions, 
     Button,
     AsyncStorage,
-    NetInfo
+    NetInfo,
+    Keyboard
 } from 'react-native';
 
 import { 
@@ -117,7 +118,7 @@ class Login extends Component {
 
     onSubmit() {
         this.props.login(this.state.username, this.state.password);
-        
+            Keyboard.dismiss();
         fetch('http://jr.econ14.com/api/login', { 
             method: 'POST', 
             headers: {

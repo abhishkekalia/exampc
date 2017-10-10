@@ -88,7 +88,7 @@ const Routes = (loading, needSignIn) => (
                                     component={CaptureConfig}
                                     title=""
                                     back
-                                    // onBack={()=> Actions.pop()}
+                                    onBack={()=> Actions.pop()}
                                     panHandlers={null}
                                     duration={1}/>
                                     <Scene

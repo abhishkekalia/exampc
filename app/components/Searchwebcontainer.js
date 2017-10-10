@@ -5,7 +5,8 @@ import {
 	TouchableOpacity, 
 	View, 
 	NetInfo,
-	AsyncStorage 
+	AsyncStorage,
+	Keyboard 
 } from 'react-native';
 import { MessageBarManager } from 'react-native-message-bar';
 import { Actions } from 'react-native-router-flux';
@@ -19,7 +20,7 @@ let uuid = Utils.guid();
 
 class Searchwebcontainer extends Component {
 	static renderFilm(jrc) {
-		const { container_no, job_id, job_no } = jrc;
+		const { container_no, container_id, job_id, job_no } = jrc;
 		return true;
 	}
 
@@ -61,9 +62,10 @@ class Searchwebcontainer extends Component {
 		Actions.CaptureConfig({job_id , job_no:job_no, container_no : container_no})
 	}
 
-	navigate ( id, job_id, container_no){
-        SezServices.save(new SezModel( uuid, job_id, id, container_no))        
-		Actions.captureconfig({ job_id: job_id, container_no : container_no, container_id : id})
+	navigate ( id, job_id, container_no, container_id ){
+        SezServices.save(new SezModel( uuid, job_id, container_id, container_no, ))
+		Actions.captureconfig({ job_id: job_id, container_no : container_no, container_id : container_id})
+        Keyboard.dismiss();     
 	}
 
 	render() {
@@ -80,12 +82,12 @@ class Searchwebcontainer extends Component {
 			        defaultValue={query}
 			        onChangeText={text => this.setState({ query: text })}
 			        placeholder="Enter Container Number"
-			        renderItem={({id, container_no, job_no ,job_id}) => (
+			        renderItem={({id, container_no, container_id, job_no ,job_id}) => (
 			            <TouchableOpacity onPress={()=> 
 	            			this.setState({ 
             				query: '' 
             			}, 
-            			()=>this.navigate( id, job_id, container_no) ) }>
+            			()=>this.navigate( id, job_id, container_no, container_id) ) }>
 			              	<Text style={styles.itemText}>
 			                	{container_no} {job_no}
 			              	</Text>
