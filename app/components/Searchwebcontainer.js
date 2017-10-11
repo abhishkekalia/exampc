@@ -6,7 +6,7 @@ import {
 	View, 
 	NetInfo,
 	AsyncStorage,
-	Keyboard 
+	Keyboard, 
 } from 'react-native';
 import { MessageBarManager } from 'react-native-message-bar';
 import { Actions } from 'react-native-router-flux';
@@ -16,7 +16,7 @@ import SezModel from '../SezModel';
 import SezServices from '../SezServices';
 import Utils from '../Utils';
 
-let uuid = Utils.guid();
+// let uuid = Utils.guid();
 
 class Searchwebcontainer extends Component {
 	static renderFilm(jrc) {
@@ -63,7 +63,7 @@ class Searchwebcontainer extends Component {
 	}
 
 	navigate ( id, job_id, container_no, container_id ){
-        SezServices.save(new SezModel( uuid, job_id, container_id, container_no, ))
+        SezServices.save(new SezModel( id, job_id, container_id, container_no, ))
 		Actions.captureconfig({ job_id: job_id, container_no : container_no, container_id : container_id})
         Keyboard.dismiss();     
 	}
@@ -83,6 +83,7 @@ class Searchwebcontainer extends Component {
 			        onChangeText={text => this.setState({ query: text })}
 			        placeholder="Enter Container Number"
 			        renderItem={({id, container_no, container_id, job_no ,job_id}) => (
+			            
 			            <TouchableOpacity onPress={()=> 
 	            			this.setState({ 
             				query: '' 
@@ -124,12 +125,12 @@ const styles = StyleSheet.create({
 	},
 
 	itemText	: {
-		fontSize			: 18,
+		fontSize			: 14,
 		margin 				: 2,
-		padding 			: 10,
+		padding 			: 5,
 		borderBottomWidth	: 1, 
 		borderColor			: '#a9a9a9',
-		textAlign 			: 'left',
+		textAlign 			: 'center',
 	},
 
 	descriptionContainer	: {
