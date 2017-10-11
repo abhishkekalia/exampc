@@ -16,7 +16,6 @@ import CameraController from './CameraController';
 import Utils from '../Utils';
 
 let uuid = Utils.guid();
-
 const window = Dimensions.get('window');
 
 export default class CaptureConfig extends React.Component {
@@ -36,8 +35,10 @@ export default class CaptureConfig extends React.Component {
                 <View style={styles.horizontalCross} >
                     <Text style = {styles.containerTitle}>Container No :</Text>
                     <Text style = {styles.containerNo}>{container_no}</Text>
-
-                    <CameraController job_id = {job_id} container_no = {container_no} container_id = {container_id}/>
+                    <CameraController 
+                    job_id = {job_id} 
+                    container_no = {container_no} 
+                    container_id = {container_id}/>
                 </View>
             </View>
         );
@@ -58,14 +59,14 @@ const styles = StyleSheet.create ({
     },
 
     containerTitle : { 
-        fontSize : 40,
+        fontSize : window.width/16,
         fontWeight : '200',
         top : 20
     },
 
     containerNo : {
         fontSize : 18,
-        top : 50,
+        top : 40,
         marginLeft : 20,
         paddingBottom : 70
         

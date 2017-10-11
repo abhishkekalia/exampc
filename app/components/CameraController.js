@@ -1,19 +1,14 @@
 import React, { Component ,PropTypes} from 'react';
 import {
-      Image,
-      ListView,
-      TouchableOpacity,
-      StyleSheet,
-      RecyclerViewBackedScrollView,
-      Text,
-      View,
-      Picker,
-      Navigator,
-      ActivityIndicator,
-      ScrollView,
-      Button,
-      RefreshControl
-  } from 'react-native';
+    Image,
+    ListView,
+    TouchableOpacity,
+    StyleSheet,
+    Text,
+    View,
+    ActivityIndicator,
+    RefreshControl
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -26,7 +21,6 @@ var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 export default class CameraController extends React.Component {
     constructor(props) {
         super(props);
-     // mixins: [TimerMixin],
         this.fetchData= this.fetchData.bind(this);
         this.state = {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
@@ -51,15 +45,17 @@ export default class CameraController extends React.Component {
         });
         }).done();
     }
+
     _onRefresh(){ ()=> {
-                this.setState({refreshing : true})
+        this.setState({ 
+            dataSource : new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2}),
+            refreshing : true 
+        })
         this.fetchData()}
     }
 
     render() {
-        const {job_id , container_no } = this.props;
-        // console.warn(JSON.stringify(this.state.dataSource));
-
+        const {job_id , container_no , container_id} = this.props;
         let listView = (<View></View>);
             listView = ( 
                 <ListView 
@@ -77,27 +73,31 @@ export default class CameraController extends React.Component {
                 /> 
             );
         return (
-        <View>{listView}</View>
+        <View style={styles.container}>{listView}</View>
         );
     }
 
     renderData(job_types, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.ContainerView({ job_id : this.state.job_id, capt : job_types.type, container_id: this.state.container_id}) }> 
-
-            <View style={styles.row}>
-            
-            <View>
-            <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
-            </View>
-            <Text style={styles.textQue}>{job_types.type}</Text>
-            <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
-
-            </View>
-            <GetImage job_id={this.props.container_id} type={job_types.type}/>
-            
+            <TouchableOpacity 
+            key={rowID} 
+            data={rowData} 
+            onPress ={() => Actions.ContainerView({ 
+                job_id : this.state.job_id, 
+                capt : job_types.type, 
+                container_id: this.state.container_id}
+                ) }
+            > 
+                <View style={styles.row}>
+                    <View>
+                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
+                    </View>
+                    <Text style={styles.textQue}>{job_types.type}</Text>
+                    <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
+                </View>
+                <GetImage container_id={this.props.container_id} type={job_types.type}/>
             </TouchableOpacity>
-            );
+        );
     }
 
     _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
@@ -113,7 +113,7 @@ export default class CameraController extends React.Component {
 }
 
 GetImage.propTypes = {
-  job_id: PropTypes.string,
+  container_id: PropTypes.string,
   type: PropTypes.string,
 };
 

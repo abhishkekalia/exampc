@@ -137,7 +137,7 @@ class Login extends Component {
                 message: res.status,
                 alertType: 'error',
                 }) 
-        } else { 
+            } else { 
                 AsyncStorage.setItem('jwt', res.session_id)
                 
                 AsyncStorage.setItem('Uid',res.credential.username) 
@@ -158,8 +158,6 @@ class Login extends Component {
         })
         .done()
         this.setState({username: '', password : ''});
-
-
     }
 }
 

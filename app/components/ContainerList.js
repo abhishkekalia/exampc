@@ -1,19 +1,15 @@
 import React, { Component } from 'react';
 import {
-      Image,
-      ListView,
-      TouchableOpacity,
-      StyleSheet,
-      RecyclerViewBackedScrollView,
-      Text,
-      View,
-      Picker,
-      Navigator,
-      ActivityIndicator,
-      ScrollView,
-      Button,
-      RefreshControl
-  } from 'react-native';
+    ListView,
+    TouchableOpacity,
+    StyleSheet,
+    Text,
+    View,
+    ActivityIndicator,
+    ScrollView,
+    Button,
+    RefreshControl
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icons from 'react-native-vector-icons/MaterialIcons';
 

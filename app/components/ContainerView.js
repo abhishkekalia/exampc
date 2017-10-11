@@ -80,7 +80,7 @@ export default class ContainerView extends Component {
     render() {
     const { job_id, type, container_id, confirmation} = this.state;
 
-    const confirm = ( confirmation ? <MaterialIcons name= 'done'  size={35} color='#6495ed'/> : undefined ) 
+    const confirm = ( confirmation ? <MaterialIcons name= 'done'  size={35} color='#fff'/> : undefined ) 
         return ( 
             <View 
             style={styles.container}>
@@ -111,7 +111,7 @@ export default class ContainerView extends Component {
                     <TouchableOpacity 
                     style={styles.miniButton} 
                     onPress={this.cancelPress.bind(this)}>
-                        <Cross name= 'cross'  size={35} color='#6495ed'/>
+                        <Cross name= 'cross'  size={35} color='#fff'/>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
@@ -180,7 +180,7 @@ export default class ContainerView extends Component {
             uploading : true
         })
 
-    SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
+    // SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
 
         console.log( PicturePath );
         if (PicturePath) { 
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
         top: 0,
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems: 'center',
     }, 
 
@@ -287,8 +287,8 @@ const styles = StyleSheet.create({
     miniButton: { 
         padding: 8, 
         borderRadius: 40,
-        backgroundColor : '#fff',
-        opacity : 0.5
+        // backgroundColor : '#fff',
+        // opacity : 0.5
     },
  
     typeButton: {

@@ -1,56 +1,56 @@
-import React, { Component } from 'react';
+import React, { Component ,PropTypes } from 'react';
 import {
-      Image,
-      ListView,
-      TouchableOpacity,
-      StyleSheet,
-      RecyclerViewBackedScrollView,
-      Text,
-      View,
-      Picker,
-      Navigator,
-      ActivityIndicator,
-      ScrollView,
-      Button,
-      RefreshControl
-  } from 'react-native';
+	Image, 
+	ListView, 
+	StyleSheet, 
+	Text, 
+	View, 
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import ImagesView from './ImagesView';
-import TimerMixin from 'react-timer-mixin';
-
-var REQUEST_URL = 'http://jr.econ14.com/api/picture/40711';
-
-var THUMB_URLS = [
-'http://jr.econ14.com/documents/containers/1/0/6/4/9/8/26dcc96dc605430eb263ba8cef17b2a2.jpg',
-'http://jr.econ14.com/documents/containers/1/0/6/4/9/8/e2219fd839864076942d0ae4197090cc.jpg',
-'http://jr.econ14.com/documents/containers/1/0/6/4/9/8/26dcc96dc605430eb263ba8cef17b2a2.jpg',
-];
 
 export default class GetImage extends Component {
     constructor(props) {
     	super(props);
-    	this.fetchData= this.fetchData.bind(this);
-
-    	// var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    	this.state={
-            dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
-            dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
-            container_id : this.props.container_id,
-            type : this.props.type
+  		this.fetchData= this.fetchData.bind(this);
+      	var ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 });
+    	
+    	this.state={ 
+    		dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }), 
+    		dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }), 
+    		container_id : this.props.container_id, 
+    		type : this.props.type
     	}
     }
+
+    static propTypes = { 
+    	container_id:   React.PropTypes.string.isRequired,
+    	type: React.PropTypes.string.isRequired,
+    	fetchData:   React.PropTypes.func.isRequired 
+    };
 
     componentDidMount(){
         this.fetchData()
     }
 
-    fetchData(){
-    	const { container_id, type} = this.state;
+    blur() {
+        const {dataSource } = this.state;
+        dataSource && dataSource.blur();
+    }
 
-        fetch(`http://jr.econ14.com/api/picture?stuffing_id=106473&type=Seal`,{
-        	 method: "GET",headers: {
+    focus() {
+        const {dataSource } = this.state;
+        dataSource && dataSource.focus();
+    }
+
+    componentWillUpdate(nextProps, nextState) {
+        this.fetchData();
+      // nextState.dataSource = nextProps.propOpacity;
+    }
+
+    fetchData(){
+    	const { container_id, type} = this.state; 
+    	fetch(`http://jr.econ14.com/api/picture?stuffing_id=${container_id}&type=${type}`,{
+        	 method: "GET", headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }   
@@ -64,19 +64,24 @@ export default class GetImage extends Component {
         }).done();
     }
 
+    // pressRow(rowData){ 
+    // 	var ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2}); 
+    // 	var newDs = []; 
+    // 	newDs = this.state.ds.slice(); 
+    // 	newDs[0].Selection = newDs[0] == "AwayTeam" ? "HomeTeam" : "AwayTeam" ;
+    // 	this.setState({ 
+    // 		dataSource: this.state.dataSource.cloneWithRows(newDs) 
+    // 	})
+    // }
+
     render() {
-    	    	console.warn(JSON.stringify(this.props));
-
-    	// console.warn(JSON.stringify(this.state.dataSource));
-        const {job_id , container_no } = this.props;
-
+    	this.fetchData= this.fetchData.bind(this);
         let listView = (<View></View>);
             listView = (
             	<ListView
         		contentContainerStyle={styles.list}
         		dataSource={this.state.dataSource}
         		renderRow={this.renderData.bind(this)}
-                renderSeparator={this._renderSeparator}
         		enableEmptySections={true}
                 automaticallyAdjustContentInsets={false}
                 showsVerticalScrollIndicator={false}
@@ -84,6 +89,16 @@ export default class GetImage extends Component {
             );
         return (
         <View>{listView}</View>
+        );
+    }
+
+    renderLoadingView() { 
+        return ( 
+            <View style={styles.container}> 
+                <Text>
+                    Loading...
+                </Text>
+            </View>
         );
     }
 
@@ -96,29 +111,20 @@ export default class GetImage extends Component {
         );
     }
 
-    _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
-        return (
-        <View
-        key={`${sectionID}-${rowID}`}
-        style={{
-          height: adjacentRowHighlighted ? 4 : 1,
-          backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
-        }}/>
-        );
-    }
-
-    // _genRows(pressData: {[key: number]:boolean}): Array<string> {
-    // 	var dataBlob = [];
-    // 	for (var ii = 0; ii < THUMB_URLS.length;ii++) {
-    //   		dataBlob.push('seal' + ii);
-    // 	}
-    // 	return dataBlob;
+    // _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
+    //     return (
+    //     <View
+    //     key={`${sectionID}-${rowID}`}
+    //     style={{
+    //       height: adjacentRowHighlighted ? 4 : 1,
+    //       backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
+    //     }}/>
+    //     );
     // }
 }
 
 var styles =StyleSheet.create({
 	list: {
-		marginTop:5,
     	justifyContent: 'space-around',
     	flexDirection: 'row',
     	flexWrap: 'wrap'
