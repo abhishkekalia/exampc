@@ -12,6 +12,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { MessageBarManager } from 'react-native-message-bar';
 import ImagesView from './ImagesView';
 import GetImage from './GetImage';
 import TimerMixin from 'react-timer-mixin';
@@ -21,7 +22,7 @@ var REQUEST_URL = 'http://jr.econ14.com/api/containertypes';
 export default class CameraController extends React.Component {
     constructor(props) {
         super(props);
-        this.fetchData= this.fetchData.bind(this);
+        this.getDataApi= this.getDataApi.bind(this);
         this.state = {
             dataSource: new ListView.DataSource({   rowHasChanged: (row1, row2) => row1 !== row2 }),
             dataSource2: new ListView.DataSource({  rowHasChanged: (row1, row2) => row1 !== row2 }),
@@ -32,26 +33,47 @@ export default class CameraController extends React.Component {
     }
 
     componentDidMount(){
-        this.fetchData()
+        this.getDataApi()
     }
 
-    fetchData(){
-        fetch(REQUEST_URL)
-        .then((response) => response.json())
-        .then((responseData) => {
+    async getDataApi() { 
+        try { 
+            let response = await fetch(REQUEST_URL); 
+            let responseJson = await response.json(); 
             this.setState({
-            dataSource: this.state.dataSource.cloneWithRows(responseData.job_types),
-            refreshing : false
-        });
-        }).done();
+                dataSource: this.state.dataSource.cloneWithRows(responseJson.job_types),
+                refreshing : false
+            });        
+        } 
+        catch(error) { console.error(error);
+        }
     }
+
+    // fetchData(){
+    //     fetch(REQUEST_URL)
+    //     .then((response) => response.json())
+    //     .then((responseData) => {
+    //         this.setState({
+    //         dataSource: this.state.dataSource.cloneWithRows(responseData.job_types),
+    //         refreshing : false
+    //     });
+    //     })
+    //     .catch((error) => {
+    //     console.warn(error); 
+    //         MessageBarManager.showAlert({ 
+    //             message: error,
+    //             alertType: 'error',
+    //         }) 
+    //     })
+    //     .done()
+    // }
 
     _onRefresh(){ ()=> {
         this.setState({ 
             dataSource : new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2}),
             refreshing : true 
         })
-        this.fetchData()}
+        this.getDataApi()}
     }
 
     render() {

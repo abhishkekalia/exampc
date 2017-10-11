@@ -38,7 +38,7 @@ class Menu extends React.Component {
         let keys = ['jwt', 'Uid'];
         AsyncStorage.multiRemove(keys, (err) => {
         })
-        Actions.root;          
+        Actions.login();
 
     }
 
@@ -71,7 +71,7 @@ class Menu extends React.Component {
                 onPress={Actions.testList}
                 style={styles.item}> Test</Text>
                 <Text
-                onPress={Actions.root}
+                onPress={()=> this.signOut()}
                 style={styles.item}> < MaterialCommunityIcons name= "logout" size= {30}/>Sign out</Text>
             </ScrollView>
         );

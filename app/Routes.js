@@ -61,7 +61,7 @@ const Routes = (loading, needSignIn) => (
                     <Stack 
                     hideNavBar 
                     key="root"> 
-                        <Scene key="login" component={LoginPage} initial /> 
+                        <Scene key="login" component={LoginPage} type={ActionConst.REPLACE} initial /> 
                         
                         <Drawer 
                         hideNavBar 

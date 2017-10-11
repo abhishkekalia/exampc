@@ -205,6 +205,7 @@ export default class ContainerView extends Component {
 
             fetch("http://jr.econ14.com/api/picture", config)
             .then((responseData) => {
+                // console.warn(JSON.stringify(responseData.save));
                 this.setState ({
                     uploading : false,
                     showUploadModal : false
