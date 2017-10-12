@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {
-    ListView,
     TouchableOpacity,
+    ActivityIndicator,
+    RefreshControl,
     StyleSheet,
+    ScrollView,
+    ListView,
+    Button,
     Text,
     View,
-    ActivityIndicator,
-    ScrollView,
-    Button,
-    RefreshControl
+    Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icons from 'react-native-vector-icons/MaterialIcons';
@@ -82,7 +83,20 @@ class ContainerList extends Component {
 
     renderData(data, rowData, sectionID, rowID, index) {
         return (
-            <TouchableOpacity key={rowID} data={rowData} onPress ={() => Actions.captureconfig({ job_id : data.job_id, container_no : data.container_no , container_id: data.container_id}) }>
+            <TouchableOpacity 
+            key={rowID} 
+            data={rowData} 
+            onPress ={() => 
+                Actions.captureconfig({ 
+                    job_id : data.job_id, 
+                    container_no : data.container_no , 
+                    container_id: data.container_id
+                }) }
+            onLongPress={(e)=>{
+                Alert.alert( '','Are You Sure Want To Delete', 
+                [ 
+                {text: 'Cancel', onPress: () => console.warn('Cancel Pressed'), style: 'cancel'}, 
+                {text: 'Delete', onPress: () => SezServices.delete() }, ] ) }} >
             <View style={styles.row}>
             <View>
             <Icons name= 'local-shipping'  size={25} color='#000'/>
@@ -91,7 +105,7 @@ class ContainerList extends Component {
             <Text style={styles.textQue}>{data.container_no}</Text>
             </View>
             </TouchableOpacity>
-            );
+        );
     }
 
     _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {

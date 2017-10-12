@@ -112,12 +112,21 @@ export default class CameraController extends React.Component {
             > 
                 <View style={styles.row}>
                     <View>
-                        <EvilIcons name= 'camera'  size={35} color='#6a5acd'/>
+                        <EvilIcons 
+                        name= 'camera' 
+                        size={35} 
+                        color='#6a5acd'/>
                     </View>
-                    <Text style={styles.textQue}>{job_types.type}</Text>
-                    <MaterialIcons name= 'navigate-next'  size={25} color='#000'/>
+                    <Text 
+                    style={styles.textQue}>{job_types.type}</Text>
+                    <MaterialIcons 
+                    name= 'navigate-next'  
+                    size={25} 
+                    color='#000'/>
                 </View>
-                <GetImage container_id={this.props.container_id} type={job_types.type}/>
+                <GetImage 
+                container_id={this.props.container_id} 
+                type={job_types.type}/>
             </TouchableOpacity>
         );
     }
@@ -198,4 +207,3 @@ var styles = StyleSheet.create({
     }
 });
 //             <ImagesView job_id={this.state.job_id} type={job_types.type} />
-//             <GetImage job_id={this.state.job_id} type={job_types.type}/>

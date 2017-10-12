@@ -53,7 +53,7 @@ class Login extends Component {
             {
                 // Put your code here when internet is connected
             }else{
-                console.warn(`is connected: ${this.state.netStatus}`);
+                console.log(`is connected: ${this.state.netStatus}`);
             }
         });
     }
@@ -70,9 +70,9 @@ class Login extends Component {
     handleConnectionChange = (isConnected) => { 
         this.setState({ netStatus: isConnected }); 
         {this.state.netStatus ? MessageBarManager.showAlert({ 
-                message: `connection is available`,
+                message: `Internet connection is available`,
                 alertType: 'info'}) : MessageBarManager.showAlert({ 
-                message: `connection is not available`,
+                message: `Internet connection not available`,
                 alertType: 'error',
             })
         }          
@@ -92,7 +92,7 @@ class Login extends Component {
                         autoCorrect={false}
                         placeholder="Username"
                         maxLength={140}
-                        underlineColorAndroid = 'transparent'
+                        underlineColorAndroid = '#6a5acd'
                         onSubmitEditing={() => this.onSubmit()}
                         onChangeText={(username) => this.setState({username: username})}
                     />
@@ -103,7 +103,7 @@ class Login extends Component {
                         autoCorrect={false}
                         placeholder="Password"
                         maxLength={140}
-                        underlineColorAndroid = 'transparent'
+                        underlineColorAndroid = '#6a5acd'
                         onSubmitEditing={() => this.onSubmit()}
                         onChangeText={(password) => this.setState({password: password})}
                     />
@@ -173,9 +173,6 @@ var styles = StyleSheet.create({
         padding: 10,
         width : width - 60,
         marginBottom: 10,
-        borderColor: '#6a5acd',
-        borderWidth: 1,
-        borderStyle: 'solid'
     },
 });
 

@@ -11,21 +11,22 @@ import { Actions } from 'react-native-router-flux';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import SezModel from '../SezModel';
 import SezServices from '../SezServices';
-
 import CameraController from './CameraController';
-import Utils from '../Utils';
+// import Utils from '../Utils';
 
-let uuid = Utils.guid();
+// let uuid = Utils.guid();
 
 const window = Dimensions.get('window');
 
 export default class CaptureConfig extends React.Component {
     constructor(props){
         super(props);
+        const { id, job_id, container_id, container_no } = this.props;
+        SezServices.save(new SezModel( id, job_id, container_id, container_no ))
         this.state={
-            job_id : this.props.job_id,
-            container_no : this.props.container_no,
-            container_id : this.props.container_id
+            job_id : job_id,
+            container_no : container_no,
+            container_id : container_id
         }
     }
     

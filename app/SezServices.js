@@ -38,11 +38,18 @@ let SezServices = {
     },
 
     save: function(sez) {
-        if (repository.objects('Sez').filtered("container_no = '" + sez.container_no + "'").length) return;
+        if (repository.objects('Sez').filtered("container_id = '" + sez.container_id + "'").length) return;
 
         repository.write(() => {
             sez.updatedAt = new Date();
             repository.create('Sez', sez);
+        })
+    },
+
+    delete: function(sez){ 
+        let all_containers = repository.objects('Sez');
+        repository.write(() => {
+            repository.delete(all_containers);
         })
     },
 

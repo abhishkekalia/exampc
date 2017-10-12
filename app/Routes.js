@@ -82,6 +82,7 @@ const Routes = (loading, needSignIn) => (
                                     titleStyle={{ color: '#fff', alignSelf: 'center' }}
                                     rightTitle=""
                                     rightButtonTintColor='#fff'
+                                    Home
                                     />
                                     <Scene
                                     key="captureconfig"

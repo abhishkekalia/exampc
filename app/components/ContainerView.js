@@ -6,7 +6,6 @@ import {
 	TextInput,
 	StyleSheet,
 	ToastAndroid,
-    ActivityIndicator,
     StatusBar,
     TouchableOpacity,
     AsyncStorage,
@@ -23,8 +22,7 @@ import SezServices from '../SezServices';
 import CaptureModel from '../CaptureModel';
 import { LineDotsLoader } from 'react-native-indicator';
 import { MessageBarManager } from 'react-native-message-bar';
-
-var FileUpload = require('NativeModules').FileUpload;
+import * as Progress from 'react-native-progress';
 
 const PicturePath = "";
 
@@ -56,10 +54,7 @@ export default class ContainerView extends Component {
                     <Text 
                     style={ styles.title }>Uploading 
                     </Text>
-                    <ActivityIndicator
-                    animating={this.state.animating}
-                    style={[styles.centering, { height: 100}]}
-                    size="large" />
+                    <Progress.Circle size={40} indeterminate={true} />
                     <Text>{ this.state.uploadProgress.toFixed(0) }%</Text>
                     <TouchableOpacity 
                     onPress = { ()=> this.setState({ 
@@ -67,7 +62,7 @@ export default class ContainerView extends Component {
                         showUploadModal : false
                     })}>
                     <Text 
-                    style={{ fontSize: 15, color: 'gray', marginTop: 5, }}>cancel
+                    style={styles.cancel}>cancel
                     </Text>
                     </TouchableOpacity>                   
                 </View>
@@ -80,20 +75,23 @@ export default class ContainerView extends Component {
     render() {
     const { job_id, type, container_id, confirmation} = this.state;
 
-    const confirm = ( confirmation ? <MaterialIcons name= 'done'  size={35} color='#fff'/> : undefined ) 
+    const confirm = ( 
+        confirmation ? <MaterialIcons 
+        name= 'done'  
+        size={35} 
+        color='#fff'/> : undefined 
+        ) 
         return ( 
             <View 
             style={styles.container}>
                 <Modal
-                  animationType={'fade'}
-                  transparent={true}
-                  visible={this.state.showUploadModal}>
-
-                  <View 
-                  style={styles.modal}>
-                    {this.uploadProgressModal()}
-                  </View>
-
+                animationType={'fade'}
+                transparent={true}
+                visible={this.state.showUploadModal}>                
+                    <View 
+                    style={styles.modal}>
+                        {this.uploadProgressModal()}
+                    </View>
                 </Modal>
 
                 <Camera
@@ -104,7 +102,6 @@ export default class ContainerView extends Component {
                 aspect={Camera.constants.Aspect.fill}
                 orientation={Camera.constants.Orientation.auto}
                 captureTarget={Camera.constants.CaptureTarget.disk}/>
-
                 <View 
                 style={[styles.overlay, styles.bottomOverlay]}>
                     {this.state.loading ?  <LineDotsLoader color= {'#fff'} /> : null }
@@ -123,7 +120,10 @@ export default class ContainerView extends Component {
 
                     <TouchableOpacity 
                     style={styles.miniButton} 
-                    onPress= {this.storePicture.bind(this, job_id, type, container_id)}>
+                    onPress= { ()=>this.setState ({ 
+                        showUploadModal : true, 
+                        uploading : true },()=>
+                        this.storePicture(job_id, type, container_id) )}>
                         {confirm}
                     </TouchableOpacity>
                 </View>
@@ -175,15 +175,9 @@ export default class ContainerView extends Component {
     }
 
     storePicture( job_id, type, container_id){
-        this.setState ({
-            showUploadModal : true,
-            uploading : true
-        })
-
+        // console.log( PicturePath );
     // SezServices.capture_save(new CaptureModel( job_id, PicturePath , type));
-
-        console.log( PicturePath );
-        if (PicturePath) { 
+        if(PicturePath) { 
             const form= new FormData(); 
             form.append('job_id', job_id); 
             form.append('type', type); 
@@ -204,17 +198,24 @@ export default class ContainerView extends Component {
             }
 
             fetch("http://jr.econ14.com/api/picture", config)
+            .then((response) => response.json())
             .then((responseData) => {
-                // console.warn(JSON.stringify(responseData.save));
                 this.setState ({
                     uploading : false,
-                    showUploadModal : false
+                    showUploadModal : false,
+                    confirmation : false
                 })
                 Actions.popTo('captureconfig');
             })
             .catch(err => {
                 console.log(err);
             })
+            .done();
+        } else {
+            MessageBarManager.showAlert({    
+                message: 'You shold first capture image',
+                alertType: 'Warning',
+                })
         }
     }
 
@@ -225,7 +226,7 @@ export default class ContainerView extends Component {
 
         this.camera.capture()
         .then((data) => {
-            console.log(data);
+            // console.warn(JSON.stringify (data));
             PicturePath = data.path;
         })
         .catch(err => console.error(err));
@@ -288,8 +289,6 @@ const styles = StyleSheet.create({
     miniButton: { 
         padding: 8, 
         borderRadius: 40,
-        // backgroundColor : '#fff',
-        // opacity : 0.5
     },
  
     typeButton: {
@@ -301,9 +300,18 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DDD',
         padding: 20,
-        borderRadius: 12,
-        backgroundColor: 'lightyellow',
+        borderRadius: 10,
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
     },
+
+    cancel : { 
+        backgroundColor: '#a9a9a9', 
+        fontSize: 15, 
+        color: '#f0ffff', 
+        marginTop: 5,
+        padding : 5,
+        borderRadius : 10 
+    }
 });

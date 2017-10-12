@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import {
+    StyleSheet,
     ListView,
     Platform,
-    StyleSheet,
-    Text,
     TextInput,
+    Text,
     View
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
@@ -99,9 +99,9 @@ class Autocomplete extends Component {
           onShowResults,
           onStartShouldSetResponderCapture
         } = this.props;
+   
         const showResults = dataSource.getRowCount() > 0;
 
-        // Notify listener if the suggestion will be shown.
         onShowResults && onShowResults(showResults);
 
         return (
@@ -134,14 +134,13 @@ const androidStyles = {
     },
     inputContainer: {
         ...border,
-        margin: 10,
+        margin: 5,
         borderColor: '#a9a9a9',
         borderRadius:30, 
         borderWidth: 1,
     },
     list: {
-        ...border,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         borderTopWidth: 0,
         margin: 10,
         marginTop: 0

@@ -1,12 +1,13 @@
 import React, { Component ,PropTypes } from 'react';
 import {
-	Image, 
 	ListView, 
 	StyleSheet, 
 	Text, 
 	View, 
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import Image from 'react-native-image-progress';
+import ProgressBar from 'react-native-progress/Circle';
 
 export default class GetImage extends Component {
     constructor(props) {
@@ -42,7 +43,7 @@ export default class GetImage extends Component {
         dataSource && dataSource.focus();
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    componentWillUpdate() {
         this.fetchData();
       // nextState.dataSource = nextProps.propOpacity;
     }
@@ -75,7 +76,6 @@ export default class GetImage extends Component {
     // }
 
     render() {
-    	this.fetchData= this.fetchData.bind(this);
         let listView = (<View></View>);
             listView = (
             	<ListView
@@ -92,35 +92,16 @@ export default class GetImage extends Component {
         );
     }
 
-    renderLoadingView() { 
-        return ( 
-            <View style={styles.container}> 
-                <Text>
-                    Loading...
-                </Text>
-            </View>
-        );
-    }
-
     renderData(photos, rowData: string, sectionID: number, rowID: number, index) {
     	return (
           	<View style={styles.row}>
            		<Image style={styles.thumb} 
-           		source={{ uri : photos.file}} />
+           		source={{ uri : photos.file}}
+                indicator={ProgressBar}
+                onLoaded={() => console.log('Image was loaded!')}/>
         	</View>
         );
     }
-
-    // _renderSeparator(sectionID: number, rowID: number, adjacentRowHighlighted: bool) {
-    //     return (
-    //     <View
-    //     key={`${sectionID}-${rowID}`}
-    //     style={{
-    //       height: adjacentRowHighlighted ? 4 : 1,
-    //       backgroundColor: adjacentRowHighlighted ? '#3B5998' : '#CCCCCC',
-    //     }}/>
-    //     );
-    // }
 }
 
 var styles =StyleSheet.create({

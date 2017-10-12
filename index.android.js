@@ -3,6 +3,6 @@ import {
 	AppRegistry 
 } from 'react-native';
 import Root from './app/Root';
-import ContainerView from './app/components/ContainerView'
+import Menu from './app/menu/Menu';
 
 AppRegistry.registerComponent('awesome', () => Root);
