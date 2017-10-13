@@ -1,13 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 import {
+    TouchableOpacity,
     StyleSheet,
+    Dimensions,
     ListView,
     Platform,
     TextInput,
+    Image,
     Text,
     View
 } from 'react-native';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Icon from 'react-native-vector-icons/EvilIcons';
+import { Actions } from 'react-native-router-flux';
+
+const window = Dimensions.get('window');
 
 class Autocomplete extends Component {
     static propTypes = {
@@ -34,7 +40,7 @@ class Autocomplete extends Component {
         renderItem: rowData => <Text>{rowData}</Text>,
         renderSeparator: null,
         renderTextInput: props => <TextInput 
-        underlineColorAndroid = 'transparent' 
+        // underlineColorAndroid = 'transparent' 
         {...props} />
     };
 
@@ -106,8 +112,13 @@ class Autocomplete extends Component {
 
         return (
             <View style={[styles.container, containerStyle]}>
-                <View style={[styles.inputContainer, inputContainerStyle]}>
-                  {this.renderTextInput()}
+                <View style={{ flexDirection: 'row'}}>
+                    <TouchableOpacity onPress={()=>Actions.pop()} style={{ paddingLeft: 10, top : 15 }}>
+                        <Image source={require('../img/back_chevron.png')} style={{width: 15, height:20}} />
+                    </TouchableOpacity>
+                    <View style={[styles.inputContainer, inputContainerStyle]}>
+                      {this.renderTextInput()}
+                    </View>
                 </View>
                 {!hideResults && ( 
                     <View
@@ -125,19 +136,18 @@ class Autocomplete extends Component {
 const border = {
     borderColor: '#b9b9b9',
     borderRadius: 1,
-    borderWidth: 1
 };
 
 const androidStyles = {
     container: {
-        flex: 1
+        flex: 1,
+        flexDirection: 'column',
+
     },
     inputContainer: {
         ...border,
         margin: 5,
-        borderColor: '#a9a9a9',
-        borderRadius:30, 
-        borderWidth: 1,
+        width : window.width-50,
     },
     list: {
         backgroundColor: 'transparent',
@@ -172,7 +182,7 @@ const iosStyles = {
 const styles = StyleSheet.create({
   input: {
     height: 40,
-    paddingLeft: 20
+    paddingLeft: 10
   },
   ...Platform.select({
     android: { ...androidStyles },

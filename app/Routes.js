@@ -20,13 +20,15 @@ import {
 } from 'react-native-router-flux';
 import CardStackStyleInterpolator from 'react-navigation/src/views/CardStackStyleInterpolator';
 import { connect } from 'react-redux';
+import Loader from './common/Loader';
 import LoginPage from './auth/LoginPage';
 import ContainerView from './components/ContainerView'
 import CaptureConfig from './components/CaptureConfig'
 import Searchwebcontainer from './components/Searchwebcontainer'
 import Intro from './messagebar/Intro';
 import MessageBar from './messagebar/MessageBar';
-import Menu from './menu/Menu';
+import MenuContainer from './menu/MenuContainer';
+import Home from './components/home';
 
 import TestList from './components/test/TestList'
 import Testedit from './components/test/testEdit'
@@ -50,6 +52,7 @@ const getSceneStyle = () => ({
 });
 
 const Routes = (loading, needSignIn) => ( 
+    // loading ? <Loader/> :
     <Router 
     createReducer={reducerCreate} 
     getSceneStyle={getSceneStyle}> 
@@ -61,21 +64,38 @@ const Routes = (loading, needSignIn) => (
                     <Stack 
                     hideNavBar 
                     key="root"> 
-                        <Scene key="login" component={LoginPage} type={ActionConst.REPLACE} initial /> 
+                        <Scene key="login" component={LoginPage} type={ActionConst.REPLACE} initial={needSignIn}/> 
                         
                         <Drawer 
                         hideNavBar 
                         key="home" 
-                        contentComponent={Menu} 
-                        drawerImage={MenuIcon}> 
+                        contentComponent={MenuContainer} 
+                        drawerImage={MenuIcon}>
 
-                            <Scene hideNavBar> 
+                            <Stack
+                                key="home"
+                                icon={TabIcon}
+                                navigationBarStyle={{ backgroundColor: '#6a5acd' }}
+                                initial={!needSignIn}
+                                >
+                                <Scene
+                                    key="home"
+                                    component={Home}
+                                    // onRight={() => {console.log('right')}}
+                                    // titleStyle={{ color: '#fff', alignSelf: 'center' }}
+                                    // rightTitle=""
+                                    // rightButtonTintColor='#fff'
+                                    // Home
+                                    />
+                            </Stack> 
+
                                 <Stack
                                 key="search"
                                 icon={TabIcon}
                                 navigationBarStyle={{ backgroundColor: '#6a5acd' }}
-                                initial>
+                                >
                                     <Scene
+                                    hideNavBar
                                     key="Searchwebcontainer"
                                     component={Searchwebcontainer}
                                     onRight={() => {console.log('right')}}
@@ -122,7 +142,6 @@ const Routes = (loading, needSignIn) => (
                                     rightTitle="Add"
                                     icon={TabIcon} />
                                 </Stack>
-                            </Scene>
                         </Drawer>
                     </Stack>
                 </Lightbox>

@@ -12,7 +12,6 @@ import {
     Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Icons from 'react-native-vector-icons/MaterialIcons';
 
 import SezModel from '../SezModel';
 import SezServices from '../SezServices';
@@ -98,10 +97,6 @@ class ContainerList extends Component {
                 {text: 'Cancel', onPress: () => console.warn('Cancel Pressed'), style: 'cancel'}, 
                 {text: 'Delete', onPress: () => SezServices.delete() }, ] ) }} >
             <View style={styles.row}>
-            <View>
-            <Icons name= 'local-shipping'  size={25} color='#000'/>
-
-            </View>
             <Text style={styles.textQue}>{data.container_no}</Text>
             </View>
             </TouchableOpacity>
@@ -145,7 +140,7 @@ var styles = StyleSheet.create({
         flex: 1,
         fontSize: 18,
         fontWeight: '400',
-        left : 5
+        left : 15
     },
 
     centering: {

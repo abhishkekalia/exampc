@@ -119,44 +119,44 @@ class Login extends Component {
     onSubmit() {
         this.props.login(this.state.username, this.state.password);
             Keyboard.dismiss();
-        fetch('http://jr.econ14.com/api/login', { 
-            method: 'POST', 
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-            username: this.state.username,
-            password: this.state.password,
-            })
-        }) 
-        .then((response) => response.json()) 
-        .then((res) => { 
-            if (res.status) {
-            MessageBarManager.showAlert({ 
-                message: res.status,
-                alertType: 'error',
-                }) 
-            } else { 
-                AsyncStorage.setItem('jwt', res.session_id)
+        // fetch('http://jr.econ14.com/api/login', { 
+        //     method: 'POST', 
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //     username: this.state.username,
+        //     password: this.state.password,
+        //     })
+        // }) 
+        // .then((response) => response.json()) 
+        // .then((res) => { 
+        //     if (res.status) {
+        //     MessageBarManager.showAlert({ 
+        //         message: res.status,
+        //         alertType: 'error',
+        //         }) 
+        //     } else { 
+        //         AsyncStorage.setItem('jwt', res.session_id)
                 
-                AsyncStorage.setItem('Uid',res.credential.username) 
+        //         AsyncStorage.setItem('Uid',res.credential.username) 
 
-                Actions.home();
+        //         Actions.home();
 
-                MessageBarManager.showAlert({
+        //         MessageBarManager.showAlert({
                 
-                message: 'login success',
-                alertType: 'success',
-                })
-            }
-        })
-        .catch(() => { 
-             this.setState({
-                error : 'There was an error logging in.'
-            }) 
-        })
-        .done()
+        //         message: 'login success',
+        //         alertType: 'success',
+        //         })
+        //     }
+        // })
+        // .catch(() => { 
+        //      this.setState({
+        //         error : 'There was an error logging in.'
+        //     }) 
+        // })
+        // .done()
         this.setState({username: '', password : ''});
     }
 }

@@ -1,6 +1,15 @@
 import React, {Component, PropTypes} from 'react'
 import {View, Text, StyleSheet} from 'react-native'
-import { LineDotsLoader } from 'react-native-indicator';
+import { LinesLoader } from 'react-native-indicator';
+
+const Loader = () => {
+    return (
+        <View style={styles.container}>
+            <LinesLoader color= {'#6a5acd'} barWidth={5} barHeight={40} barNumber={8} betweenSpace={5}/>
+        </View>
+    )
+};
+
 var styles = StyleSheet.create({
     container: {
         position: 'absolute',
@@ -12,13 +21,5 @@ var styles = StyleSheet.create({
         alignItems: 'center'
     }
 });
-
-const Loader = () => {
-    return (
-        <View style={styles.container}>
-            <LineDotsLoader color= {'#6a5acd'} />
-        </View>
-    )
-};
 
 export default Loader;

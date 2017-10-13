@@ -79,7 +79,7 @@ class Searchwebcontainer extends Component {
 			        data={dataSource.length === 1 && comp(query, dataSource[0].container_no) ? [] : dataSource}
 			        defaultValue={query}
 			        onChangeText={text => this.setState({ query: text })}
-			        placeholder="Enter Container Number"
+			        placeholder="Search Container Number here"
 			        renderItem={({id, container_no, container_id, job_no ,job_id}) => (
 			            
 			            <TouchableOpacity onPress={()=> 
